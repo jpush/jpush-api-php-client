@@ -29,19 +29,20 @@ class BaseClent
 			$msg_type, $msg_content, $send_description, $platform, $time_to_live, $override_msg_id)
 	{
 		$params = $this->getParams($sendno, $app_key, $receiver_type, $receiver_value, $verification_code,
-			          $msg_type, $msg_content, $send_description, $platform, $time_to_live, $override_msg_id)
-	    $this->httpPostClient = new HttpPostClient();
+			          $msg_type, $msg_content, $send_description, $platform, $time_to_live, $override_msg_id);
+	    $httpPostClient = new HttpPostClient();
 		return $httpPostClient->request_post($this->API_URL, $params);
 	}
 	
 	private function getParams($sendno, $app_key, $receiver_type, $receiver_value, $verification_code,
 			$msg_type, $msg_content, $send_description, $platform, $time_to_live, $override_msg_id)
 	{
-		$params = "sendno".$sendno."&app_key".$app_key."&receiver_type".$receiver_type.
-		           "&receiver_value".$receiver_value."&verification_code".$verification_code.
-		           "&msg_type".$msg_type."&msg_content".$msg_content."&send_description".$send_description.
-		           "&send_description".$send_description."&platform".$platform.
-		           "&time_to_live.".$time_to_live."&override_msg_id".$override_msg_id;
+		$params =  "app_key=".$app_key."&receiver_type=".$receiver_type.
+		           "&receiver_value=".$receiver_value."&verification_code=".$verification_code.
+		           "&msg_type=".$msg_type."&msg_content=".$msg_content."&send_description=".$send_description.
+		           "&send_description=".$send_description."&platform=".$platform.
+		           "&time_to_live=".$time_to_live."&override_msg_id=".$override_msg_id."&sendno=".$sendno;
+		//echo $params."\n";
 		return $params;	
 	}
 }

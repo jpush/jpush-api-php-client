@@ -14,12 +14,15 @@ private $API_URL = "http://api.jpush.cn:8800/v2/push";
         $context = array(
             'http' => array(
                 'method' => 'POST',
-                'header' => 'Content-type: application/x-www-form-urlencoded' .
-                '\r\n'.'User-Agent : Jimmy\'s POST Example beta' .
+                'header' => 'Connection:Keep-Alive'.
+            	'\r\n'.'Charset: UTF-8' .
+            	'\r\n'.'Content-type: application/x-www-form-urlencoded'.
                 '\r\n'.'Content-length:' . strlen($post_string) + 8,
-                'content' => 'mypost=' . $post_string)
+                'content' => $post_string)
         );
+        //echo $post_string;
         $stream_context = stream_context_create($context);
+        //echo $stream_context;
         $data = file_get_contents($remote_server, false, $stream_context);
         return $data;
     }

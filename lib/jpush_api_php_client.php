@@ -1,7 +1,7 @@
 <?php
 include_once 'jpush_api_php_client/baseClient.php';
 
-class BaseClent
+class JpushClient
 {
 	
 	/**
@@ -9,8 +9,7 @@ class BaseClent
 	 * @var unknown
 	 */
 	private $masterSecret;
-	private $app_key ;
-	private $timeToLive ;
+	private $time_to_live ;
 	
 	/**
 	 * 构造函数
@@ -18,11 +17,10 @@ class BaseClent
 	 * @param String $masterSecret
 	 * @param int $timeToLive
 	 */
-	public function __construct($app_key, $masterSecret, $timeToLive)
+	public function __construct($masterSecret, $timeToLive)
 	{
-		$this->app_key = $app_key;
 		$this->masterSecret = $masterSecret;
-		$this->timeToLive = $timeToLive;
+		$this->time_to_live = $timeToLive;
 	}
 	
 	/**
@@ -37,18 +35,17 @@ class BaseClent
 	 * @param Strng $extras
 	 */
 	public  function sendNotificationByTag($tag, $app_key, $sendno, $send_description, 
-			$mes_title, $mes_content, $perform, $extras,$override_msg_id='')
+			$mes_title, $mes_content, $platform, $extras='',$override_msg_id='')
 	{
 		$mes_type = 1;
 		$msg_content = $this->getContent($mes_title, $mes_content, $mes_type, $extras);
-		$receiver_value = tag
+		$receiver_value = $tag;
 		$baseClent = new BaseClent();
 		$receiver_type = 2;
-		$msg_type = 1;
 		$verification_code = $this->getVerification_code($sendno, $receiver_type, $receiver_value);
 		$return_str = $baseClent->send($sendno, $app_key, $receiver_type, $receiver_value, $verification_code,
-			$msg_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
-	    echo $return_str;
+			$mes_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
+	    return $return_str;
 	}
 
 	/**
@@ -63,18 +60,17 @@ class BaseClent
 	 * @param Strng $extras
 	 */
 	public  function sendCustomMesByTag($tag, $app_key, $sendno, $send_description, 
-			$mes_title, $mes_content, $perform, $extras)
+			$mes_title, $mes_content, $platform, $extras='',$override_msg_id='')
 	{
 		$mes_type = 2;
 		$msg_content = $this->getContent($mes_title, $mes_content, $mes_type, $extras);
-		$receiver_value = tag
+		$receiver_value = $tag;
 		$baseClent = new BaseClent();
 		$receiver_type = 2;
-		$msg_type = 1;
 		$verification_code = $this->getVerification_code($sendno, $receiver_type, $receiver_value);
 		$return_str = $baseClent->send($sendno, $app_key, $receiver_type, $receiver_value, $verification_code,
-			$msg_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
-	    echo $return_str;
+			$mes_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
+	    return $return_str;
 	 
 	}
 
@@ -90,18 +86,17 @@ class BaseClent
 	 * @param Strng $extras
 	 */
 	public  function sendNotificationByAlias($alias, $app_key, $sendno, $send_description, 
-			$mes_title, $mes_content, $perform, $extras)
+			$mes_title, $mes_content, $platform, $extras='',$override_msg_id='')
 	{
 		$mes_type = 1;
 		$msg_content = $this->getContent($mes_title, $mes_content, $mes_type, $extras);
-		$receiver_value = tag
+		$receiver_value = $alias;
 		$baseClent = new BaseClent();
-		$receiver_type = 2;
-		$msg_type = 1;
+		$receiver_type = 3;
 		$verification_code = $this->getVerification_code($sendno, $receiver_type, $receiver_value);
 		$return_str = $baseClent->send($sendno, $app_key, $receiver_type, $receiver_value, $verification_code,
-			$msg_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
-	    echo $return_str;
+			$mes_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
+	    return $return_str;
 	 
 	}
 
@@ -117,18 +112,17 @@ class BaseClent
 	 * @param Strng $extras
 	 */
 	public  function sendCustomMesByAlias($alias, $app_key, $sendno, $send_description, 
-			$mes_title, $mes_content, $perform, $extras)
+			$mes_title, $mes_content, $platform, $extras='',$override_msg_id='')
 	{
 		$mes_type =2;
 		$msg_content = $this->getContent($mes_title, $mes_content, $mes_type, $extras);
-		$receiver_value = tag
+		$receiver_value = $alias;
 		$baseClent = new BaseClent();
-		$receiver_type = 2;
-		$msg_type = 1;
+		$receiver_type = 3;
 		$verification_code = $this->getVerification_code($sendno, $receiver_type, $receiver_value);
 		$return_str = $baseClent->send($sendno, $app_key, $receiver_type, $receiver_value, $verification_code,
-			$msg_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
-	    echo $return_str;
+			$mes_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
+	    return $return_str;
 	 
 	}
 
@@ -143,18 +137,17 @@ class BaseClent
 	 * @param Strng $extras
 	 */
 	public  function sendNotificationByAppkey($app_key, $sendno, $send_description, 
-			$mes_title, $mes_content, $perform, $extras)
+			$mes_title, $mes_content, $platform, $extras='',$override_msg_id='')
 	{
 		$mes_type = 1;
 		$msg_content = $this->getContent($mes_title, $mes_content, $mes_type, $extras);
-		$receiver_value = tag
+		$receiver_value = '';
 		$baseClent = new BaseClent();
-		$receiver_type = 2;
-		$msg_type = 1;
+		$receiver_type = 4;
 		$verification_code = $this->getVerification_code($sendno, $receiver_type, $receiver_value);
 		$return_str = $baseClent->send($sendno, $app_key, $receiver_type, $receiver_value, $verification_code,
-			$msg_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
-	    echo $return_str;
+			$mes_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
+	    return $return_str;
 	 
 	}
 
@@ -169,18 +162,17 @@ class BaseClent
 	 * @param Strng $extras
 	 */
 	public  function sendCustomMesByAppkey($app_key, $sendno, $send_description, 
-			$mes_title, $mes_content, $perform, $extras)
+			$mes_title, $mes_content, $platform, $extras='',$override_msg_id='')
 	{
 		$mes_type = 2;
 		$msg_content = $this->getContent($mes_title, $mes_content, $mes_type, $extras);
-		$receiver_value = tag
+		$receiver_value = '';
 		$baseClent = new BaseClent();
-		$receiver_type = 2;
-		$msg_type = 1;
+		$receiver_type = 4;
 		$verification_code = $this->getVerification_code($sendno, $receiver_type, $receiver_value);
 		$return_str = $baseClent->send($sendno, $app_key, $receiver_type, $receiver_value, $verification_code,
-			$msg_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
-	    echo $return_str;
+			$mes_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
+	    return $return_str;
 	 
 	}
 	
@@ -194,6 +186,7 @@ class BaseClent
 	 */
 	private function getContent($mes_title, $mes_content, $mes_type, $extras)
 	{
+		//echo "mes_title=".$mes_title."mes_content=".$mes_content."mes_type=".$mes_type."extras=".$extras;
 		$content_str = '';
 		if($mes_type == 1)
 		{
@@ -205,13 +198,14 @@ class BaseClent
 		    $content = array('title'=>$mes_title, 'message'=>$mes_content, 'extras'=>$extras);
 		    $content_str = json_encode($content);
 		}		
+		//echo $content_str;
 		return $content_str;
 	}
 	
 	
 	private function getVerification_code($sendno, $receiver_type, $receiver_value)
 	{
-		$verification_str = $sendno.$receiver_type.$receiver_value.$this->$masterSecret;
+		$verification_str = $sendno.$receiver_type.$receiver_value.$this->masterSecret;
 		$verification_str = md5($verification_str);
 		return $verification_str;
 	}
