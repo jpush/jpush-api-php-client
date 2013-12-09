@@ -1,5 +1,8 @@
 <?php
 include_once 'jpush_api_php_client/baseClient.php';
+include_once 'jpush_api_php_client/secretEncode.php';
+include_once 'jpush_api_php_client/receivedVO.php';
+include_once 'jpush_api_php_client/sendVO.php';
 
 /**
  * Jpush客户端
@@ -8,7 +11,8 @@ include_once 'jpush_api_php_client/baseClient.php';
  */
 class JpushClient
 {
-	
+	//appkey
+	private $app_key;
 	//密匙
 	private $masterSecret;
 	//离线市场
@@ -20,8 +24,9 @@ class JpushClient
 	 * @param String $masterSecret
 	 * @param int $timeToLive
 	 */
-	public function __construct($masterSecret, $timeToLive)
+	public function __construct($app_key, $masterSecret, $timeToLive=0)
 	{
+		$this->app_key      = $app_key;
 		$this->masterSecret = $masterSecret;
 		$this->time_to_live = $timeToLive;
 	}
@@ -37,19 +42,25 @@ class JpushClient
 	 * @param Strng $perform
 	 * @param Strng $extras
 	 */
-	public  function sendNotificationByTag($tag, $app_key, $sendno, $send_description, 
+	public  function sendNotificationByTag($tag, $sendno, $send_description, 
 			$mes_title, $mes_content, $platform, $extras='',$override_msg_id='')
 	{
 		$mes_type = 1;
-		$msg_content = $this->getContent($mes_title, $mes_content, $mes_type, $extras);
-		$receiver_value = $tag;
-		$baseClent = new BaseClent();
 		$receiver_type = 2;
-		$verification_code = $this->getVerification_code($sendno, $receiver_type, $receiver_value);
-		$return_str = $baseClent->send($sendno, $app_key, $receiver_type, $receiver_value, $verification_code,
-			$mes_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
+		
+		//设置对象参数
+		$sendVO = new SendVO($this->app_key, $this->masterSecret, $this->time_to_live,$mes_type,$receiver_type, $tag, 
+				$sendno, $send_description,	$mes_title, $mes_content, $platform, $extras='',$override_msg_id='');
+				
+		//发送通知 Or自定义消息
+		$baseClent = new BaseClent();
+		//echo $sendVO->getParams();
+		$return_str = $baseClent->send($sendVO);
+		
 	    return $return_str;
 	}
+	
+	
 
 	/**
 	 * 通过tag发送自定义消息
@@ -62,17 +73,19 @@ class JpushClient
 	 * @param Strng $perform
 	 * @param Strng $extras
 	 */
-	public  function sendCustomMesByTag($tag, $app_key, $sendno, $send_description, 
+	public  function sendCustomMesByTag($tag, $sendno, $send_description, 
 			$mes_title, $mes_content, $platform, $extras='',$override_msg_id='')
 	{
 		$mes_type = 2;
-		$msg_content = $this->getContent($mes_title, $mes_content, $mes_type, $extras);
-		$receiver_value = $tag;
-		$baseClent = new BaseClent();
 		$receiver_type = 2;
-		$verification_code = $this->getVerification_code($sendno, $receiver_type, $receiver_value);
-		$return_str = $baseClent->send($sendno, $app_key, $receiver_type, $receiver_value, $verification_code,
-			$mes_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
+		
+		//设置对象参数
+		$sendVO = new SendVO($this->app_key, $this->masterSecret, $this->time_to_live,$mes_type,$receiver_type, $tag, 
+				$sendno, $send_description,	$mes_title, $mes_content, $platform, $extras='',$override_msg_id='');
+				
+		//发送通知 Or自定义消息
+		$baseClent = new BaseClent();
+		$return_str = $baseClent->send($sendVO);
 	    return $return_str;
 	 
 	}
@@ -88,17 +101,19 @@ class JpushClient
 	 * @param Strng $perform
 	 * @param Strng $extras
 	 */
-	public  function sendNotificationByAlias($alias, $app_key, $sendno, $send_description, 
+	public  function sendNotificationByAlias($alias, $sendno, $send_description, 
 			$mes_title, $mes_content, $platform, $extras='',$override_msg_id='')
 	{
 		$mes_type = 1;
-		$msg_content = $this->getContent($mes_title, $mes_content, $mes_type, $extras);
-		$receiver_value = $alias;
-		$baseClent = new BaseClent();
 		$receiver_type = 3;
-		$verification_code = $this->getVerification_code($sendno, $receiver_type, $receiver_value);
-		$return_str = $baseClent->send($sendno, $app_key, $receiver_type, $receiver_value, $verification_code,
-			$mes_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
+		
+		//设置对象参数
+		$sendVO = new SendVO($this->app_key, $this->masterSecret, $this->time_to_live,$mes_type,$receiver_type, $alias, 
+				$sendno, $send_description,	$mes_title, $mes_content, $platform, $extras='',$override_msg_id='');
+				
+		//发送通知 Or自定义消息
+		$baseClent = new BaseClent();
+		$return_str = $baseClent->send($sendVO);
 	    return $return_str;
 	 
 	}
@@ -114,17 +129,19 @@ class JpushClient
 	 * @param Strng $perform
 	 * @param Strng $extras
 	 */
-	public  function sendCustomMesByAlias($alias, $app_key, $sendno, $send_description, 
+	public  function sendCustomMesByAlias($alias, $sendno, $send_description, 
 			$mes_title, $mes_content, $platform, $extras='',$override_msg_id='')
 	{
 		$mes_type =2;
-		$msg_content = $this->getContent($mes_title, $mes_content, $mes_type, $extras);
-		$receiver_value = $alias;
-		$baseClent = new BaseClent();
 		$receiver_type = 3;
-		$verification_code = $this->getVerification_code($sendno, $receiver_type, $receiver_value);
-		$return_str = $baseClent->send($sendno, $app_key, $receiver_type, $receiver_value, $verification_code,
-			$mes_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
+		
+		//设置对象参数
+		$sendVO = new SendVO($this->app_key, $this->masterSecret, $this->time_to_live,$mes_type,$receiver_type, $alias, 
+				$sendno, $send_description,	$mes_title, $mes_content, $platform, $extras='',$override_msg_id='');
+				
+		//发送通知 Or自定义消息
+		$baseClent = new BaseClent();
+		$return_str = $baseClent->send($sendVO);
 	    return $return_str;
 	 
 	}
@@ -139,17 +156,19 @@ class JpushClient
 	 * @param Strng $perform
 	 * @param Strng $extras
 	 */
-	public  function sendNotificationByAppkey($app_key, $sendno, $send_description, 
+	public  function sendNotificationByAppkey($sendno, $send_description, 
 			$mes_title, $mes_content, $platform, $extras='',$override_msg_id='')
 	{
 		$mes_type = 1;
-		$msg_content = $this->getContent($mes_title, $mes_content, $mes_type, $extras);
-		$receiver_value = '';
-		$baseClent = new BaseClent();
 		$receiver_type = 4;
-		$verification_code = $this->getVerification_code($sendno, $receiver_type, $receiver_value);
-		$return_str = $baseClent->send($sendno, $app_key, $receiver_type, $receiver_value, $verification_code,
-			$mes_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
+		
+		//设置对象参数
+		$sendVO = new SendVO($this->app_key, $this->masterSecret, $this->time_to_live,$mes_type,$receiver_type, '', 
+				$sendno, $send_description,	$mes_title, $mes_content, $platform, $extras='',$override_msg_id='');
+				
+		//发送通知 Or自定义消息
+		$baseClent = new BaseClent();
+		$return_str = $baseClent->send($sendVO);
 	    return $return_str;
 	 
 	}
@@ -164,17 +183,19 @@ class JpushClient
 	 * @param Strng $perform
 	 * @param Strng $extras
 	 */
-	public  function sendCustomMesByAppkey($app_key, $sendno, $send_description, 
+	public  function sendCustomMesByAppkey($sendno, $send_description, 
 			$mes_title, $mes_content, $platform, $extras='',$override_msg_id='')
 	{
 		$mes_type = 2;
-		$msg_content = $this->getContent($mes_title, $mes_content, $mes_type, $extras);
-		$receiver_value = '';
-		$baseClent = new BaseClent();
 		$receiver_type = 4;
-		$verification_code = $this->getVerification_code($sendno, $receiver_type, $receiver_value);
-		$return_str = $baseClent->send($sendno, $app_key, $receiver_type, $receiver_value, $verification_code,
-			$mes_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
+		
+		//设置对象参数
+		$sendVO = new SendVO($this->app_key, $this->masterSecret, $this->time_to_live,$mes_type,$receiver_type, '', 
+				$sendno, $send_description,	$mes_title, $mes_content, $platform, $extras='',$override_msg_id='');
+				
+		//发送通知 Or自定义消息
+		$baseClent = new BaseClent();
+		$return_str = $baseClent->send($sendVO);
 	    return $return_str;
 	 
 	}
@@ -184,52 +205,11 @@ class JpushClient
 	 * @param String $app_key
 	 * @param String $msg_ids  msg_id以，连接
 	 */
-	public function getReceivedApi($app_key, $msg_ids)
+	public function getReceivedApi($msg_ids)
 	{
+		$receivedVO = new ReceivedVO($this->app_key, $this->masterSecret, $msg_ids);
 		$baseClent = new BaseClent();
-		$auth = $baseClent->getBase64_code($app_key, $this->masterSecret);
-	    return $baseClent->getReceiedData($auth, $msg_ids, $app_key);
-	}
-	
-	/**
-	 * 消息发送体
-	 * @param String $mes_title
-	 * @param String $mes_content
-	 * @param int $mes_type
-	 * @param String $extras
-	 * @return string
-	 */
-	private function getContent($mes_title, $mes_content, $mes_type, $extras)
-	{
-		//echo "mes_title=".$mes_title."mes_content=".$mes_content."mes_type=".$mes_type."extras=".$extras;
-		$content_str = '';
-		if($mes_type == 1)
-		{
-		    $content = array('n_title'=>$mes_title, 'n_content'=>$mes_content, 'n_extras'=>$extras);
-		    $content_str = json_encode($content);
-		}
-		else if($mes_type == 2)
-		{
-		    $content = array('title'=>$mes_title, 'message'=>$mes_content, 'extras'=>$extras);
-		    $content_str = json_encode($content);
-		}		
-		//echo $content_str;
-		return $content_str;
-	}
-	
-	
-	/**
-	 * 获取验证字符串_md5加密
-	 * @param int $sendno
-	 * @param int $receiver_type
-	 * @param String $receiver_value
-	 * @return String
-	 */
-	private function getVerification_code($sendno, $receiver_type, $receiver_value)
-	{
-		$verification_str = $sendno.$receiver_type.$receiver_value.$this->masterSecret;
-		$verification_str = md5($verification_str);
-		return $verification_str;
+	    return $baseClent->getReceiedData($receivedVO);
 	}
 }
 ?>
