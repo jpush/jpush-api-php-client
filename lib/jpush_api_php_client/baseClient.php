@@ -8,7 +8,8 @@ include_once 'httpPostClient.php';
  */
 class BaseClent
 {
-	private $API_URL = "http://api.jpush.cn:8800/v2/push";
+	private $SEND_API_URL = "http://api.jpush.cn:8800/v2/push";
+	private $RECEIVE_API_URL = "http://api.jpush.cn:8800/v2/push";
 	
 	/**
 	 * 构造函数
@@ -39,7 +40,7 @@ class BaseClent
 		$params = $this->getParams($sendno, $app_key, $receiver_type, $receiver_value, $verification_code,
 			          $msg_type, $msg_content, $send_description, $platform, $time_to_live, $override_msg_id);
 	    $httpPostClient = new HttpPostClient();
-		return $httpPostClient->request_post($this->API_URL, $params);
+		return $httpPostClient->request_post($this->SEND_API_URL, $params);
 	}
 	
 	/**
@@ -69,6 +70,12 @@ class BaseClent
 		return $params;	
 	}
 
+	protected function getReceiedData($auth, $msg_ids, $app_key)
+	{
+		$url = $this->RECEIVE_API_URL."?app_key=".$app_key."&&msg_ids=".$msg_ids;
+		$httpPostClient = new HttpPostClient();
+		return $httpPostClient->request_get($this->RECEIVE_API_URL, $auth);
+	}
 
 	/**
 	 * 消息发送体
@@ -113,7 +120,8 @@ class BaseClent
 	
 	protected function getBase64_code($app_key, $masterSecret)
 	{
-	 
+		$data = $app_key.":".$masterSecret;
+	    return rtrim(strtr(base64_encode($data), '+/', '-_'), '='); 
 	}
 }
 ?>

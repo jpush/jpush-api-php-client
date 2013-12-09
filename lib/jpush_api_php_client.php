@@ -186,8 +186,9 @@ class JpushClient
 	 */
 	public function getReceivedApi($app_key, $msg_ids)
 	{
-	    $
-	 
+		$baseClent = new BaseClent();
+		$auth = $baseClent->getBase64_code($app_key, $this->masterSecret);
+	    return $baseClent->getReceiedData($auth, $msg_ids, $app_key);
 	}
 	
 	/**
