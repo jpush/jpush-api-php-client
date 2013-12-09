@@ -1,14 +1,17 @@
 <?php
 include_once 'jpush_api_php_client/baseClient.php';
 
+/**
+ * Jpush客户端
+ * @author xinxin@jpush.cn
+ * 
+ */
 class JpushClient
 {
 	
-	/**
-	 * 
-	 * @var unknown
-	 */
+	//密匙
 	private $masterSecret;
+	//离线市场
 	private $time_to_live ;
 	
 	/**
@@ -24,7 +27,7 @@ class JpushClient
 	}
 	
 	/**
-	 * 
+	 * 通过tag发送通知
 	 * @param Strng $tag
 	 * @param Strng $app_key
 	 * @param int $sendno
@@ -49,7 +52,7 @@ class JpushClient
 	}
 
 	/**
-	 *
+	 * 通过tag发送自定义消息
 	 * @param Strng $tag
 	 * @param Strng $app_key
 	 * @param int $sendno
@@ -75,7 +78,7 @@ class JpushClient
 	}
 
 	/**
-	 *
+	 * 通过alias发送通知
 	 * @param Strng $alias
 	 * @param Strng $app_key
 	 * @param int $sendno
@@ -101,7 +104,7 @@ class JpushClient
 	}
 
 	/**
-	 *
+	 * 通过alias发送自定义消息
 	 * @param Strng $alias
 	 * @param Strng $app_key
 	 * @param int $sendno
@@ -127,7 +130,7 @@ class JpushClient
 	}
 
 	/**
-	 *
+	 * 发送广播通知
 	 * @param Strng $app_key
 	 * @param int $sendno
 	 * @param Strng $send_description
@@ -152,7 +155,7 @@ class JpushClient
 	}
 
 	/**
-	 *
+	 * 发送广播自定义消息
 	 * @param Strng $app_key
 	 * @param int $sendno
 	 * @param Strng $send_description
@@ -173,6 +176,17 @@ class JpushClient
 		$return_str = $baseClent->send($sendno, $app_key, $receiver_type, $receiver_value, $verification_code,
 			$mes_type, $msg_content, $send_description, $platform, $this->time_to_live, $override_msg_id);
 	    return $return_str;
+	 
+	}
+	
+	/**
+	 * 
+	 * @param String $app_key
+	 * @param String $msg_ids  msg_id以，连接
+	 */
+	public function getReceivedApi($app_key, $msg_ids)
+	{
+	    $
 	 
 	}
 	
@@ -203,6 +217,13 @@ class JpushClient
 	}
 	
 	
+	/**
+	 * 获取验证字符串_md5加密
+	 * @param int $sendno
+	 * @param int $receiver_type
+	 * @param String $receiver_value
+	 * @return String
+	 */
 	private function getVerification_code($sendno, $receiver_type, $receiver_value)
 	{
 		$verification_str = $sendno.$receiver_type.$receiver_value.$this->masterSecret;
