@@ -53,9 +53,9 @@ class JpushClient
 				$sendno, $send_description,	$mes_title, $mes_content, $platform, $extras='',$override_msg_id='');
 				
 		//发送通知 Or自定义消息
-		$baseClent = new BaseClent();
+		$baseClient = new BaseClient();
 		//echo $sendVO->getParams();
-		$return_str = $baseClent->send($sendVO);
+		$return_str = $baseClient->send($sendVO);
 		
 	    return $return_str;
 	}
@@ -84,8 +84,8 @@ class JpushClient
 				$sendno, $send_description,	$mes_title, $mes_content, $platform, $extras='',$override_msg_id='');
 				
 		//发送通知 Or自定义消息
-		$baseClent = new BaseClent();
-		$return_str = $baseClent->send($sendVO);
+		$baseClient = new BaseClient();
+		$return_str = $baseClient->send($sendVO);
 	    return $return_str;
 	 
 	}
@@ -112,8 +112,8 @@ class JpushClient
 				$sendno, $send_description,	$mes_title, $mes_content, $platform, $extras='',$override_msg_id='');
 				
 		//发送通知 Or自定义消息
-		$baseClent = new BaseClent();
-		$return_str = $baseClent->send($sendVO);
+		$baseClient = new BaseClient();
+		$return_str = $baseClient->send($sendVO);
 	    return $return_str;
 	 
 	}
@@ -140,8 +140,8 @@ class JpushClient
 				$sendno, $send_description,	$mes_title, $mes_content, $platform, $extras='',$override_msg_id='');
 				
 		//发送通知 Or自定义消息
-		$baseClent = new BaseClent();
-		$return_str = $baseClent->send($sendVO);
+		$baseClient = new BaseClient();
+		$return_str = $baseClient->send($sendVO);
 	    return $return_str;
 	 
 	}
@@ -167,8 +167,8 @@ class JpushClient
 				$sendno, $send_description,	$mes_title, $mes_content, $platform, $extras='',$override_msg_id='');
 				
 		//发送通知 Or自定义消息
-		$baseClent = new BaseClent();
-		$return_str = $baseClent->send($sendVO);
+		$baseClient = new BaseClient();
+		$return_str = $baseClient->send($sendVO);
 	    return $return_str;
 	 
 	}
@@ -194,8 +194,8 @@ class JpushClient
 				$sendno, $send_description,	$mes_title, $mes_content, $platform, $extras='',$override_msg_id='');
 				
 		//发送通知 Or自定义消息
-		$baseClent = new BaseClent();
-		$return_str = $baseClent->send($sendVO);
+		$baseClient = new BaseClient();
+		$return_str = $baseClient->send($sendVO);
 	    return $return_str;
 	 
 	}
@@ -208,8 +208,8 @@ class JpushClient
 	public function getReceivedApi($msg_ids)
 	{
 		$receivedVO = new ReceivedVO($this->app_key, $this->masterSecret, $msg_ids);
-		$baseClent = new BaseClent();
-	    return $baseClent->getReceivedData($receivedVO);
+		$baseClient = new BaseClient();
+	    return $baseClient->getReceivedData($receivedVO);
 	}
 }
 ?>

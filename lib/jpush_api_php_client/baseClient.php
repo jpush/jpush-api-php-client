@@ -8,7 +8,7 @@ include_once 'sendVO.php';
  * @author xinxin
  *
  */
-class BaseClent
+class BaseClient
 {
 	private $SEND_API_URL = "http://api.jpush.cn:8800/v2/push";
 	private $RECEIVE_API_URL = "https://report.jpush.cn/v2/received";
@@ -57,6 +57,8 @@ class BaseClent
 	/**
 	 * 获取消息接收数量信息
 	 * @param unknown $receivedVO
+	 * 备注：发送采用https需要修改php.ini打开extension=php_openssl.dll
+	 * 
 	 */
 	public function getReceivedData($receivedVO)
 	{
