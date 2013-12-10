@@ -4,7 +4,7 @@
   $app_key='7ebc243ae2b37128472b0875';
   $sendno=9;
 
-  echo phpinfo();
+  //echo phpinfo();
   $client = new JpushClient($app_key,$master_secret,0);
   
   //send message by tag

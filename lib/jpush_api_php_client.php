@@ -15,7 +15,7 @@ class JpushClient
 	private $app_key;
 	//密匙
 	private $masterSecret;
-	//离线市场
+	//离线时长
 	private $time_to_live ;
 	
 	/**
