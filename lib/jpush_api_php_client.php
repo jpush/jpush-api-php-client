@@ -209,7 +209,7 @@ class JpushClient
 	{
 		$receivedVO = new ReceivedVO($this->app_key, $this->masterSecret, $msg_ids);
 		$baseClent = new BaseClent();
-	    return $baseClent->getReceiedData($receivedVO);
+	    return $baseClent->getReceivedData($receivedVO);
 	}
 }
 ?>

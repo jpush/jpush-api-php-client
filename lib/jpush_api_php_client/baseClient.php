@@ -55,10 +55,10 @@ class BaseClent
 	}
 
 	/**
-	 * 获取接收数据
+	 * 获取消息接收数量信息
 	 * @param unknown $receivedVO
 	 */
-	public function getReceiedData($receivedVO)
+	public function getReceivedData($receivedVO)
 	{
 		//加密字符串
 		$secretEncode = new SecretEncode();
