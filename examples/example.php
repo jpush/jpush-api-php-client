@@ -63,46 +63,48 @@ th {background-color: #EEE;}
   });
   function sendRes(surl)
   {    
+       //alert("111");
         $.ajax({
 			//url: "/static/test.json",
 			url: surl,sync:false,
 			cache: false, dataType: "json",jsonpCallback:"success_jsonpCallback",
 			type:"get",
 			timeout:2000,
-            success: function (data) { 
+            success: function (data) {
             	if(data.length!=0)
             	{
-				   //alert(data);
+				   var status = "Please wait.";
+				   var aVal,iVal,theadHtml="<tr><th>msg_id</th><th>iso接收数量</th><th>andriod接收数量</th><th>状态信息</th></tr>";
+				   $("#revId").text("");
+				   $("#revId").append(theadHtml);
                    $.each(data,function(i,v){
-				       if(v.android_received == null)
+				       aVal = "-",iVal = "-";
+				       if(v.android_received != null)
 					   {
-					       $("#a"+i).text("-");
-					   }
-					   else
-					   {					      
-				           $("#a"+i).text(v.android_received);
-					   }
-				       if(v.ios_apns_sent == null)
+					       aVal = v.android_received;
+						   status = "Success";
+					   }					   
+				       if(v.ios_apns_sent != null)
 					   {
-					       $("#i"+i).text("-");
+					       iVal = v.ios_apns_sent;
+						   status = "Success";
 					   }
-					   else
-					   {					      
-				           $("#i"+i).text(v.ios_apns_sent);
-					   }
+					   var trHtml = "<tr><td>"+v.msg_id+"</td><td>"+aVal+"</td><td>"+iVal+"</td><td>"+status+"</td></tr>";
+					   $("#revId").append(trHtml);
+					   
 				   })
             	}
             	else
             	{
-            		//console.info("no data");
+			          var trHtml = "<tr><td colspan='4'>No msg_id to get</td></tr>";
+					   $("#revId").append(trHtml);
             	}           	
-
-    			//setTimeout(getData,flush_time);
-    			//setTimeout(getData,3000);
              }, 
-              error: function (XMLHttpRequest, textStatus, errorThrown) { 
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+			          var trHtml = "<tr><td>error</td><td colspan='3'>"+errorThrown+"</td></tr>";
+					   $("#revId").append(trHtml);
                                //console.info("error:"+errorThrown);
-                   			//setTimeout(getData,3000);
+							   //console.info(textStatus);
              }
 		});
   
@@ -159,28 +161,8 @@ th {background-color: #EEE;}
 </table>
 
 <h3>Receive Example</h3>
-<table>
-  <tr><th>msg_id</th><th>iso接收数量</th><th>andriod接收数量</th></tr>
-  <tr>
-	<td><?php echo $msgResult1->getMesId(); ?></td>
-	<td id="i0" align="center"></td>
-	<td id="a0" align="center"></td>
-  </tr>
-  <tr>
-	<td><?php echo $msgResult2->getMesId(); ?></td>
-	<td id="i1" align="center"></td>
-	<td id="a1" align="center"></td>
-  </tr>
-  <tr>
-	<td><?php echo $msgResult3->getMesId(); ?></td>
-	<td id="i2" align="center"></td>
-	<td id="a2" align="center"></td>
-  </tr>
-  <tr>
-	<td><?php echo $msgResult4->getMesId(); ?></td>
-	<td id="i3" align="center"></td>
-	<td id="a3" align="center"></td>
-  </tr>
+<table id="revId">
+  <tr><th>msg_id</th><th>iso接收数量</th><th>andriod接收数量</th><th>状态信息</th></tr>
 </table>
 </body>
 <body>

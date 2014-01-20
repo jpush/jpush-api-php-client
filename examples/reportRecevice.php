@@ -10,8 +10,13 @@
   $client = new JpushClient($app_key,$master_secret);
  
   $msg_ids=$_GET['msg_ids'];
-  $msgstr = $client->getReportReceiveds($msg_ids);
-  
+  $revResult = $client->getReportReceiveds($msg_ids);
+  //echo $revResult->getResultStr();
+  $msgstr = "";
+  if($revResult->isOK())
+  {
+      $msgstr = $revResult->getResultStr();  
+  }
   echo $msgstr;
 
 ?>
