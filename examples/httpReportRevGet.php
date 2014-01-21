@@ -8,8 +8,9 @@
 
   //echo phpinfo();
   $client = new JpushClient($app_key,$master_secret);
- 
-  $msg_ids=$_GET['msg_ids'];
+  //$msg_ids = '1613113584';
+  $msg_ids = $_GET['msg_ids'];
+  //echo $msg_ids;
   $revResult = $client->getReportReceiveds($msg_ids);
   //echo $revResult->getResultStr();
   $msgstr = "";

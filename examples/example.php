@@ -54,7 +54,7 @@ th {background-color: #EEE;}
 
   <script type="text/javascript">
   $(function(){
-     var surl = "reportRecevice.php?msg_ids=<?php echo $msg_idsRe; ?>";
+     var surl = "httpReportRevGet.php?msg_ids=<?php echo $msg_idsRe; ?>";
 	 sendRes(surl);
 	 setInterval(function() {
 	     sendRes(surl);
