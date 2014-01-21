@@ -42,7 +42,7 @@ $msgResult2 = $client->sendCustomMessage("tag title","tag notify content", $para
 
 ```
 $client = new JPushClient($app_key,$master_secret);
-$msg_ids=$_GET['msg_ids'];
+$msg_ids = "123, 12345, ";
 $msgstr = $client->getReportReceiveds($msg_ids);
 ```
 
