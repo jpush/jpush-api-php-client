@@ -132,7 +132,7 @@ th {background-color: #EEE;}
 	<td><?php echo $msgResult2->getMessage(); ?></td>
 	<td><?php echo $msgResult2->getSendno(); ?></td>
 	<td><?php echo $msgResult2->getMesId(); ?></td>
-	<td><?php $resCon = $msgResult1->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
+	<td><?php $resCon = $msgResult2->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
 	<td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
 	<td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
   </tr>
@@ -142,7 +142,7 @@ th {background-color: #EEE;}
 	<td><?php echo $msgResult3->getMessage(); ?></td>
 	<td><?php echo $msgResult3->getSendno(); ?></td>
 	<td><?php echo $msgResult3->getMesId(); ?></td>
-	<td><?php $resCon = $msgResult1->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
+	<td><?php $resCon = $msgResult3->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
 	<td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
 	<td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
   </tr>
@@ -152,7 +152,7 @@ th {background-color: #EEE;}
 	<td><?php echo $msgResult4->getMessage(); ?></td>
 	<td><?php echo $msgResult4->getSendno(); ?></td>
 	<td><?php echo $msgResult4->getMesId(); ?></td>
-	<td><?php $resCon = $msgResult1->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
+	<td><?php $resCon = $msgResult4->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
 	<td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
 	<td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
   </tr>
@@ -162,7 +162,7 @@ th {background-color: #EEE;}
 	<td><?php echo $msgResult5->getMessage(); ?></td>
 	<td><?php echo $msgResult5->getSendno(); ?></td>
 	<td><?php echo $msgResult5->getMesId(); ?></td>
-	<td><?php $resCon = $msgResult1->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
+	<td><?php $resCon = $msgResult5->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
 	<td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
 	<td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
   </tr>
@@ -172,7 +172,7 @@ th {background-color: #EEE;}
 	<td><?php echo $msgResult6->getMessage(); ?></td>
 	<td><?php echo $msgResult6->getSendno(); ?></td>
 	<td><?php echo $msgResult6->getMesId(); ?></td>
-	<td><?php $resCon = $msgResult1->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
+	<td><?php $resCon = $msgResult6->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
 	<td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
 	<td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
   </tr>
