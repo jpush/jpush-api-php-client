@@ -13,7 +13,7 @@ include_once 'ReceiveResult.php';
  * @author xinxin@jpush.cn
  * 
  */
-class JpushClient
+class JPushClient
 {	
     //初始化参数
 	private $initparams;

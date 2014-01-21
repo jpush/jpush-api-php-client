@@ -27,6 +27,7 @@ class ReceivedVO
      */
     public function __construct($initparams, $msg_ids)
     {
+	   //  echo "init receivvedVO";
     	$this->app_key      = $initparams["app_key"];
     	$this->masterSecret = $initparams["masterSecret"];
     	$this->msg_ids      = $msg_ids;

@@ -7,7 +7,7 @@
   $apnsProduction = false;
 
   //echo phpinfo();
-  $client = new JpushClient($app_key,$master_secret);
+  $client = new JPushClient($app_key,$master_secret);
   //$msg_ids = '1613113584';
   $msg_ids = $_GET['msg_ids'];
   //echo $msg_ids;

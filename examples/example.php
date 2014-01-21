@@ -5,7 +5,7 @@
   $platform = '';
   $apnsProduction = false;
 
-  $client = new JpushClient($app_key,$master_secret);
+  $client = new JPushClient($app_key,$master_secret);
   //$client = new JpushClient($app_key,$master_secret,0,'android',false);
   //$client = new JpushClient($app_key,$master_secret,0,'ios',false);
   
