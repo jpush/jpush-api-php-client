@@ -54,5 +54,4 @@ $msgstr = $client->getReportReceiveds($msg_ids);
 
 
 ## 版本更新
-
-...
+[Release页面](https://github.com/jpush/jpush-api-php-client/releases/) 有详细的版本发布记录与下载。
