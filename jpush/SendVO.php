@@ -42,6 +42,12 @@ class SendVO
 		$this->time_to_live   = $initparams["timeToLive"];
 		$this->apnsProduction = $initparams["apnsProduction"];
 		$this->receiver_type  = $params["receiver_type"];
+		
+		$apnsProduction = 0;
+		if($initparams["apnsProduction"] == true)
+		{
+		    $apnsProduction = 1;
+		}
 		if($initparams["platform"] == '')
 		{		    
 		    $this->platform = 'android,ios';
@@ -117,7 +123,7 @@ class SendVO
 		"&receiver_value=".$this->receiver_value."&verification_code=".$this->verification_code.
 		"&msg_type=".$this->msg_type."&msg_content=".$this->msg_content."&send_description=".$this->send_description.
 		"&send_description=".$this->send_description."&platform=".$this->platform.
-		"&time_to_live=".$this->time_to_live."&override_msg_id=".$this->override_msg_id."&sendno=".$this->sendno;
+		"&time_to_live=".$this->time_to_live."&override_msg_id=".$this->override_msg_id."&sendno=".$this->sendno."&apnsProduction=".$this->apnsProduction;
 		//echo $params.'<br/>';
 		return $params;
 	}

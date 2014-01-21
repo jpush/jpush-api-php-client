@@ -18,8 +18,9 @@ class ReportRecevied
 	 * 备注：发送采用https需要修改php.ini打开extension=php_openssl.dll
 	 * 
 	 */
-	public function getReceivedData($receivedVO)
+	public function getReceivedData($receivedVO, $revResult)
 	{
+	    //echo "1111";
 		//加密字符串
 		$secretEncode = new SecretEncode();
 		
@@ -40,7 +41,21 @@ class ReportRecevied
 		$stream_context = stream_context_create($context);
 		//echo $stream_context;
 		$httpPostClient = new HttpPostClient();
-		return $httpPostClient->request_tools($url, $stream_context);
+		$code = 200;
+		try
+		{
+		    $rs = $httpPostClient->request_tools($url, $stream_context);
+            //echo $rs;		
+		}
+		catch(Exception $e)
+		{	
+		    echo $e;
+		    $code =404;
+		}
+		//echo $rs["body"];
+		$revResult->setResultStr($rs, $code);
+		//echo $revResult->getResultStr();
+		return $revResult;
 	}
 
 }

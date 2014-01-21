@@ -37,8 +37,16 @@ class Push
         $stream_context = stream_context_create($context);
 		//echo $stream_context."\n";
 	    $httpPostClient = new HttpPostClient();
-		$rs = $httpPostClient->request_tools($this->SEND_API_URL, $stream_context);
-		$msgResult->setResultStr($rs);
+		$code = 200;
+		try
+		{
+		    $rs = $httpPostClient->request_tools($this->SEND_API_URL, $stream_context);		
+		}
+		catch(Exception $e)
+		{	
+		    $code =404;
+		}
+		$msgResult->setResultStr($rs, $code);
 		return 0;
 	}
 

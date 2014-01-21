@@ -1,45 +1,31 @@
 <?php
-class MessageResult
+class ReceiveResult
 {
 	//code
-	private $code;
+	private $errcode;
 	//message
-	private $message;
+	private $errmsg;
 	
-	private $msgId;
-	
-	private $sendno;
+	private $dataStr;
 	
 	private $responseContent;
 	
-	//设置返回信息
-    public function setResult($code, $message)
-	{
-	    $this->code = $code;
-		$this->message = $message;
-	}
-	
 	//传入json串
-	public function setResultStr($rs, $code)
+	public function setResultStr($rs, $errcode)
 	{
 	    $status = explode(" ",$rs["header"][0]);
-		if($code==200 && $status[1] == 200)
-		{		
-			$mesObj = json_decode($rs["body"]);
-			$this->code = $mesObj->errcode;
-			$this->message = $mesObj->errmsg;
-			//var_dump( $rs["header"]);
-			$limit = explode(":", $rs["header"][6]);
-			$remaining = explode(":", $rs["header"][7], 2);
-			$reset = explode(":", $rs["header"][8], 2);
+	    if($errcode ==200 && $status[1] == 200)
+		{
+		    //var_dump( $rs["header"]);
+			$this->errcode = $errcode;
+			$limit = explode(":", $rs["header"][5]);
+			$remaining = explode(":", $rs["header"][6], 2);
+			$reset = explode(":", $rs["header"][7], 2);
 			$this->responseContent = array("X-Rate-Limit-Limit"=>$limit[1],
 										   "X-Rate-Limit-Remaining"=>$remaining[1],
 										   "X-Rate-Limit-Reset"=>$reset[1]);
-			if($mesObj->errcode == 0)
-			{
-				$this->msgId = $mesObj->msg_id;
-				$this->sendno = $mesObj->sendno;
-			}	
+		    //var_dump( $this->responseContent);
+			$this->dataStr = $rs["body"];
 		}
 		else
 		{
@@ -62,26 +48,18 @@ class MessageResult
 			    $this->message = "error new add.";	
 			}
 		}
+	    //echo $rs.'<br/>';
+		//echo $dataArry;
 	}
 	
-	public function getCode()
+	public function isOK()
 	{
-	    return $this->code;
+	    return $this->errcode == 200;
 	}
 	
-	public function getMessage()
+	public function getResultStr()
 	{
-	    return $this->message;
-	}
-	
-	public function getSendno()
-	{
-	    return $this->sendno;
-	}
-	
-	public function getMesId()
-	{
-	    return $this->msgId;
+	    return $this->dataStr;
 	}
 	
 	public function getResponseContent()

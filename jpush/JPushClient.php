@@ -6,6 +6,7 @@ include_once 'ReceivedVO.php';
 include_once 'SendVO.php';
 include_once 'MessageResult.php';
 include_once 'ValidateParams.php';
+include_once 'ReceiveResult.php';
 
 /**
  * Jpush客户端
@@ -123,8 +124,12 @@ class JpushClient
 	public function getReportReceiveds($msg_ids)
 	{
 		$receivedVO = new ReceivedVO($this->initparams, $msg_ids);
+		$revResult = new ReceiveResult();
+		//echo $revResult;
 		$revClient = new ReportRecevied();
-		return $revClient->getReceivedData($receivedVO);
+		$revClient->getReceivedData($receivedVO, $revResult);
+		//echo $revResult;
+		return $revResult;
 	}
 
 }
