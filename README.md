@@ -8,20 +8,20 @@
 ## 环境配置
 
 ### Windows 系统中 IIS 环境配置
-* 在php.ini中 extension=php_openssl.dll去掉前面的注释（可参考example目录php.ini文件） 
-* 复制php安装目录中的： libeay32.dll ssleay32.dll 至c:\windows\system32 
-* 复制php_openssl.dll至c:\windows\system32 
-* 重启IIS 
+* 在 php.ini 中 extension=php_openssl.dll 去掉前面的注释。（可参考 examples/ 目录下的 php.ini 文件）。
+* 复制 php 安装目录中的 libeay32.dll, ssleay32.dll 至 Windows 机器的 c:\windows\system32 目录。
+* 复制 php_openssl.dll 至 Windows 机器的 c:\windows\system32 目录。
+* 重启 IIS。
 
 ### Windows 系统中 Apache 环境配置
-* 在php.ini中 extension=php_openssl.dll去掉前面的注释（可参考example目录php.ini文件） 
-* 复制php安装目录中的： libeay32.dll ssleay32.dll 至c:\windows\system32 
-* 复制php_openssl.dll至c:\windows\system32 
-* 重启重启APache
+* 在 php.ini 中 extension=php_openssl.dll 去掉前面的注释（可参考 examples/ 目录中的 php.ini 文件）。
+* 复制 php 安装目录中的 libeay32.dll, ssleay32.dll 至 Windows 机器的 c:\windows\system32 目录。
+* 复制 php_openssl.dll 至 Windows 机器的 c:\windows\system32 目录。
+* 重启重启 Apache。
 
-### 在 Linux 系统中
+### Linux 系统中 Apache 环境配置
 * 安装 openssl
-* 重新编译 PHP
+* 重新编译安装 PHP
 * 重启 Apache
 
 ## 使用样例
@@ -29,7 +29,7 @@
 ### 推送样例
 ```
 
-$client = new JpushClient($app_key,$master_secret);
+$client = new JPushClient($app_key,$master_secret);
 $extras = array();
 $params = array("receiver_type" => 2,
                 "receiver_value" => "tag_api",
