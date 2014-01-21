@@ -115,13 +115,16 @@ th {background-color: #EEE;}
 <h1>JPush Example</h1>
 <h3>Push Example</h3>
 <table>
-  <tr><th>发送方式</th><th>返回状态</th><th>返回信息</th><th>sendno</th><th>msg_id</th></tr>
+  <tr><th>发送方式</th><th>返回状态</th><th>返回信息</th><th>sendno</th><th>msg_id</th><th>频率次数</th><th>可用频率次数</th><th>重置时间</th></tr>
   <tr>
     <td>发送tag通知</td>
 	<td><?php echo $msgResult1->getCode(); ?></td>
 	<td><?php echo $msgResult1->getMessage(); ?></td>
 	<td><?php echo $msgResult1->getSendno(); ?></td>
 	<td><?php echo $msgResult1->getMesId(); ?></td>
+	<td><?php $resCon = $msgResult1->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
+	<td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
+	<td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
   </tr>
   <tr>
     <td>发送tag自定义消息</td>
@@ -129,6 +132,9 @@ th {background-color: #EEE;}
 	<td><?php echo $msgResult2->getMessage(); ?></td>
 	<td><?php echo $msgResult2->getSendno(); ?></td>
 	<td><?php echo $msgResult2->getMesId(); ?></td>
+	<td><?php $resCon = $msgResult1->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
+	<td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
+	<td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
   </tr>
   <tr>
     <td>发送alias通知</td>
@@ -136,6 +142,9 @@ th {background-color: #EEE;}
 	<td><?php echo $msgResult3->getMessage(); ?></td>
 	<td><?php echo $msgResult3->getSendno(); ?></td>
 	<td><?php echo $msgResult3->getMesId(); ?></td>
+	<td><?php $resCon = $msgResult1->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
+	<td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
+	<td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
   </tr>
   <tr>
     <td>发送alias自定义消息</td>
@@ -143,6 +152,9 @@ th {background-color: #EEE;}
 	<td><?php echo $msgResult4->getMessage(); ?></td>
 	<td><?php echo $msgResult4->getSendno(); ?></td>
 	<td><?php echo $msgResult4->getMesId(); ?></td>
+	<td><?php $resCon = $msgResult1->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
+	<td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
+	<td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
   </tr>
   <tr>
     <td>发送广播通知</td>
@@ -150,6 +162,9 @@ th {background-color: #EEE;}
 	<td><?php echo $msgResult5->getMessage(); ?></td>
 	<td><?php echo $msgResult5->getSendno(); ?></td>
 	<td><?php echo $msgResult5->getMesId(); ?></td>
+	<td><?php $resCon = $msgResult1->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
+	<td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
+	<td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
   </tr>
   <tr>
     <td>发送广播自定义消息</td>
@@ -157,6 +172,9 @@ th {background-color: #EEE;}
 	<td><?php echo $msgResult6->getMessage(); ?></td>
 	<td><?php echo $msgResult6->getSendno(); ?></td>
 	<td><?php echo $msgResult6->getMesId(); ?></td>
+	<td><?php $resCon = $msgResult1->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
+	<td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
+	<td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
   </tr>
 </table>
 
