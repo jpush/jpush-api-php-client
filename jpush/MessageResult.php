@@ -29,12 +29,26 @@ class MessageResult
 			$this->code = $mesObj->errcode;
 			$this->message = $mesObj->errmsg;
 			//var_dump( $rs["header"]);
-			$limit = explode(":", $rs["header"][6]);
-			$remaining = explode(":", $rs["header"][7], 2);
-			$reset = explode(":", $rs["header"][8], 2);
-			$this->responseContent = array("X-Rate-Limit-Limit"=>$limit[1],
-										   "X-Rate-Limit-Remaining"=>$remaining[1],
-										   "X-Rate-Limit-Reset"=>$reset[1]);
+			$limit = "";$remaining = "";$reset= "";
+			foreach($rs["header"] as $header)
+			{
+			    $headerArry = explode(":", $header);
+			    if($headerArry[0] == "X-Rate-Limit-Limit")
+				{
+				    $limit = $headerArry[1];				
+				}
+			    else if($headerArry[0] == "X-Rate-Limit-Remaining")
+				{
+				    $remaining = $headerArry[1];				
+				}
+			    else if($headerArry[0] == "X-Rate-Limit-Reset")
+				{
+				    $reset = $headerArry[1];				
+				}			
+			}
+			$this->responseContent = array("X-Rate-Limit-Limit"=>$limit,
+										   "X-Rate-Limit-Remaining"=>$remaining,
+										   "X-Rate-Limit-Reset"=>$reset);
 			if($mesObj->errcode == 0)
 			{
 				$this->msgId = $mesObj->msg_id;
