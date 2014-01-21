@@ -10,7 +10,7 @@
 ### Windows 系统中环境配置
 * 在 php.ini 中 extension=php_openssl.dll 去掉前面的注释。（可参考 examples/ 目录下的 php.ini 文件）。
 * 复制 php 安装目录中的 libeay32.dll, ssleay32.dll 至 Windows 机器的 c:\windows\system32 目录。
-* 复制 php 安装目录下ext目录中 php_openssl.dll 至 Windows 机器的 c:\windows\system32 目录。
+* 复制 php 安装目录的ext子目录中 php_openssl.dll 至 Windows 机器的 c:\windows\system32 目录。
 * 重启服务器。
 
 ### Linux 系统中 Apache 环境配置
