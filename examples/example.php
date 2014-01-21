@@ -74,7 +74,7 @@ th {background-color: #EEE;}
             	if(data.length!=0)
             	{
 				   var status = "Please wait.";
-				   var aVal,iVal,theadHtml="<tr><th>msg_id</th><th>iso接收数量</th><th>andriod接收数量</th><th>状态信息</th></tr>";
+				   var aVal,iVal,theadHtml="<tr><th>msg_id</th><th>ios接收数量</th><th>andriod接收数量</th><th>状态信息</th></tr>";
 				   $("#revId").text("");
 				   $("#revId").append(theadHtml);
                    $.each(data,function(i,v){
@@ -180,7 +180,7 @@ th {background-color: #EEE;}
 
 <h3>Receive Example</h3>
 <table id="revId">
-  <tr><th>msg_id</th><th>iso接收数量</th><th>andriod接收数量</th><th>状态信息</th></tr>
+  <tr><th>msg_id</th><th>ios接收数量</th><th>andriod接收数量</th><th>状态信息</th></tr>
 </table>
 </body>
 <body>
