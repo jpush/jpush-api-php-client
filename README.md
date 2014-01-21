@@ -7,13 +7,15 @@
 
 ## 环境配置
 
-### Windows 系统中环境配置
+### PHP 配置支持 SSL
+
+#### Windows 系统中配置
 * 在 php.ini 中 extension=php_openssl.dll 去掉前面的注释。（可参考 examples/ 目录下的 php.ini 文件）。
 * 复制 php 安装目录中的 libeay32.dll, ssleay32.dll 至 Windows 机器的 c:\windows\system32 目录。
 * 复制 php 安装目录的ext子目录中 php_openssl.dll 至 Windows 机器的 c:\windows\system32 目录。
 * 重启服务器 IIS 或者 Apache。
 
-### Linux 系统中 Apache 环境配置
+#### Linux 系统中配置
 * 安装 openssl。
 * 如果当前的 PHP 版本未支持 SSL，需要重新编译安装 PHP 以支持。请 Google 文档了解。
 * 重启 Apache。
