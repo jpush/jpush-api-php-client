@@ -50,7 +50,7 @@ class JpushClient
 		
 		//设置对象参数
 		$sendVO = new SendVO($this->app_key, $this->masterSecret, $this->time_to_live,$mes_type,$receiver_type, $tag, 
-				$sendno, $send_description,	$mes_title, $mes_content, $platform, $extras='',$override_msg_id='');
+				$sendno, $send_description,	$mes_title, $mes_content, $platform, $extras,$override_msg_id='');
 				
 		//发送通知 Or自定义消息
 		$baseClient = new BaseClient();
@@ -104,15 +104,18 @@ class JpushClient
 	public  function sendNotificationByAlias($alias, $sendno, $send_description, 
 			$mes_title, $mes_content, $platform, $extras='',$override_msg_id='')
 	{
+
 		$mes_type = 1;
 		$receiver_type = 3;
 		
 		//设置对象参数
 		$sendVO = new SendVO($this->app_key, $this->masterSecret, $this->time_to_live,$mes_type,$receiver_type, $alias, 
-				$sendno, $send_description,	$mes_title, $mes_content, $platform, $extras='',$override_msg_id='');
-				
+				$sendno, $send_description,	$mes_title, $mes_content, $platform, $extras,$override_msg_id);
+		
 		//发送通知 Or自定义消息
 		$baseClient = new BaseClient();
+
+		
 		$return_str = $baseClient->send($sendVO);
 	    return $return_str;
 	 
