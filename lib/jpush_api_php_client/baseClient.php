@@ -34,24 +34,27 @@ class BaseClient
 		
 		//获取参数
 		$params = $sendVO->getParams();
-		//echo "*********".$params."\n ###";
+		//echo "*********".$params."\n ###";die;
 		
-        $context = array(
-            'http' => array(
-                'method' => 'POST',
-                'header' => 'Connection:Keep-Alive'.
-            	'\r\n'.'Charset: UTF-8' .
-            	'\r\n'.'Content-type: application/x-www-form-urlencoded'.
-                '\r\n'.'Content-length:' . strlen($params) + 8,
-                'content' => $params)
-        );
-        
-        //echo $post_string;
-        
-        $stream_context = stream_context_create($context);
-		//echo $stream_context."\n";
+		$contextData = array (
+        'http'=>array(
+            'method' => 'POST',
+            'header' => "".
+                "Connection: Keep-Alive\r\n".
+                "'Charset: UTF-8'\r\n".
+                "Content-Length: ".strlen($params)."\r\n".
+                "Content-type: "."application/x-www-form-urlencoded"."\r\n",
+            "content"=> $params )
+         );
+			
+		//print_r($context);die;				
+			
+			
+			$stream_context = stream_context_create($contextData);
+		//echo $stream_context."\n";die;
 	    $httpPostClient = new HttpPostClient();
 		return $httpPostClient->request_post($this->SEND_API_URL, $stream_context);
+		
 	}
 
 	/**
@@ -80,7 +83,7 @@ class BaseClient
 						'\r\n'.'Content-type: application/x-www-form-urlencoded'.
 				'\r\n')
 		);
-		echo $context;
+		//echo $context;
 		$stream_context = stream_context_create($context);
 		//echo $stream_context;
 		$httpPostClient = new HttpPostClient();

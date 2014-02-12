@@ -11,7 +11,7 @@ private $API_URL = "http://api.jpush.cn:8800/v2/push";
      */
     function request_post($remote_server, $stream_context)
     {
-        //echo $stream_context;
+        //print_r( $stream_context);die;
         $data = file_get_contents($remote_server, false, $stream_context);
         return $data;
     }
@@ -24,7 +24,7 @@ private $API_URL = "http://api.jpush.cn:8800/v2/push";
      */
     function request_get($remote_server, $stream_context)
     {
-        //echo $stream_context;
+       // echo $stream_context;die;
         $data = file_get_contents($remote_server, false, $stream_context);
         return $data;
     }
