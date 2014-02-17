@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-JPush API client library for Java
-API Ğ­ÒéÎÄµµ£º http://docs.jpush.cn/pages/viewpage.action?pageId=2621796
-
-ÆäËûÓïÑÔµÄ¿ª·¢°ü£º http://docs.jpush.cn/pages/viewpage.action?pageId=2228302
-
-JPush Change List: http://docs.jpush.cn/pages/viewpage.action?pageId=3309737
-=======
 # JPush API client library for PHP
 
 ## æ¦‚è¿°
@@ -59,4 +51,3 @@ $msgstr = $client->getReportReceiveds($msg_ids);
 
 ## ç‰ˆæœ¬æ›´æ–°
 [Releaseé¡µé¢](https://github.com/jpush/jpush-api-php-client/releases/) æœ‰è¯¦ç»†çš„ç‰ˆæœ¬å‘å¸ƒè®°å½•ä¸ä¸‹è½½ã€‚
->>>>>>> dev
