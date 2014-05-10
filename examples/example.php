@@ -8,7 +8,7 @@
   $client = new JPushClient($app_key,$master_secret);
   //$client = new JpushClient($app_key,$master_secret,0,'android',false);
   //$client = new JpushClient($app_key,$master_secret,0,'ios',false);
-  
+  //123
   $extras = array();
   $params = array("receiver_type" => 2,
                   "receiver_value" => "tag_api",
