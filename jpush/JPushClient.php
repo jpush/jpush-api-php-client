@@ -39,6 +39,8 @@ class JPushClient
     /**
     * 获取统计信息
     * @param String $msg_ids  msg_id以，连接
+    *
+    * @return Json对象
     */
     public function getReportReceiveds($msg_ids)
     {
@@ -54,7 +56,7 @@ class JPushClient
 
     /**
     * 发送广播通知
-    * @param int $sendno 发送编号,最大支持32位正整数
+    * @param String $sendno 发送编号,最大支持32位正整数
     * @param String $title 通知标题。填 空字符串 则默认使用该应用的名称
     * @param String $content 通知内容
     * @param String $description 描述此次发送调用,不会发到用户
@@ -76,7 +78,7 @@ class JPushClient
 
     /**
     * 发送tag通知
-    * @param int $tags tag字符串。多个tag以','（逗号）分隔
+    * @param String $tags tag字符串。多个tag以','（逗号）分隔
     * @param int $sendno 发送编号,最大支持32位正整数
     * @param String $title 通知标题。填 空字符串 则默认使用该应用的名称
     * @param String $content 通知内容
@@ -100,7 +102,7 @@ class JPushClient
 
     /**
     * 发送alias通知
-    * @param int $alias alia字符串。多个alia以','（逗号）分隔
+    * @param String $alias alia字符串。多个alia以','（逗号）分隔
     * @param int $sendno 发送编号,最大支持32位正整数
     * @param String $title 通知标题。填 空字符串 则默认使用该应用的名称
     * @param String $content 通知内容
@@ -125,7 +127,7 @@ class JPushClient
 
     /**
     * 发送RegistrationID通知
-    * @param int $registrations registritionId字符串。多个以','（逗号）分隔
+    * @param String $registrations registritionId字符串。多个以','（逗号）分隔
     * @param int $sendno 发送编号,最大支持32位正整数
     * @param String $title 通知标题。填 空字符串 则默认使用该应用的名称
     * @param String $content 通知内容
@@ -173,7 +175,7 @@ class JPushClient
 
    /**
     * 发送tag自定义消息
-    * @param int $tags tag字符串。多个tag以','（逗号）分隔
+    * @param String $tags tag字符串。多个tag以','（逗号）分隔
     * @param int $sendno 发送编号,最大支持32位正整数
     * @param String $title 通知标题。填 空字符串 则默认使用该应用的名称
     * @param String $content 通知内容
@@ -199,7 +201,7 @@ class JPushClient
 
    /**
     * 发送alias自定义消息
-    * @param int $alias alia字符串。多个alia以','（逗号）分隔
+    * @param String $alias alia字符串。多个alia以','（逗号）分隔
     * @param int $sendno 发送编号,最大支持32位正整数
     * @param String $title 通知标题。填 空字符串 则默认使用该应用的名称
     * @param String $content 通知内容
@@ -225,7 +227,7 @@ class JPushClient
 
    /**
     * 发送RegistrationID自定义消息
-    * @param int $registrations registritionId字符串。多个以','（逗号）分隔
+    * @param String $registrations registritionId字符串。多个以','（逗号）分隔
     * @param int $sendno 发送编号,最大支持32位正整数
     * @param String $title 通知标题。填 空字符串 则默认使用该应用的名称
     * @param String $content 通知内容
