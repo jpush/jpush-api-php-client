@@ -24,3 +24,5 @@ class SecretEncode
 		return rtrim(strtr(base64_encode($encodeStr), '+/', '-_'), '=');
 	}
 }
+
+?>
