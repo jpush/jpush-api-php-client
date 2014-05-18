@@ -23,6 +23,12 @@
     $message->setTitle("This is title")->setExtras(array("key"=>"value"))->setContentType("content_type");
 
     $pushResult = $pushClient->send($notification);
+    var_dump($pushResult);
+    echo "<br/>";
+    $pushResult = $pushClient->send($message);
+
+    var_dump($pushResult);
+    
 
 
     

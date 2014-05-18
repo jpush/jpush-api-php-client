@@ -1,47 +1,53 @@
 <?php
-    include_once '../jpush/JPushClient.php';
+    include_once '../jpushv3/JPushClient.php';
+    include_once '../jpushv3/Notification.php';
+    include_once '../jpushv3/Message.php';
+
     $master_secret = 'd94f733358cca97b18b2cb98';
     $app_key='47a3ddda34b2602fa9e17c01';
-    $platform = '';
-    $apnsProduction = false;
+    $client = new JPushClient($app_key, $master_secret);
 
-    $tags = '555';
-    $alias = '666';
-    $registrationId = '0004cd4e4a0';
-
-    $client = new JPushClient($app_key,$master_secret);
+    $notification = new Notification('This is content');
+    $message = new Message("This is content");
 
     //发送广播通知
-    $msgResult1 = $client->sendNotification(1, 'ALL-This is title', 'ALL-This is content');
+    $result1 = $client->send($notification);
 
-    //发送tag通知
-    $msgResult2 = $client->sendTagNotification($tags, 1, 'Tag-This is title', 'Tag-This is content');
+    //发送广播自定义信息
+    $result2 = $client->send($message);
 
-    //发送alias通知
-    $msgResult3 = $client->sendAliasNotification($alias, 1, 'Alias-This is title', 'Alias-This is content');
+    //发送Tag通知
+    $notification->setTag("555,666");
+    $result3 = $client->send($notification);
 
-    //发送RegistrationID通知
-    $msgResult4 = $client->sendRegistrationIDNotification($registrationId, 1, 'RegistrationID-This is title', 'RegistrationID-This is content');
+    //其他属性测试
+    $notification->setTitle("This is title")
+        ->setBuilderId(1)
+        ->setExtras(array("key"=>"value"))
+        ->setSound("happy")
+        ->setBadge(1)
+        ->setContentAvailabe(true)
+        ->setOpenPage("/friends.xaml");
+    $result4 = $client->send($notification);
 
-    //发送广播自定义消息
-    $msgResult5 = $client->sendCustomMsg(1, 'ALL-This is title', 'ALL-This is content', 'content-type');
-
-    //发送tag自定义消息
-    $msgResult6 = $client->sendTagCustomMsg($tags, 1, 'Tag-This is title', 'Tag-This is content', 'content-type');
-
-    //发送alias自定义消息
-    $msgResult7 = $client->sendAliasCustomMsg($alias, 1, 'Alias-This is title', 'Alias-This is content', 'content-type');
-
-    //发送RegistrationID自定义消息
-    $msgResult8 = $client->sendRegistrationIDCustomMsg($registrationId, 1, 'RegistrationID-This is title', 'RegistrationID-This is content', 'content-type');
+    //其他属性测试
+    $message->setTitle("This is title")->setExtras(array("key"=>"value"))->setContentType("content_type");
+    $result5 = $client->send($message);
 
     //组装查询统计信息字符串
-    $msg_ids = $msgResult1->getMesId().",".$msgResult2->getMesId().",".$msgResult3->getMesId().",".$msgResult4->getMesId().",".$msgResult5->getMesId().",".$msgResult6->getMesId().",".$msgResult7->getMesId().",".$msgResult8->getMesId();
+    $msg_ids1 = '636946851';
+    $msg_ids2 = '636946851,1173817748,636946865';
+    $result6 = $client->getReport($msg_ids1);
+    $result7 = $client->getReport($msg_ids2);
 
+    //错误测试
+    $notification->setTitle(["This is title"]);
+    $result8 = $client->send($notification);
+    $notification->setTitle("This is title");
 
-    //Error test
-    $errRs1 = $client->sendNotification('1', 'ALL-This is title', 'ALL-This is content');
-    $errRs2 = $client->sendNotification(1, 123456, 'ALL-This is content');
+    $notification->setBadge("1");
+    $result9 = $client->send($notification);
+    $notification->setBadge(1);
 
 ?>
 
@@ -56,174 +62,66 @@
         table,tr,th,td {border: solid 1px;}
         th {background-color: #EEE;}
     </style>
-    <script type="text/javascript" src="jquery-1.9.1.min.js"></script>
-    <script type="text/javascript">
-  $(function(){
-        var surl = "httpReportRevGet.php?msg_ids=<?php echo $msg_ids; ?>";
-        sendRes(surl);
-        setInterval(function() {
-           sendRes(surl);
-        }, 10000);
-  
-  });
-  function sendRes(surl)
-  {    
-       //alert("111");
-        $.ajax({
-        //url: "/static/test.json",
-        url: surl,sync:false,
-        cache: false, dataType: "json",jsonpCallback:"success_jsonpCallback",
-        type:"get",
-        timeout:2000,
-        success: function (data) {
-          if(data.length!=0)
-          {
-        var status = "Please wait.";
-        var aVal,iVal,theadHtml="<tr><th>msg_id</th><th>ios接收数量</th><th>andriod接收数量</th><th>状态信息</th></tr>";
-        $("#revId").text("");
-        $("#revId").append(theadHtml);
-        $.each(data,function(i,v){
-           aVal = "-",iVal = "-";
-           if(v.android_received != null)
-         {
-             aVal = v.android_received;
-           status = "Success";
-         }             
-           if(v.ios_apns_sent != null)
-         {
-             iVal = v.ios_apns_sent;
-           status = "Success";
-         }
-         var trHtml = "<tr><td>"+v.msg_id+"</td><td>"+ iVal +"</td><td>"+aVal+"</td><td>"+status+"</td></tr>";
-         $("#revId").append(trHtml);
-         
-        })
-          }
-          else
-          {
-            var trHtml = "<tr><td colspan='4'>No msg_id to get</td></tr>";
-         $("#revId").append(trHtml);
-          }             
-         }, 
-          error: function (XMLHttpRequest, textStatus, errorThrown) {
-            var trHtml = "<tr><td>error</td><td colspan='3'>"+errorThrown+"</td></tr>";
-         $("#revId").append(trHtml);
-                           //console.info("error:"+errorThrown);
-             //console.info(textStatus);
-         }
-    });
-  
-  }
-  </script>
+
 </head>
 <body>
 <h1>JPush Example</h1>
 <h3>Push Example</h3>
 <table>
-    <tr><th>发送方式</th><th>返回状态</th><th>返回信息</th><th>sendno</th><th>msg_id</th><th>频率次数</th><th>可用频率次数</th><th>重置时间</th></tr>
+    <tr><th>发送方式</th><th>返回JSON</th></tr>
     <tr>
         <td>发送广播通知</td>
-        <td><?php echo $msgResult1->getCode(); ?></td>
-        <td><?php echo $msgResult1->getMessage(); ?></td>
-        <td><?php echo $msgResult1->getSendno(); ?></td>
-        <td><?php echo $msgResult1->getMesId(); ?></td>
-        <td><?php $resCon = $msgResult1->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
-        <td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
-        <td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
+        <td><?php echo $result1; ?></td>
     </tr>
     <tr>
-        <td>发送tag通知</td>
-        <td><?php echo $msgResult2->getCode(); ?></td>
-        <td><?php echo $msgResult2->getMessage(); ?></td>
-        <td><?php echo $msgResult2->getSendno(); ?></td>
-        <td><?php echo $msgResult2->getMesId(); ?></td>
-        <td><?php $resCon = $msgResult2->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
-        <td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
-        <td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
+        <td>发送广播自定义信息</td>
+        <td><?php echo $result2; ?></td>
     </tr>
     <tr>
-        <td>发送alias通知</td>
-        <td><?php echo $msgResult3->getCode(); ?></td>
-        <td><?php echo $msgResult3->getMessage(); ?></td>
-        <td><?php echo $msgResult3->getSendno(); ?></td>
-        <td><?php echo $msgResult3->getMesId(); ?></td>
-        <td><?php $resCon = $msgResult3->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
-        <td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
-        <td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
+        <td>发送Tag通知</td>
+        <td><?php echo $result3; ?></td>
     </tr>
     <tr>
-        <td>发送RegistrationID通知</td>
-        <td><?php echo $msgResult4->getCode(); ?></td>
-        <td><?php echo $msgResult4->getMessage(); ?></td>
-        <td><?php echo $msgResult4->getSendno(); ?></td>
-        <td><?php echo $msgResult4->getMesId(); ?></td>
-        <td><?php $resCon = $msgResult4->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
-        <td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
-        <td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
+        <td>其他属性测试</td>
+        <td><?php echo $result4; ?></td>
     </tr>
     <tr>
-        <td>发送广播自定义消息</td>
-        <td><?php echo $msgResult5->getCode(); ?></td>
-        <td><?php echo $msgResult5->getMessage(); ?></td>
-        <td><?php echo $msgResult5->getSendno(); ?></td>
-        <td><?php echo $msgResult5->getMesId(); ?></td>
-        <td><?php $resCon = $msgResult5->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
-        <td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
-        <td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
+        <td>其他属性测试(自定义)</td>
+        <td><?php echo $result5; ?></td>
     </tr>
-    <tr>
-        <td>发送tag自定义消息</td>
-        <td><?php echo $msgResult6->getCode(); ?></td>
-        <td><?php echo $msgResult6->getMessage(); ?></td>
-        <td><?php echo $msgResult6->getSendno(); ?></td>
-        <td><?php echo $msgResult6->getMesId(); ?></td>
-        <td><?php $resCon = $msgResult6->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
-        <td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
-        <td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
-    </tr>
-    <tr>
-        <td>发送alias自定义消息</td>
-        <td><?php echo $msgResult7->getCode(); ?></td>
-        <td><?php echo $msgResult7->getMessage(); ?></td>
-        <td><?php echo $msgResult7->getSendno(); ?></td>
-        <td><?php echo $msgResult7->getMesId(); ?></td>
-        <td><?php $resCon = $msgResult7->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
-        <td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
-        <td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
-    </tr>
-    <tr>
-        <td>发送RegistrationID自定义消息</td>
-        <td><?php echo $msgResult8->getCode(); ?></td>
-        <td><?php echo $msgResult8->getMessage(); ?></td>
-        <td><?php echo $msgResult8->getSendno(); ?></td>
-        <td><?php echo $msgResult8->getMesId(); ?></td>
-        <td><?php $resCon = $msgResult8->getResponseContent(); echo $resCon["X-Rate-Limit-Limit"]; ?></td>
-        <td><?php echo $resCon["X-Rate-Limit-Remaining"]; ?></td>
-        <td><?php echo $resCon["X-Rate-Limit-Reset"]; ?></td>
-    </tr>
-    
-   
 </table>
-<h3>Receive Example</h3>
-<table id="revId">
-  <tr><th>msg_id</th><th>ios接收数量</th><th>andriod接收数量</th><th>状态信息</th></tr>
+
+<h3>Report Example</h3>
+<table>
+    <tr><th>发送的msg_ids</th><th>返回JSON</th></tr>
+    <tr>
+        <td><?php echo $msg_ids1; ?></td>
+        <td><?php echo $result6; ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $msg_ids2; ?></td>
+        <td><?php echo $result7; ?></td>
+    </tr>
 </table>
 
 <h3>Error Example</h3>
-<table id="revId">
-  <tr>
-    <th>错误类型</th><th>错误代码</th><th>错误提示</th></tr>
-  <tr>
-    <td>Sendno Error</td>
-    <td><?php echo $errRs1->getCode(); ?></td>
-    <td><?php echo $errRs1->getMessage(); ?></td>
-  </tr>
-  <tr>
-    <td>Title Error</td>
-    <td><?php echo $errRs2->getCode(); ?></td>
-    <td><?php echo $errRs2->getMessage(); ?></td>
-  </tr>
+<table>
+    <tr><th>错误信息</th><th>返回JSON</th></tr>
+    <tr>
+        <td>标题错误</td>
+        <td><?php echo $result8; ?></td>
+    </tr>
+    <tr>
+        <td>Badge错误</td>
+        <td><?php echo $result9; ?></td>
+    </tr>
+    <tr>
+        <td>更多错误</td>
+        <td>待添加</td>
+    </tr>
+
 </table>
+
 
 
 

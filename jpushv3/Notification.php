@@ -61,7 +61,7 @@ class Notification {
     //audience params setting functiuon
     public function setTag($tags) {
         $this->tag = $tags;
-        $this->sendToAll = false;
+        $this->sendToAlls = false;
         return $this;
     }
 
