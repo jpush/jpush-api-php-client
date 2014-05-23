@@ -21,7 +21,7 @@ $master_secret = 'd94f733358cca97b18b2cb98';
 $app_key='47a3ddda34b2602fa9e17c01';
 $client = new JPushClient($app_key, $master_secret);
 
-
+//init
 $payload = new PushPayload();
 $platform = new Platform();
 $audience = new Audience();
@@ -33,25 +33,31 @@ $ios = new IOSNotification();
 $android = new AndroidNotification();
 $winphone = new WinphoneNotification();
 
+
+//set platform params
 //$platform->ios = true;
 //$platform->winphone = true;
 
+
+//set audience params
 $audience->tag = "tag1, tag2";
 //$audience->tag_and = "tag3, tag4";
 //$audience->alias = "alias1,alias2";
 //$audience->registration_is = "id1,id2";
 
+//set message params
 $message->msg_content = "message content test";
 $message->title = "message title test";
 $message->content_type = "message content type test";
 $message->extras = array("key1"=>"value1", "key2"=>"value2");
 
+//set options params
 $options->sendno = 1;
 $options->apns_production = true;
 $options->override_msg_id = 2;
 $options->time_to_live = 60;
 
-
+//set notification params
 $ios->alert = "ios notification alert test";
 $ios->sound = "happy";
 $ios->badge = 1;
@@ -79,9 +85,12 @@ $notification->winphone = $winphone;
 //$payload->options = $options;
 $payload->notification = $notification;
 
+
 echo json_encode($payload->toJSON()) . "<br/>";
 
+//send payload
 $result = $client->sendPush($payload);
+
 echo var_dump($result) . "<br/>";
 
 
