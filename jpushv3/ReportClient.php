@@ -1,4 +1,5 @@
 <?php
+
 include_once 'NativeHttpClient.php';
 /**
  * 获取统计信息逻辑类

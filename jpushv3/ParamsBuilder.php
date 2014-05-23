@@ -119,6 +119,13 @@ class ParamsBuilder {
         return true;
     }
 
+    public function validatePayload($payload, $result) {
+        if (is_null($payload->platform) === false) {
+            //TODO something
+        }
+
+    }
+
     public function validateReceiveParams($msg_ids, $result) {
         if (is_string($msg_ids) === false) {
             $result->init(1003, "Parameters 'msg_ids' must be a string");

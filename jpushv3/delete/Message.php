@@ -33,7 +33,7 @@ class Message {
     private $overrideEnable = false;
     private $override_msg_id;
 
-        /**
+    /**
     * 构造函数
     * @param String $content 自定义消息的正文
     */
