@@ -16,6 +16,7 @@ class JPushClient {
 
     private $pushClient;
     private $paramsBuilder;
+    private $reportClient;
 
     /**
      * 构造函数
@@ -28,6 +29,7 @@ class JPushClient {
 
         $this->pushClient = new PushClient();
         $this->paramsBuilder = new ParamsBuilder();
+        $this->reportClient = new ReportClient();
     }
 
     /**
@@ -37,8 +39,19 @@ class JPushClient {
      */
     public function sendPush($payload) {
         $result = new Result();
-        $autoCode = $this->paramsBuilder->buildAutoCode($this->appKey, $this->masterSecret, $result);
 
+        //validate
+        $isValidate = $this->paramsBuilder->vaildateAutoCode($this->appKey, $this->masterSecret, $result);
+        if ($isValidate === false) {
+            return $result->toJSON();
+        }
+        $isValidate = $this->paramsBuilder->validatePayload($payload, $result);
+        if ($isValidate === false) {
+            return $result->toJSON();
+        }
+
+        //send
+        $autoCode = $this->paramsBuilder->buildAutoCode($this->appKey, $this->masterSecret, $result);
         return $this->pushClient->sendPush($payload, $autoCode);
     }
 
@@ -49,119 +62,20 @@ class JPushClient {
      */
     public function getReport($msg_ids) {
         $result = new Result();
-        $paramsBuilder = new ParamsBuilder();
-
-        $isValidate = $paramsBuilder->vaildateAutoCode($this->appKey, $this->masterSecret, $result);
+        $isValidate = $this->paramsBuilder->vaildateAutoCode($this->appKey, $this->masterSecret, $result);
         if ($isValidate === false) {
-            return $result->getJSON();
+            return $result->toJSON();
         }
-        $isValidate = $paramsBuilder->validateReceiveParams($msg_ids, $result);
+        $isValidate = $this->paramsBuilder->validateReceiveParams($msg_ids, $result);
         if ($isValidate === false) {
-            return $result->getJSON();
+            return $result->toJSON();
         }
 
-        $reportClient = new ReportClient();
-        $autoCode = $paramsBuilder->buildAutoCode($this->appKey, $this->masterSecret, $result);
-        return $reportClient->send($msg_ids, $autoCode);
+
+        $autoCode = $this->paramsBuilder->buildAutoCode($this->appKey, $this->masterSecret, $result);
+        return $this->reportClient->send($msg_ids, $autoCode);
     }
 
-    /**
-    * 发送通知或自定义信息
-    * @param Notification & Message $msg  消息对象
-    *
-    * @return Json对象
-    */
-    /*
-    public function send($msg) {
-        $result = new Result();
-
-        if (method_exists($msg, 'getMsgType') == false) {
-            $result->init(1003, 'Only Notification and Message can be send');
-            return $pushResult;
-        }
-
-        $msgType = $msg->getMsgType();
-        if ($msgType === 'Notification') {
-            return $this->sendNotification($msg, $result);
-        } else if ($msgType === 'Message') {
-            return $this->sendMessage($msg, $result);
-        } else {
-            $result->init(1003, 'Only Notification and Message can be send');
-            return $pushResult;
-        }
-    }
-    */
-
-
-
-    /*
-    //发送通知
-    private function sendNotification($msg, $result) {
-        $paramsBuilder = new ParamsBuilder();
-        $isValidate = $paramsBuilder->vaildateAutoCode($this->appKey, $this->masterSecret, $result);
-        if ($isValidate == false) {
-            return $result->getJSON();
-        }
-        $isValidate = $paramsBuilder->validateParams($msg, $result);
-        if ($isValidate == false) {
-            return $result->getJSON();
-        }
-        $isValidate = $paramsBuilder->validateNotificationParams($msg, $result);
-        if ($isValidate == false) {
-            return $result->getJSON();
-        }
-
-        $platform = $paramsBuilder->buildPlatform($msg);
-        $audience = $paramsBuilder->buildAudience($msg);
-        $notification = $paramsBuilder->buildNotification($msg);
-        $options = $paramsBuilder->buildOptions($msg);
-        $autoCode = $paramsBuilder->buildAutoCode($this->appKey, $this->masterSecret);
-
-        $sendVO = array("platform"=>$platform,
-                                        "audience"=>$audience,
-                                        "notification"=>$notification,
-                                        "options"=>$options);
-        
-        $pushClient = new PushClient();
-        $result = $pushClient->send($sendVO, $autoCode);
-
-        return $result;
-        
-    }                  
-
-
-    //发送自定义信息
-    private function sendMessage($msg, $result) {
-        $paramsBuilder = new ParamsBuilder();
-        $isValidate = $paramsBuilder->vaildateAutoCode($this->appKey, $this->masterSecret, $result);
-        if ($isValidate == false) {
-            return $result->getJSON();
-        }
-        $isValidate = $paramsBuilder->validateParams($msg, $result);
-        if ($isValidate == false) {
-            return $result->getJSON();
-        }
-        $isValidate = $paramsBuilder->validateMessageParams($msg, $result);
-        if ($isValidate == false) {
-            return $result->getJSON();
-        }
-
-        $platform = $paramsBuilder->buildPlatform($msg);
-        $audience = $paramsBuilder->buildAudience($msg);
-        $options = $paramsBuilder->buildOptions($msg);
-        $message = $paramsBuilder->buildMessage($msg);
-        $autoCode = $paramsBuilder->buildAutoCode($this->appKey, $this->masterSecret);
-
-        $sendVO = array("platform"=>$platform,
-                                        "audience"=>$audience,
-                                        "message"=>$message,
-                                        "options"=>$options);
-        
-        $pushClient = new PushClient();
-        $result = $pushClient->send($sendVO, $autoCode);
-        return $result;
-    }
-    */
 }
 
 

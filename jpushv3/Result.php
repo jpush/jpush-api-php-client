@@ -31,7 +31,7 @@ class Result {
         $this->$property_name = $value;
     }
 
-    public function getJSON() {
+    public function toJSON() {
         $arr = array("code"=>$this->code, "message"=>$this->message);
         return json_encode($arr);
     }

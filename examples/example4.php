@@ -91,7 +91,10 @@ echo json_encode($payload->toJSON()) . "<br/>";
 //send payload
 $result = $client->sendPush($payload);
 
-echo var_dump($result) . "<br/>";
+echo $result . "<br/>";
+
+$result = $client->getReport("806671145");
+echo $result . "<br/>";
 
 
 
