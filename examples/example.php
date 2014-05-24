@@ -82,13 +82,14 @@
 
     /* init end */
 
-    $payload = new PushClient();
-    $notification = new Notification();
-    $notification->alert = "alert message";
+
+
 
 
     //发送广播通知
     $payload1 = new PushPayload();
+    $notification1 = new Notification();
+    $notification1->alert = "alert message";
     $payload1->notification = $notification;
     $result1 = $client->sendPush($payload1);
 

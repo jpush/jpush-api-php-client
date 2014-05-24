@@ -49,11 +49,11 @@ phpunit AllTest.php
 
 ```php
 //发送广播通知
-$client = new JPushClient($app_key, $master_secret);
-$payload = new PushClient();
-$notification = new Notification();
-$notification->alert = "alert message";
-$result1 = $client->sendPush($payload);
+$payload1 = new PushPayload();
+$notification1 = new Notification();
+$notification1->alert = "alert message";
+$payload1->notification = $notification;
+$result1 = $client->sendPush($payload1);
 ```
 
 

@@ -29,19 +29,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="72" column="57" selection-start="1410" selection-end="1410" vertical-scroll-proportion="0.93877554" vertical-offset="744" max-vertical-offset="1404">
+            <state line="50" column="8" selection-start="887" selection-end="887" vertical-scroll-proportion="-6.24" vertical-offset="744" max-vertical-offset="1404">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="example2.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="example2.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/examples/example2.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="6" selection-end="488" vertical-scroll-proportion="21.333334" vertical-offset="594" max-vertical-offset="1512">
+            <state line="1" column="0" selection-start="6" selection-end="488" vertical-scroll-proportion="-0.33788395" vertical-offset="216" max-vertical-offset="1512">
               <folding />
             </state>
           </provider>
@@ -50,7 +50,7 @@
       <file leaf-file-name="example.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/example.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="119" column="33" selection-start="3776" selection-end="3794" vertical-scroll-proportion="-15.333333" vertical-offset="1728" max-vertical-offset="3294">
+            <state line="88" column="4" selection-start="2820" selection-end="3039" vertical-scroll-proportion="-6.0" vertical-offset="1422" max-vertical-offset="3312">
               <folding />
             </state>
           </provider>
@@ -604,23 +604,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/example2.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="6" selection-end="488" vertical-scroll-proportion="21.333334" vertical-offset="594" max-vertical-offset="1512">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/example.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="33" selection-start="3776" selection-end="3794" vertical-scroll-proportion="-15.333333" vertical-offset="1728" max-vertical-offset="3294">
+        <state line="88" column="4" selection-start="2820" selection-end="3039" vertical-scroll-proportion="-6.0" vertical-offset="1422" max-vertical-offset="3312">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="57" selection-start="1410" selection-end="1410" vertical-scroll-proportion="0.93877554" vertical-offset="744" max-vertical-offset="1404">
+        <state line="50" column="8" selection-start="887" selection-end="887" vertical-scroll-proportion="-6.24" vertical-offset="744" max-vertical-offset="1404">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/example2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="6" selection-end="488" vertical-scroll-proportion="-0.33788395" vertical-offset="216" max-vertical-offset="1512">
           <folding />
         </state>
       </provider>

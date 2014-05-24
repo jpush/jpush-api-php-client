@@ -8,3 +8,4 @@ bin/
 .buildpath
 .project
 .settings/
+.idea
