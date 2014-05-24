@@ -1,38 +1,116 @@
 <?php
-    include_once '../jpushv3/JPushClient.php';
-    include_once '../jpushv3/Notification.php';
-    include_once '../jpushv3/Message.php';
+    include_once '../jpush/JPushClient.php';
+    include_once '../jpush/model/Audience.php';
+    include_once '../jpush/model/Message.php';
+    include_once '../jpush/model/notification/Notification.php';
+    include_once '../jpush/model/notification/IOSNotification.php';
+    include_once '../jpush/model/notification/AndroidNotification.php';
+    include_once '../jpush/model/notification/WinphoneNotification.php';
+    include_once '../jpush/model/Options.php';
+    include_once '../jpush/model/Platform.php';
+    include_once '../jpush/model/PushPayload.php';
 
     $master_secret = 'd94f733358cca97b18b2cb98';
     $app_key='47a3ddda34b2602fa9e17c01';
+    $tag = "tag1,tag2";
+    $tag_and = "tag3,tag4";
+    $alias = "alias1,alias2";
+    $registration_id = "id1,id2";
     $client = new JPushClient($app_key, $master_secret);
 
-    $notification = new Notification('This is content');
-    $message = new Message("This is content");
+    /* init start */
+    $platform = new Platform();
+    $audience = new Audience();
+    $message = new Message();
+    $options = new Options();
+
+    $notification = new Notification();
+    $ios = new IOSNotification();
+    $android = new AndroidNotification();
+    $winphone = new WinphoneNotification();
+
+    //set platform params
+    $platform->ios = true;
+    $platform->winphone = true;
+
+
+    //set audience params
+    $audience->tag = $tag;
+    $audience->tag_and = $tag_and;
+    $audience->alias = $alias;
+    $audience->registration_id = $registration_id;
+
+    //set options params
+    $options->sendno = 1;
+    $options->apns_production = true;
+    $options->override_msg_id = 2;
+    $options->time_to_live = 60;
+
+    //set message params
+    $message->msg_content = "message content test";
+    $message->title = "message title test";
+    $message->content_type = "message content type test";
+    $message->extras = array("key1"=>"value1", "key2"=>"value2");
+
+    //set options params
+    $options->sendno = 1;
+    $options->apns_production = true;
+    $options->override_msg_id = 2;
+    $options->time_to_live = 60;
+
+    //set notification params
+    $ios->alert = "ios notification alert test";
+    $ios->sound = "happy";
+    $ios->badge = 1;
+    $ios->extras = array("key1"=>"value1", "key2"=>"value2");
+    $ios->content_availabe = 1;
+
+    $android->alert = "android notification alert test";
+    $android->title = "android notification title test";
+    $android->builder_id = 1;
+    $android->extras = array("key1"=>"value1", "key2"=>"value2");
+
+    $winphone->alert = "winphone notification alert test";
+    $winphone->title = "winphone notification title test";
+    $winphone->_open_page = "/friends.xaml";
+    $winphone->extras = array("key1"=>"value1", "key2"=>"value2");
+
+    $notification->alert = "notification alert test";
+    $notification->android = $android;
+    $notification->ios = $ios;
+    $notification->winphone = $winphone;
+
+    /* init end */
+
+
+
 
     //发送广播通知
-    $result1 = $client->send($notification);
+    $payload1 = new PushPayload();
+    $payload1->notification = $notification;
+    $result1 = $client->sendPush($payload1);
 
     //发送广播自定义信息
-    $result2 = $client->send($message);
+    $payload2 = new PushPayload();
+    $payload2->message = $message;
+    $result2 = $client->sendPush($payload2);
 
     //发送Tag通知
-    $notification->setTag("555,666");
-    $result3 = $client->send($notification);
+    $options3 = new Options();
+    $audience3 = new Audience();
+    $notification3 = new Notification();
+    $notification3->alert = "tag tests";
+    $audience3->tag = "555";
+    //$audience3->alias = $alias;
+    $options3->sendno = 441740752;
 
-    //其他属性测试
-    $notification->setTitle("This is title")
-        ->setBuilderId(1)
-        ->setExtras(array("key"=>"value"))
-        ->setSound("happy")
-        ->setBadge(1)
-        ->setContentAvailabe(true)
-        ->setOpenPage("/friends.xaml");
-    $result4 = $client->send($notification);
+    $payload3 = new PushPayload();
+    $payload3->audience = $audience3;
+    $payload3->notification = $notification3;
+    $payload3->options = $options3;
+    $result3 = $client->sendPush($payload3);
 
-    //其他属性测试
-    $message->setTitle("This is title")->setExtras(array("key"=>"value"))->setContentType("content_type");
-    $result5 = $client->send($message);
+
 
     //组装查询统计信息字符串
     $msg_ids1 = '636946851';
@@ -40,14 +118,6 @@
     $result6 = $client->getReport($msg_ids1);
     $result7 = $client->getReport($msg_ids2);
 
-    //错误测试
-    $notification->setTitle(["This is title"]);
-    $result8 = $client->send($notification);
-    $notification->setTitle("This is title");
-
-    $notification->setBadge("1");
-    $result9 = $client->send($notification);
-    $notification->setBadge(1);
 
 ?>
 
@@ -81,14 +151,7 @@
         <td>发送Tag通知</td>
         <td><?php echo $result3; ?></td>
     </tr>
-    <tr>
-        <td>其他属性测试</td>
-        <td><?php echo $result4; ?></td>
-    </tr>
-    <tr>
-        <td>其他属性测试(自定义)</td>
-        <td><?php echo $result5; ?></td>
-    </tr>
+
 </table>
 
 <h3>Report Example</h3>
@@ -104,23 +167,7 @@
     </tr>
 </table>
 
-<h3>Error Example</h3>
-<table>
-    <tr><th>错误信息</th><th>返回JSON</th></tr>
-    <tr>
-        <td>标题错误</td>
-        <td><?php echo $result8; ?></td>
-    </tr>
-    <tr>
-        <td>Badge错误</td>
-        <td><?php echo $result9; ?></td>
-    </tr>
-    <tr>
-        <td>更多错误</td>
-        <td>待添加</td>
-    </tr>
 
-</table>
 
 
 

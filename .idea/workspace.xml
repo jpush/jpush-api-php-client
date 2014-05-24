@@ -1,12 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/jpush/NativeHttpClient.php" line="13" mnemonic="4" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="09ee91d3-8df0-42cf-8dc9-8b3017f94bc7" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/jpushv3/ParamsVerifier.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jpushv3/JPushClient.php" afterPath="$PROJECT_DIR$/jpushv3/JPushClient.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jpushv3/ParamsBuilder.php" afterPath="$PROJECT_DIR$/jpushv3/ParamsBuilder.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jpushv3/Result.php" afterPath="$PROJECT_DIR$/jpushv3/Result.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/AllTests.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/AndroidNotificationTests.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/AudienceTests.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/IOSNotificationTests.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/MessageTests.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/NotificationTests.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/OptionsTests.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/PlatformTests.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/PushPayloadTests.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/WinphoneNotificationTests.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/example2.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/TestNotifical.php" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jpushv3/JPushClient.php" afterPath="$PROJECT_DIR$/jpush/JPushClient.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jpushv3/NativeHttpClient.php" afterPath="$PROJECT_DIR$/jpush/NativeHttpClient.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jpushv3/ParamsBuilder.php" afterPath="$PROJECT_DIR$/jpush/ParamsBuilder.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jpushv3/PushClient.php" afterPath="$PROJECT_DIR$/jpush/PushClient.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jpushv3/ReportClient.php" afterPath="$PROJECT_DIR$/jpush/ReportClient.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jpushv3/Result.php" afterPath="$PROJECT_DIR$/jpush/Result.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jpushv3/model/Audience.php" afterPath="$PROJECT_DIR$/jpush/model/Audience.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jpushv3/model/Message.php" afterPath="$PROJECT_DIR$/jpush/model/Message.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jpushv3/model/Options.php" afterPath="$PROJECT_DIR$/jpush/model/Options.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jpushv3/model/Platform.php" afterPath="$PROJECT_DIR$/jpush/model/Platform.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jpushv3/model/PushPayload.php" afterPath="$PROJECT_DIR$/jpush/model/PushPayload.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jpushv3/model/notification/AndroidNotification.php" afterPath="$PROJECT_DIR$/jpush/model/notification/AndroidNotification.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jpushv3/model/notification/IOSNotification.php" afterPath="$PROJECT_DIR$/jpush/model/notification/IOSNotification.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jpushv3/model/notification/Notification.php" afterPath="$PROJECT_DIR$/jpush/model/notification/Notification.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jpushv3/model/notification/WinphoneNotification.php" afterPath="$PROJECT_DIR$/jpush/model/notification/WinphoneNotification.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/example.php" afterPath="$PROJECT_DIR$/examples/example.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/example4.php" afterPath="$PROJECT_DIR$/examples/example4.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jpush-api-php-client.iml" afterPath="$PROJECT_DIR$/.idea/jpush-api-php-client.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="jpush-api-php-client.iws" />
@@ -29,64 +57,7 @@
     <favorites_list name="jpush-api-php-client" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="example4.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/example4.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="82" column="33" selection-start="2502" selection-end="2502" vertical-scroll-proportion="-26.074074" vertical-offset="772" max-vertical-offset="1926">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ParamsBuilder.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/jpushv3/ParamsBuilder.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="224" column="0" selection-start="9185" selection-end="9185" vertical-scroll-proportion="6.349315" vertical-offset="0" max-vertical-offset="3906">
-              <folding>
-                <element signature="n#validateMessageParams#0;n#ParamsBuilder#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Audience.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jpushv3/model/Audience.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="6" selection-start="13" selection-end="13" vertical-scroll-proportion="-1.3333334" vertical-offset="0" max-vertical-offset="648">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JPushClient.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jpushv3/JPushClient.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="0" selection-start="2143" selection-end="2143" vertical-scroll-proportion="-51.333332" vertical-offset="0" max-vertical-offset="1566">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Result.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jpushv3/Result.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="26" selection-start="674" selection-end="680" vertical-scroll-proportion="-16.0" vertical-offset="162" max-vertical-offset="846">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="example.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/example.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="15" selection-start="1183" selection-end="1213" vertical-scroll-proportion="-8.0" vertical-offset="486" max-vertical-offset="2412">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -118,15 +89,44 @@
         <option value="$PROJECT_DIR$/examples/example4.php" />
         <option value="$PROJECT_DIR$/jpushv3/JPushClient.php" />
         <option value="$PROJECT_DIR$/jpushv3/ParamsBuilder.php" />
+        <option value="$PROJECT_DIR$/test/jpush/model/notification/AndroidNotificationTests.php" />
+        <option value="$PROJECT_DIR$/test/model/notification/WinphoneNotificationTests.php" />
+        <option value="$PROJECT_DIR$/test/model/notification/AndroidNotificationTests.php" />
+        <option value="$PROJECT_DIR$/test/WinphoneNotificationTests.php" />
+        <option value="$PROJECT_DIR$/test/NotificationTests.php" />
+        <option value="$PROJECT_DIR$/test/IOSNotificationTests.php" />
+        <option value="$PROJECT_DIR$/test/AndroidNotificationTests.php" />
+        <option value="$PROJECT_DIR$/test/OptionsTests.php" />
+        <option value="$PROJECT_DIR$/test/PlatformTests.php" />
+        <option value="$PROJECT_DIR$/test/AudienceTests.php" />
+        <option value="$PROJECT_DIR$/test/MessageTests.php" />
+        <option value="$PROJECT_DIR$/examples/example2.php" />
+        <option value="$PROJECT_DIR$/test/PushPayloadTests.php" />
+        <option value="$PROJECT_DIR$/test/AllTests.php" />
+        <option value="$PROJECT_DIR$/jpush/model/Audience.php" />
+        <option value="$PROJECT_DIR$/jpush/PushClient.php" />
+        <option value="$PROJECT_DIR$/examples/example.php" />
+        <option value="$PROJECT_DIR$/jpush/ParamsBuilder.php" />
+        <option value="$PROJECT_DIR$/jpush/NativeHttpClient.php" />
+        <option value="$PROJECT_DIR$/jpush/ReportClient.php" />
       </list>
     </option>
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="PhpServers">
+    <option name="servers">
+      <server host="localhost" name="PHP5.5" />
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHp5.5.9">
+    <include_path>
+      <path value="/usr/share/php" />
+    </include_path>
+  </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="1920" />
-    <option name="y" value="326" />
-    <option name="width" value="1360" />
-    <option name="height" value="772" />
+    <option name="y" value="354" />
+    <option name="width" value="1350" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -135,7 +135,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
@@ -154,6 +154,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -196,7 +197,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="jpushv3" />
+              <option name="myItemId" value="jpush" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -216,24 +217,40 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="SearchEverywhereHistory" value="/" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="recentsLimit" value="5" />
+    <property name="restartRequiresConfirmation" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test" />
+      <recent name="$PROJECT_DIR$/test/jpush/model" />
+      <recent name="$PROJECT_DIR$/test/jpush/model/notification" />
+      <recent name="$PROJECT_DIR$/test/model" />
       <recent name="$PROJECT_DIR$/jpushv3/common" />
-      <recent name="$PROJECT_DIR$/jpushv3/report" />
-      <recent name="$PROJECT_DIR$/jpushv3/delete" />
-      <recent name="$PROJECT_DIR$/jpushv3" />
-      <recent name="$PROJECT_DIR$/jpushv3/push" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="PHPUnit.AllTests">
+    <configuration default="false" name="test" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner directory="$PROJECT_DIR$/test" />
+      <RunnerSettings RunnerId="PhpRunner" />
+      <ConfigurationWrapper RunnerId="PhpRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="AllTests" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="AllTests" file="$PROJECT_DIR$/test/AllTests.php" scope="Class" />
+      <RunnerSettings RunnerId="PhpRunner" />
+      <ConfigurationWrapper RunnerId="PhpRunner" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" server_name="PHP5.5">
+      <method />
+    </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
@@ -247,7 +264,16 @@
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
       <method />
     </configuration>
-    <list size="0" />
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="PHPUnit.test" />
+      <item index="1" class="java.lang.String" itemvalue="PHPUnit.AllTests" />
+    </list>
+    <recent_temporary>
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="PHPUnit.AllTests" />
+        <item index="1" class="java.lang.String" itemvalue="PHPUnit.test" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="TaskManager">
@@ -259,15 +285,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="326" width="1360" height="772" extended-state="6" />
-    <editor active="true" />
+    <frame x="1920" y="354" width="1350" height="744" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22941177" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22888888" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32935917" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -301,6 +327,77 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/test/PushPayloadTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/PlatformTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/OptionsTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/MessageTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
+          <folding>
+            <element signature="e#49#132#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/AudienceTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
+          <folding>
+            <element signature="e#51#134#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/NotificationTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="23" selection-start="97" selection-end="114" vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="288">
+          <folding>
+            <element signature="e#268#351#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/IOSNotificationTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/WinphoneNotificationTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
+          <folding>
+            <element signature="e#76#159#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/AndroidNotificationTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="2" selection-start="163" selection-end="163" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="198">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/examples/example4.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="87" column="0" selection-start="2608" selection-end="2608" vertical-scroll-proportion="0.0" vertical-offset="1224" max-vertical-offset="1872">
@@ -308,110 +405,223 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jpushv3/NativeHttpClient.php">
+    <entry file="file://$PROJECT_DIR$/jpush/NativeHttpClient.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jpushv3/ParamsBuilder.php">
+    <entry file="file://$PROJECT_DIR$/jpush/ParamsBuilder.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="109" column="30" selection-start="3644" selection-end="3644" vertical-scroll-proportion="0.0" vertical-offset="1890" max-vertical-offset="4410">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jpushv3/PushClient.php">
+    <entry file="file://$PROJECT_DIR$/jpush/PushClient.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="0" selection-start="7" selection-end="43" vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="702">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jpushv3/ReportClient.php">
+    <entry file="file://$PROJECT_DIR$/jpush/ReportClient.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="702">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jpushv3/JPushClient.php">
+    <entry file="file://$PROJECT_DIR$/jpush/JPushClient.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="65" column="5" selection-start="1741" selection-end="1741" vertical-scroll-proportion="0.0" vertical-offset="756" max-vertical-offset="3114">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jpushv3/NativeHttpClient.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="641">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jpushv3/PushClient.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="7" selection-end="43" vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="702">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jpushv3/ReportClient.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="702">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jpushv3/model/Options.php">
+    <entry file="file://$PROJECT_DIR$/jpush/model/Options.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="6" selection-start="13" selection-end="13" vertical-scroll-proportion="-1.3333334" vertical-offset="0" max-vertical-offset="612">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jpushv3/Result.php">
+    <entry file="file://$PROJECT_DIR$/jpush/Result.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="26" selection-start="674" selection-end="680" vertical-scroll-proportion="-16.0" vertical-offset="162" max-vertical-offset="846">
+        <state line="33" column="26" selection-start="674" selection-end="680" vertical-scroll-proportion="-16.0" vertical-offset="162" max-vertical-offset="846" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jpush/model/notification/Notification.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.084690556" vertical-offset="52" max-vertical-offset="666">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jpushv3/model/Audience.php">
+    <entry file="file://$PROJECT_DIR$/test/WinphoneNotificationTests.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="6" selection-start="13" selection-end="13" vertical-scroll-proportion="-1.3333334" vertical-offset="0" max-vertical-offset="648">
+        <state line="11" column="24" selection-start="254" selection-end="254" vertical-scroll-proportion="-4.0" vertical-offset="0" max-vertical-offset="450">
+          <folding>
+            <element signature="e#76#159#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/NotificationTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="24" selection-start="439" selection-end="439" vertical-scroll-proportion="-6.0" vertical-offset="0" max-vertical-offset="900">
+          <folding>
+            <element signature="e#268#351#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/IOSNotificationTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="24" selection-start="247" selection-end="247" vertical-scroll-proportion="-8.666667" vertical-offset="0" max-vertical-offset="594">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/example.php">
+    <entry file="file://$PROJECT_DIR$/test/PlatformTests.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="15" selection-start="1183" selection-end="1213" vertical-scroll-proportion="-8.0" vertical-offset="486" max-vertical-offset="2412">
+        <state line="25" column="24" selection-start="622" selection-end="622" vertical-scroll-proportion="0.5863192" vertical-offset="0" max-vertical-offset="614">
+          <folding>
+            <element signature="e#50#133#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/AndroidNotificationTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="23" selection-start="102" selection-end="102" vertical-scroll-proportion="0.117263846" vertical-offset="0" max-vertical-offset="614">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jpush/model/Platform.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="641">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/OptionsTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="53" selection-start="153" selection-end="187" vertical-scroll-proportion="-2.6666667" vertical-offset="0" max-vertical-offset="450">
+          <folding>
+            <element signature="e#49#132#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/MessageTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="8" selection-start="699" selection-end="783" vertical-scroll-proportion="-10.666667" vertical-offset="0" max-vertical-offset="468">
+          <folding>
+            <element signature="e#49#132#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/PushPayloadTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="37" selection-start="2833" selection-end="2833" vertical-scroll-proportion="-14.259259" vertical-offset="407" max-vertical-offset="2034">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/AudienceTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="19" selection-start="155" selection-end="191" vertical-scroll-proportion="0.14642262" vertical-offset="2" max-vertical-offset="630">
+          <folding>
+            <element signature="e#51#134#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jpush/model/Audience.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="23" selection-start="92" selection-end="108" vertical-scroll-proportion="-4.0" vertical-offset="0" max-vertical-offset="648">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/AllTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="18" selection-start="294" selection-end="294" vertical-scroll-proportion="4.6666665" vertical-offset="270" max-vertical-offset="846">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/example4.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="33" selection-start="2502" selection-end="2502" vertical-scroll-proportion="-26.074074" vertical-offset="772" max-vertical-offset="1926">
+        <state line="30" column="0" selection-start="897" selection-end="1040" vertical-scroll-proportion="-4.0" vertical-offset="432" max-vertical-offset="1926">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jpushv3/JPushClient.php">
+    <entry file="file://$PROJECT_DIR$/examples/example2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="0" selection-start="2143" selection-end="2143" vertical-scroll-proportion="-51.333332" vertical-offset="0" max-vertical-offset="1566">
+        <state line="1" column="0" selection-start="6" selection-end="488" vertical-scroll-proportion="21.333334" vertical-offset="594" max-vertical-offset="1512">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jpushv3/ParamsBuilder.php">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="224" column="0" selection-start="9185" selection-end="9185" vertical-scroll-proportion="6.349315" vertical-offset="0" max-vertical-offset="3906">
-          <folding>
-            <element signature="n#validateMessageParams#0;n#ParamsBuilder#0;n#!!top" expanded="false" />
-          </folding>
+        <state line="12" column="42" selection-start="252" selection-end="252" vertical-scroll-proportion="2.16" vertical-offset="270" max-vertical-offset="2988">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jpush/JPushClient.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="24" selection-start="290" selection-end="290" vertical-scroll-proportion="-5.5925927" vertical-offset="137" max-vertical-offset="1566">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/example.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="102" column="25" selection-start="3271" selection-end="3271" vertical-scroll-proportion="-2.0" vertical-offset="1782" max-vertical-offset="3258">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jpush/model/Message.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="23" selection-start="51" selection-end="63" vertical-scroll-proportion="-4.0" vertical-offset="0" max-vertical-offset="648">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jpush/ParamsBuilder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="68" selection-start="1384" selection-end="1384" vertical-scroll-proportion="-4.6666665" vertical-offset="702" max-vertical-offset="4230">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jpush/PushClient.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="1" selection-start="701" selection-end="701" vertical-scroll-proportion="-16.666666" vertical-offset="0" max-vertical-offset="594">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jpush/ReportClient.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="12" selection-start="673" selection-end="679" vertical-scroll-proportion="0.61433446" vertical-offset="72" max-vertical-offset="702">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jpush/NativeHttpClient.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="0" selection-start="573" selection-end="573" vertical-scroll-proportion="0.33788395" vertical-offset="144" max-vertical-offset="828">
+          <folding />
         </state>
       </provider>
     </entry>

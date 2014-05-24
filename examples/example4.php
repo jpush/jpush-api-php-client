@@ -1,15 +1,15 @@
 <?php
-include_once '../jpushv3/JPushClient.php';
+include_once '../jpush/JPushClient.php';
 
-include_once '../jpushv3/model/Audience.php';
-include_once '../jpushv3/model/Message.php';
-include_once '../jpushv3/model/notification/Notification.php';
-include_once '../jpushv3/model/notification/IOSNotification.php';
-include_once '../jpushv3/model/notification/AndroidNotification.php';
-include_once '../jpushv3/model/notification/WinphoneNotification.php';
-include_once '../jpushv3/model/Options.php';
-include_once '../jpushv3/model/Platform.php';
-include_once '../jpushv3/model/PushPayload.php';
+include_once '../jpush/model/Audience.php';
+include_once '../jpush/model/Message.php';
+include_once '../jpush/model/notification/Notification.php';
+include_once '../jpush/model/notification/IOSNotification.php';
+include_once '../jpush/model/notification/AndroidNotification.php';
+include_once '../jpush/model/notification/WinphoneNotification.php';
+include_once '../jpush/model/Options.php';
+include_once '../jpush/model/Platform.php';
+include_once '../jpush/model/PushPayload.php';
 /**
  * Created by PhpStorm.
  * User: xiezefan

@@ -44,7 +44,7 @@ class ParamsBuilder {
 
     //验证Message
     public function validateMessageParams($msg, $result) {
-        if (is_null($msg->content)  == false && is_string($msg->content) == false) {
+        if (is_null($msg->msg_content)  == false && is_string($msg->msg_content) == false) {
             $result->init(1003,"Parameters 'message->msg_content' must be a string");
             return false;
         }
@@ -135,7 +135,7 @@ class ParamsBuilder {
     }
 
     //验证Notification参数合法性
-    public function validateOptions($platform, $result) {
+    public function validatePlatform($platform, $result) {
         if (is_bool($platform->ios) === false) {
             $result->init(1003,"Parameters 'platform->ios' must be bool");
             return false;
@@ -174,13 +174,13 @@ class ParamsBuilder {
     }
 
     //验证Options参数合法性
-    public function valicateOptions($options, $result) {
+    public function validateOptions($options, $result) {
         // validate options params
-        if (is_int($options->time_to_live) === false || $options->time_to_live < 0 || $options->time_to_live > 864000) {
+        if (is_null($options->time_to_live) == false && (is_int($options->time_to_live) === false || $options->time_to_live < 0 || $options->time_to_live > 864000)) {
             $result->init(1003,"Parameters 'options->timeToLive' must be a int and in [0, 864000]");
             return false;
         }
-        if (is_bool($options->apns_production) === false) {
+        if (is_null($options->time_to_live) == false && is_bool($options->apns_production) === false) {
             $result->init(1003,"Parameters 'options->apnsProduction' must be bool");
             return false;
         }

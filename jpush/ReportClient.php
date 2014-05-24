@@ -12,7 +12,7 @@ class ReportClient {
     private $CHATSET = "UTF-8";
 
     public function send($data, $autoCode) {
-        $url = $this->RECEIVE_API_URL . "?msg_ids=" . $data;          
+        $url = $this->RECEIVE_API_URL . "?msg_ids=" . $data;
         $header = 'Authorization:' . $autoCode;
         //请求头信息
         $context = array('http' => array('method' => $this->RECEIVE_METHOD,  'header' => $header));
@@ -22,7 +22,7 @@ class ReportClient {
         $httpClient = new NativeHttpClient();
 
         try {
-            $rs = $httpClient->sendRequest($url, $stream_context);    
+            $rs = $httpClient->sendRequest($url, $stream_context);
             return $rs["body"];
         } catch (Exception $e) {
             return  json_encode(array("code"=>"400", "message"=>"Maybe connect error. Retry laster.")); 
