@@ -63,7 +63,7 @@
     $ios->sound = "happy";
     $ios->badge = 1;
     $ios->extras = array("key1"=>"value1", "key2"=>"value2");
-    $ios->content_availabe = 1;
+    $ios->content_available = null;
 
     $android->alert = "android notification alert test";
     $android->title = "android notification title test";
@@ -91,8 +91,9 @@
     $notification1 = new Notification();
     $notification1->alert = "alert message";
     $payload1->notification = $notification;
+    echo json_encode($payload1->toJSON()) . '<br/>';
     $result1 = $client->sendPush($payload1);
-
+var_dump($result1);
     //发送广播自定义信息
     $payload2 = new PushPayload();
     $payload2->message = $message;

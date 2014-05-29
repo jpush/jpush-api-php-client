@@ -85,8 +85,8 @@ class ParamsBuilder {
                 $result->init(1003,"Parameters 'iosnotification->badge' must be a int");
                 return false;
             }
-            if (is_null($ios->content_availabe)  == false && $ios->content_availabe !== 1) {
-                $result->init(1003,"Parameters 'iosnotification->content_availabe' must be int(1)");
+            if (is_null($ios->content_available)  == false && $ios->content_available !== 1) {
+                $result->init(1003,"Parameters 'iosnotification->content_available' must be int(1)");
                 return false;
             }
             if (is_null($ios->alert)  == false && is_string($ios->alert) == false) {

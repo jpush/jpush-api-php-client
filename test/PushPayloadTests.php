@@ -69,7 +69,7 @@ class PushPayloadTests extends PHPUnit_Framework_TestCase {
         $this->ios = new IOSNotification();
         $this->ios->alert = "ios alert";
         $this->ios->badge = 1;
-        $this->ios->content_availabe = 1;
+        $this->ios->content_available = 1;
         $this->ios->sound = "happy";
         $this->ios->extras = array("key1"=>"value1", "key2"=>"value2");
 

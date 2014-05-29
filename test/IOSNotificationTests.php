@@ -17,7 +17,7 @@ class IOSNotificationTests extends PHPUnit_Framework_TestCase  {
         $ios = new IOSNotification();
         $ios->alert = "ios alert";
         $ios->badge = 1;
-        $ios->content_availabe = 1;
+        $ios->content_available = 1;
         $ios->sound = "happy";
         $ios->extras = array("key1"=>"value1", "key2"=>"value2");
         $json_arr = $ios->toJSON();

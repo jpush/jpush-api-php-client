@@ -11,7 +11,7 @@ class IOSNotification {
     public $sound;
     public $badge;
     public $extras;
-    public $content_availabe;
+    public $content_available;
 
     public function toJSON() {
         $rs = array();
@@ -27,8 +27,8 @@ class IOSNotification {
         if (is_null($this->extras) === false) {
             $rs["extras"] = $this->extras;
         }
-        if (is_null($this->content_availabe) === false) {
-            $rs["content-availabe"] = $this->content_availabe;
+        if (is_null($this->content_available) === false) {
+            $rs["content-available"] = $this->content_available;
         }
 
         return $rs;

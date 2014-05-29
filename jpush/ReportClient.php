@@ -25,9 +25,9 @@ class ReportClient {
             $rs = $httpClient->sendRequest($url, $stream_context);
             return $rs["body"];
         } catch (Exception $e) {
-            return  json_encode(array("code"=>"400", "message"=>"Maybe connect error. Retry laster.")); 
+            //return  json_encode(array("code"=>"400", "message"=>"Maybe connect error. Retry laster."));
+            error_log("Maybe connect error. Retry later.");
         }
-        return $rs["body"];
     }
 }
 

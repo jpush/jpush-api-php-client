@@ -8,6 +8,7 @@ class NativeHttpClient {
     public function sendRequest($url, $content) {
         $data = @file_get_contents($url, false, $content);
         $rs = array("header"=>$http_response_header,"body"=>$data);
+        //$rs = array("header"=>$http_response_header,"body"=>$data);
         return $rs;
     }
 
@@ -25,8 +26,9 @@ class NativeHttpClient {
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
         $tmpInfo = curl_exec($curl); // 执行操作
         if (curl_errno($curl)) {
-            //echo 'Errno'.curl_error($curl);//捕抓异常
-            return json_encode(array("code"=>"400", "message"=>"Maybe connect error. Retry laster."));
+            $errnoMsg = 'Curl error: '.curl_error($curl);
+            error_log($errnoMsg);
+            //return json_encode(array("code"=>"400", "message"=>$errnoMsg));
         }
         curl_close($curl); // 关闭CURL会话
         return $tmpInfo; // 返回数据

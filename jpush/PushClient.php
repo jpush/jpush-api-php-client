@@ -19,7 +19,8 @@ class PushClient {
         try {
             return $httpClient->sendRequestByCurl($this->PUSH_API_URL, $data_string, $header);
         } catch (Exception $e) {
-            return  json_encode(array("code"=>"400", "message"=>"Maybe connect error. Retry laster."));
+            error_log("Maybe connect error. Retry later.");
+            //return  json_encode(array("code"=>"400", "message"=>"Maybe connect error. Retry later."));
         }
     }
 

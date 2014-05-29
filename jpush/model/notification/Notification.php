@@ -15,13 +15,13 @@ class Notification {
             $rs["alert"] = $this->alert;
         }
         if (is_null($this->ios) === false) {
-            $rs["ios"] = $this->ios;
+            $rs["ios"] = $this->ios->toJSON();
         }
         if (is_null($this->android) === false) {
-            $rs["android"] = $this->android;
+            $rs["android"] = $this->android->toJSON();
         }
         if (is_null($this->winphone) === false) {
-            $rs["winphone"] = $this->winphone;
+            $rs["winphone"] = $this->winphone->toJSON();
         }
         return $rs;
 
