@@ -66,7 +66,7 @@ $msgstr = $client->getReport($msg_ids);
 ```
 
 ### API 文档
-[API Doc][1]
+[API Doc][2]
 
 
 ## 版本更新
