@@ -90,10 +90,10 @@
     $payload1 = new PushPayload();
     $notification1 = new Notification();
     $notification1->alert = "alert message";
-    $payload1->notification = $notification;
+    $payload1->notification = $notification1;
     echo json_encode($payload1->toJSON()) . '<br/>';
     $result1 = $client->sendPush($payload1);
-var_dump($result1);
+    var_dump($result1);
     //发送广播自定义信息
     $payload2 = new PushPayload();
     $payload2->message = $message;
