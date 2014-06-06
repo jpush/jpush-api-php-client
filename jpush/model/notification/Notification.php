@@ -11,7 +11,7 @@ class Notification {
 
     public function toJSON() {
         $rs = array();
-        if (is_null($this->alert) === false) {
+        if (is_null($this->alert) === false && strlen(trim($this->alert)) > 0) {
             $rs["alert"] = $this->alert;
         }
         if (is_null($this->ios) === false) {

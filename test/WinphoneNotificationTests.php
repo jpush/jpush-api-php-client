@@ -10,12 +10,18 @@ include_once "../jpush/model/notification/WinphoneNotification.php";
 
 class WinphoneNotificationTests extends PHPUnit_Framework_TestCase {
     public function testWinphoneNotification() {
-        $result = '{"alert":"winphone alert","title":"winphone title","_open_page":"\/abc.fmal","extras":{"key1":"value1","key2":"value2"}}';
+        $array = array(
+            "alert" => "winphone alert",
+            "title" => "winphone title",
+            "_open_page" => "/friends.xaml",
+            "extras" => array("key1"=>"value1", "key2"=>"value2"),
+        );
+        $result = json_encode($array);
 
         $winphone = new WinphoneNotification();
         $winphone->alert = "winphone alert";
         $winphone->title = "winphone title";
-        $winphone->_open_page = "/abc.fmal";
+        $winphone->_open_page = "/friends.xaml";
         $winphone->extras = array("key1"=>"value1", "key2"=>"value2");
         $json_arr = $winphone->toJSON();
 

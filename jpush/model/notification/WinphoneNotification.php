@@ -14,13 +14,13 @@ class WinphoneNotification {
 
     public function toJSON() {
         $rs = array();
-        if (is_null($this->alert) === false) {
+        if (is_null($this->alert) === false && strlen(trim($this->alert)) > 0) {
             $rs["alert"] = $this->alert;
         }
-        if (is_null($this->title) === false) {
+        if (is_null($this->title) === false && strlen(trim($this->title)) > 0) {
             $rs["title"] = $this->title;
         }
-        if (is_null($this->_open_page) === false) {
+        if (is_null($this->_open_page) === false && strlen(trim($this->_open_page)) > 0) {
             $rs["_open_page"] = $this->_open_page;
         }
         if (is_null($this->extras) === false) {

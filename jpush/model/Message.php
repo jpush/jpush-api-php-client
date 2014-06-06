@@ -11,13 +11,13 @@ class Message {
 
     public function toJSON() {
         $rs = array();
-        if (is_null($this->msg_content) === false) {
+        if (is_null($this->msg_content) === false && strlen(trim($this->msg_content)) > 0) {
             $rs["msg_content"] = $this->msg_content;
         }
-        if (is_null($this->title) === false) {
+        if (is_null($this->title) === false && strlen(trim($this->title)) > 0) {
             $rs["title"] = $this->title;
         }
-        if (is_null($this->content_type) === false) {
+        if (is_null($this->content_type) === false && strlen(trim($this->content_type)) > 0) {
             $rs["content_type"] = $this->content_type;
         }
         if (is_null($this->extras) === false) {

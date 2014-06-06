@@ -11,8 +11,6 @@ include_once "../jpush/model/notification/AndroidNotification.php";
 class AndroidNotificationTests extends PHPUnit_Framework_TestCase {
     public function testAndroidNotification() {
         $array = array("alert" => "android alert", "title" => "android title", "builder_id"=>1, "extras" => array("key1"=>"value1", "key2"=>"value2"));
-
-        //$result = '{"alert":"android alert","title":"android title","builder_id":1,"extras":{"key1":"value1","key2":"value2"}}';
         $result = json_encode($array);
 
         $android = new AndroidNotification();

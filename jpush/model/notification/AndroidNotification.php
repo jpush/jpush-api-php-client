@@ -14,16 +14,16 @@ class AndroidNotification {
 
     public function toJSON() {
         $rs = array();
-        if (is_null($this->alert) === false) {
+        if (is_null($this->alert) === false && strlen(trim($this->alert)) > 0) {
             $rs["alert"] = $this->alert;
         }
-        if (is_null($this->title) === false) {
+        if (is_null($this->title) === false && strlen(trim($this->title)) > 0) {
             $rs["title"] = $this->title;
         }
-        if (is_null($this->alert) === false) {
+        if (is_null($this->builder_id) === false) {
             $rs["builder_id"] = $this->builder_id;
         }
-        if (is_null($this->alert) === false) {
+        if (is_null($this->extras) === false) {
             $rs["extras"] = $this->extras;
         }
         return $rs;

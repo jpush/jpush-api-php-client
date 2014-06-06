@@ -13,7 +13,29 @@ include_once "../jpush/model/notification/Notification.php";
 class NotificationTests extends PHPUnit_Framework_TestCase {
 
     public function testNotification() {
-        $result = '{"alert":"notification alert","ios":{"alert":"ios alert","sound":"happy","badge":1,"extras":{"key1":"value1","key2":"value2"},"content_availabe":1},"android":{"alert":"android alert","title":"android title","builder_id":1,"extras":{"key1":"value1","key2":"value2"}},"winphone":{"alert":"winphone alert","title":"winphone title","_open_page":"\/abc.fmal","extras":{"key1":"value1","key2":"value2"}}}';
+        $array = array(
+            "alert" => "notification alert",
+            "ios" => array(
+                "alert" => "ios alert",
+                "sound" => "happy",
+                "badge" => 1,
+                "extras" => array("key1"=>"value1", "key2"=>"value2"),
+                "content-available" => 1
+            ),
+            "android" => array(
+                "alert" => "android alert",
+                "title" => "android title",
+                "builder_id"=>1,
+                "extras" => array("key1"=>"value1", "key2"=>"value2")
+            ),
+            "winphone" => array(
+                "alert" => "winphone alert",
+                "title" => "winphone title",
+                "_open_page" => "/friends.xaml",
+                "extras" => array("key1"=>"value1", "key2"=>"value2"),
+            )
+        );
+        $result = json_encode($array);
 
         $android = new AndroidNotification();
         $android->alert = "android alert";
@@ -24,7 +46,7 @@ class NotificationTests extends PHPUnit_Framework_TestCase {
         $winphone = new WinphoneNotification();
         $winphone->alert = "winphone alert";
         $winphone->title = "winphone title";
-        $winphone->_open_page = "/abc.fmal";
+        $winphone->_open_page = "/friends.xaml";
         $winphone->extras = array("key1"=>"value1", "key2"=>"value2");
 
         $ios = new IOSNotification();

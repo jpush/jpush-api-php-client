@@ -23,8 +23,50 @@ class PushPayloadTests extends PHPUnit_Framework_TestCase {
     private $options;
 
     public function testPushPayload() {
-        $result = '{"platform":["android","ios","winphone"],"audience":{"tag":["tag1","tag2"],"tag_and":["tag3"],"alias":["alias1","alias2"],"registration_is":["id1","id2"]},"notification":{"alert":"notification alert","ios":{"alert":"ios alert","sound":"happy","badge":1,"extras":{"key1":"value1","key2":"value2"},"content_availabe":1},"android":{"alert":"android alert","title":"android title","builder_id":1,"extras":{"key1":"value1","key2":"value2"}},"winphone":{"alert":"winphone alert","title":"winphone title","_open_page":"\/abc.fmal","extras":{"key1":"value1","key2":"value2"}}},"message":{"msg_content":"message msg content","title":"message title","content_type":"message content tpye","extras":{"key1":"value1","key2":"value2"}},"options":{"sendno":654321,"time_to_live":60,"override_msg_id":123456,"apns_production":1}}';
-
+        $array = array(
+            "platform" => array("android","ios","winphone"),
+            "audience" => array(
+                "tag" => array("tag1", "tag2"),
+                "tag_and" => array("tag3"),
+                "alias" => array("alias1", "alias2"),
+                "registration_id" => array("id1", "id2")
+            ),
+            "notification" => array(
+                "alert" => "notification alert",
+                "ios" => array(
+                    "alert" => "ios alert",
+                    "sound" => "happy",
+                    "badge" => 1,
+                    "extras" => array("key1"=>"value1", "key2"=>"value2"),
+                    "content-available" => 1
+                ),
+                "android" => array(
+                    "alert" => "android alert",
+                    "title" => "android title",
+                    "builder_id"=>1,
+                    "extras" => array("key1"=>"value1", "key2"=>"value2")
+                ),
+                "winphone" => array(
+                    "alert" => "winphone alert",
+                    "title" => "winphone title",
+                    "_open_page" => "/friends.xaml",
+                    "extras" => array("key1"=>"value1", "key2"=>"value2"),
+                )
+            ),
+            "message" => array(
+                "msg_content" => "message msg content",
+                "title" => "message title",
+                "content_type" => "message content type",
+                "extras" => array("key1"=>"value1", "key2"=>"value2")
+            ),
+            "options" => array(
+                "sendno" => 654321,
+                "time_to_live" => 60,
+                "override_msg_id" => 123456,
+                "apns_production" => false
+            )
+        );
+        $result = json_encode($array);
         $payload = new PushPayload();
         $payload->platform = $this->platform;
         $payload->audience = $this->audience;
@@ -40,8 +82,45 @@ class PushPayloadTests extends PHPUnit_Framework_TestCase {
     }
 
     public function testAlertAll() {
-        $result = '{"platform":"all","audience":"all","notification":{"alert":"notification alert","ios":{"alert":"ios alert","sound":"happy","badge":1,"extras":{"key1":"value1","key2":"value2"},"content_availabe":1},"android":{"alert":"android alert","title":"android title","builder_id":1,"extras":{"key1":"value1","key2":"value2"}},"winphone":{"alert":"winphone alert","title":"winphone title","_open_page":"\/abc.fmal","extras":{"key1":"value1","key2":"value2"}}},"message":{"msg_content":"message msg content","title":"message title","content_type":"message content tpye","extras":{"key1":"value1","key2":"value2"}},"options":{"sendno":654321,"time_to_live":60,"override_msg_id":123456,"apns_production":1}}';
-
+        $array = array(
+            "platform" => "all",
+            "audience" => "all",
+            "notification" => array(
+                "alert" => "notification alert",
+                "ios" => array(
+                    "alert" => "ios alert",
+                    "sound" => "happy",
+                    "badge" => 1,
+                    "extras" => array("key1"=>"value1", "key2"=>"value2"),
+                    "content-available" => 1
+                ),
+                "android" => array(
+                    "alert" => "android alert",
+                    "title" => "android title",
+                    "builder_id"=>1,
+                    "extras" => array("key1"=>"value1", "key2"=>"value2")
+                ),
+                "winphone" => array(
+                    "alert" => "winphone alert",
+                    "title" => "winphone title",
+                    "_open_page" => "/friends.xaml",
+                    "extras" => array("key1"=>"value1", "key2"=>"value2"),
+                )
+            ),
+            "message" => array(
+                "msg_content" => "message msg content",
+                "title" => "message title",
+                "content_type" => "message content type",
+                "extras" => array("key1"=>"value1", "key2"=>"value2")
+            ),
+            "options" => array(
+                "sendno" => 654321,
+                "time_to_live" => 60,
+                "override_msg_id" => 123456,
+                "apns_production" => false
+            )
+        );
+        $result = json_encode($array);
         $payload = new PushPayload();
         $payload->message = $this->message;
         $payload->notification = $this->notification;
@@ -63,7 +142,7 @@ class PushPayloadTests extends PHPUnit_Framework_TestCase {
         $this->winphone = new WinphoneNotification();
         $this->winphone->alert = "winphone alert";
         $this->winphone->title = "winphone title";
-        $this->winphone->_open_page = "/abc.fmal";
+        $this->winphone->_open_page = "/friends.xaml";
         $this->winphone->extras = array("key1"=>"value1", "key2"=>"value2");
 
         $this->ios = new IOSNotification();
@@ -80,7 +159,7 @@ class PushPayloadTests extends PHPUnit_Framework_TestCase {
         $this->notification->android = $this->android;
 
         $this->options = new Options();
-        $this->options->apns_production = 1;
+        $this->options->apns_production = false;
         $this->options->override_msg_id = 123456;
         $this->options->sendno = 654321;
         $this->options->time_to_live = 60;
@@ -99,7 +178,7 @@ class PushPayloadTests extends PHPUnit_Framework_TestCase {
 
         $this->message = new Message();
         $this->message->title = "message title";
-        $this->message->content_type = "message content tpye";
+        $this->message->content_type = "message content type";
         $this->message->msg_content = "message msg content";
         $this->message->extras = array("key1"=>"value1", "key2"=>"value2");
 

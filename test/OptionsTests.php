@@ -10,10 +10,16 @@ include_once "../jpush/model/Options.php";
 class OptionsTests extends PHPUnit_Framework_TestCase {
 
     public function testOptions() {
-        $result = '{"sendno":654321,"time_to_live":60,"override_msg_id":123456,"apns_production":1}';
+        $array = array(
+            "sendno" => 654321,
+            "time_to_live" => 60,
+            "override_msg_id" => 123456,
+            "apns_production" => false
+        );
+        $result = json_encode($array);
 
         $options = new Options();
-        $options->apns_production = 1;
+        $options->apns_production = false;
         $options->override_msg_id = 123456;
         $options->sendno = 654321;
         $options->time_to_live = 60;

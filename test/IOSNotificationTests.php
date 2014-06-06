@@ -12,7 +12,14 @@ include_once "../jpush/model/notification/IOSNotification.php";
 class IOSNotificationTests extends PHPUnit_Framework_TestCase  {
 
     public function testIosNotification() {
-        $result = '{"alert":"ios alert","sound":"happy","badge":1,"extras":{"key1":"value1","key2":"value2"},"content-availabe":1}';
+        $array = array(
+            "alert" => "ios alert",
+            "sound" => "happy",
+            "badge" => 1,
+            "extras" => array("key1"=>"value1", "key2"=>"value2"),
+            "content-available" => 1
+        );
+        $result = json_encode($array);
 
         $ios = new IOSNotification();
         $ios->alert = "ios alert";
