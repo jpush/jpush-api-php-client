@@ -6,7 +6,7 @@
  * Time: 下午2:06
  */
 
-namespace JPush\Push;
+namespace JPush\Model;
 
 
 class PushPayload {

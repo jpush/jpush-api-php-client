@@ -3,7 +3,7 @@
  * Platform builder
  */
 
-namespace JPush\Push;
+namespace JPush\Model;
 
 use InvalidArgumentException;
 
