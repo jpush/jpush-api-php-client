@@ -12,27 +12,27 @@ use JPush\JPushClient;
 
 $br = '<br/>';
 
+$master_secret = 'd94f733358cca97b18b2cb98';
+$app_key='47a3ddda34b2602fa9e17c01';
+$client = new JPushClient($app_key, $master_secret);
 
-/*echo json_encode(P\tag(array("tag1", "tag2"))) . $br;
-echo json_encode(P\alias(array("alias1", "alias2"))) . $br;
+//easy push
+$result = $client->push()
+    ->setPlatform(M\all)
+    ->setAudience(M\all)
+    ->setNotification(M\notification('Hi, JPush'))
+    ->send();
+echo $result . $br;
 
-$json = P\audience(P\tag(array("tag1", "tag2")), P\alias(array("alias1", "alias2")));
 
-echo json_encode($json);*/
+//full push
+$result = $client->push()
+    ->setPlatform(M\platform('ios', 'android'))
+    ->setAudience(M\audience(M\tag(['555','666']), M\alias(['555', '666'])))
+    ->setNotification(M\notification('Hi, JPush', null, M\android('Hi, android', 'Hi, android title')))
+    ->setMessage(M\message('msg content', null, null, array('key'=>'value')))
+    ->setOptions(M\options(123456, null, null, false))
+    ->send();
 
-//$test = M\tag(array("tag1", "tag2"));
-//echo strlen($test);
-
-$client = new JPushClient('appkey', 'masterSecret');
-
-$json = $client->push()
-    ->setPlatform(M\platform('ios', 'winphone', 'android'))
-    ->setAudience(M\audience(M\tag(['tag1', 'tag2']), M\tag_and(['tag3', 'tag4'])))
-    ->setNotification(M\notification('Hi,JPush!', null, M\ios('Hi,IOS', 'happy', 1)))
-    ->setMessage(M\message('msg content'))
-    ->setOptions(M\options(123456, 60))
-    ->getJSON();
-
-echo $json;
-
+echo $result . $br;
 

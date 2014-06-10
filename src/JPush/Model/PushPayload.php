@@ -94,6 +94,11 @@ class PushPayload {
         return json_encode($payload);
     }
 
+    public function send() {
+        echo $this->getJSON() . '<br/>';
+        return $this->client->sendPush($this->getJSON());
+    }
+
 
 
 
