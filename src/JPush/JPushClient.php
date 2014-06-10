@@ -8,11 +8,12 @@
 
 namespace JPush;
 
+use JPush\Model\PushPayload;
 
 class JPushClient {
     const PUSH_URL = '';
     const REPORT_URL = '';
-    const USER_AGENT = 'JPush-API-PHP-Client"';
+    const USER_AGENT = 'JPush-API-PHP-Client';
 
     public $appKey;
     public $masterSecret;
@@ -21,6 +22,10 @@ class JPushClient {
     {
         $this->appKey = $appKey;
         $this->masterSecret = $masterSecret;
+    }
+
+    public function push() {
+        return new PushPayload($this);
     }
 
 

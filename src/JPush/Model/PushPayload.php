@@ -8,6 +8,7 @@
 
 namespace JPush\Model;
 
+use InvalidArgumentException;
 
 class PushPayload {
     private $client;
@@ -30,18 +31,27 @@ class PushPayload {
 
     public function setMessage($message)
     {
+        if (!is_array($message)) {
+            throw new InvalidArgumentException("Invalid Message");
+        }
         $this->message = $message;
         return $this;
     }
 
     public function setNotification($notification)
     {
+        if (!is_array($notification)) {
+            throw new InvalidArgumentException("Invalid Notification");
+        }
         $this->notification = $notification;
         return $this;
     }
 
     public function setOptions($options)
     {
+        if (!is_array($options)) {
+            throw new InvalidArgumentException("Invalid Options");
+        }
         $this->options = $options;
         return $this;
     }
@@ -54,12 +64,18 @@ class PushPayload {
 
     public function getJSON()
     {
+        if (is_null($this->platform) || is_null($this->audience)) {
+            throw new InvalidArgumentException("platform and audience must be set");
+        }
+
+        if (is_null($this->notification) && is_null($this->message)) {
+            throw new InvalidArgumentException("Either or both notification and message must be set.");
+        }
+
         $payload = array(
             'platform' => $this->platform,
             'audience' => $this->audience,
         );
-
-        //TODO validate params legal
 
         if (!is_null($this->notification))
         {

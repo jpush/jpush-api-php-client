@@ -8,6 +8,8 @@ namespace JPush\Model;
 use InvalidArgumentException;
 
 
+CONST all = "all";
+
 /**
  * Device Type specifier.
  *
@@ -15,7 +17,7 @@ use InvalidArgumentException;
  * @return array
  * @throws InvalidArgumentException
  */
-function deviceTypes()
+function platform()
 {
     static $VALID_DEVICE_TYPES = array("ios", "android", "winphone");
     foreach(func_get_args() as $type) {
