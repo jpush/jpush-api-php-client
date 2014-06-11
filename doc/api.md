@@ -162,7 +162,7 @@ $payload->setAudience(M\all);
 #### `function: JPush/Model/android($alert, $title=null, $builder_id=null, $extras=null)`
 构建android对象
 #### `function: JPush/Model/winphone($alert, $title=null, $_open_page=null, $extras=null)`
-构建winphone对象  
+构建winphone对象
 Example：
 所有平台都推送同一通知
 ```php
