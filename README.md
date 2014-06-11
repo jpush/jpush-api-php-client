@@ -64,6 +64,7 @@ $result = $client->push()
 ```
 
 ## 文档
+
 [JPush Push API v3][4]
 [JPush Report API][5]
 [JPush Api PHP client doc][6]
