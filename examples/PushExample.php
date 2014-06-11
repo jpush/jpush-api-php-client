@@ -46,7 +46,7 @@ if ($result->ok) {
 $result = $client->push()
     ->setPlatform(M\platform('ios', 'android'))
     ->setAudience(M\audience(M\tag(['555','666']), M\alias(['555', '666'])))
-    ->setNotification(M\notification('Hi, JPush', null, M\ios('Hi, android', 'happy', 1, true)))
+    ->setNotification(M\notification('Hi, JPush', M\android('Hi, android'), M\ios('Hi, ios', 'happy', 1, true)))
     ->setMessage(M\message('msg content', null, null, array('key'=>'value')))
     ->setOptions(M\options(123456, null, null, false))
     ->printJSON()
