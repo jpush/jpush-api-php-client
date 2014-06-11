@@ -1,9 +1,10 @@
 # JPush API client library for PHP
 
-## 概述
-这是 JPush REST API 的 PHP 版本封装开发包，是由极光推送官方提供的，一般支持最新的 API 功能。
+## 简要概述  
 
-对应的 REST API 文档：<http://docs.jpush.cn/display/dev/REST+API>
+* 本API提供简单的接口去调用[JPush Push API v3][1]
+* 本API提供简单的接口去调用[JPush Report API][2]
+* API符合PHP规范，包裹使用namespace
 
 ## 环境配置
 
@@ -21,8 +22,10 @@
 * 重启 Apache。
 
 ## 依赖
-* PHP-CURL
-* PHPUnit 
+
+* php-curl
+* composer
+* monolog
 
 ### 安装 PHP-CURL
 
@@ -30,48 +33,50 @@
 sudo apt-get install php5-curl
 sudo service apache2 restart
 ```
-其他操作系统安装请访问 [安装PHP-CURL][1]
+其他操作系统安装请访问 [安装PHP-CURL][3]
 
-### 安装 PHPUnit
-```
-pear channel-discover pear.phpunit.de  
-pear install phpunit/PHPUnit
-```
-进行测试
-```
-cd test
-phpunit AllTest.php
-```
+## 快速使用
 
-## 使用样例
-
-### 推送API使用样例
+### Easy Push
 
 ```php
-//发送广播通知
-$payload1 = new PushPayload();
-$notification1 = new Notification();
-$notification1->alert = "alert message";
-$payload1->notification = $notification;
-$result1 = $client->sendPush($payload1);
+use JPush\Model as M;
+use JPush\JPushClient;
+
+$client = new JPushClient($app_key, $master_secret);
+$result = $client->push()
+    ->setPlatform(M\all)
+    ->setAudience(M\all)
+    ->setNotification(M\notification('Hi, JPush'))
+    ->send();
 ```
 
-
-### 统计获取API使用样例
-
+### Full Push
 ```php
-$client = new JPushClient($app_key,$master_secret);
-$msg_ids = '636946851,1173817748,636946865';
-$msgstr = $client->getReport($msg_ids);
+$result = $client->push()
+    ->setPlatform(M\platform('ios', 'android'))
+    ->setAudience(M\audience(M\tag(['tag1','tag2']), M\alias(['alias1', 'alias2'])))
+    ->setNotification(M\notification('Hi, JPush', M\android('Hi, android'), M\ios('Hi, ios', 'happy', 1, true)))
+    ->setMessage(M\message('msg content', null, null, array('key'=>'value')))
+    ->setOptions(M\options(123456, null, null, false))
+    ->printJSON()
+    ->send();
 ```
 
-### API 文档
-[API Doc][2]
-
+## 文档
+[JPush Push API v3][4]
+[JPush Report API][5]
+[JPush Api PHP client doc][6]
 
 ## 版本更新
-[Release页面](https://github.com/jpush/jpush-api-php-client/releases/) 有详细的版本发布记录与下载。
+
+[Release页面][7]有详细的版本发布记录与下载。
 
 
-  [1]: http://www.php.net/manual/zh/curl.installation.php
-  [2]: doc/api.md
+  [1]: http://docs.jpush.cn/display/dev/Push-API-v3
+  [2]: http://docs.jpush.cn/display/dev/Report-API
+  [3]: http://www.php.net/manual/zh/curl.installation.php
+  [4]: http://docs.jpush.cn/display/dev/Push-API-v3
+  [5]: http://docs.jpush.cn/display/dev/Report-API
+  [6]: doc/api.md
+  [7]: https://github.com/jpush/jpush-api-php-client/releases/
