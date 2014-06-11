@@ -18,16 +18,18 @@ class PushResponse {
 
     private $expected_keys = array('sendno', 'msg_id');
 
-    function __construct($response) {
-        $payload = json_decode($response, true);
+    function __construct($response)
+    {
+        if ($response['code'] !== 200) {
+            $this->ok = false;
+            $this->response = $response;
+            return;
+        }
+        $payload = json_decode($response['body'], true);
 
         foreach ($this->expected_keys as $key) {
             if (array_key_exists($key, $payload)) {
                 $this->$key = $payload[$key];
-            } else {
-                $this->ok = false;
-                $this->response = $response;
-                return;
             }
         }
 

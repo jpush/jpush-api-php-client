@@ -94,8 +94,12 @@ class PushPayload {
         return json_encode($payload);
     }
 
-    public function send() {
+    public function printJSON() {
         echo $this->getJSON() . '<br/>';
+        return $this;
+    }
+
+    public function send() {
         $response = $this->client->sendPush($this->getJSON());
         return new PushResponse($response);
     }
