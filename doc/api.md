@@ -57,7 +57,8 @@ JPush Push JSON Model， JPush API v3中，每一个推送对象都是一个JSON
 `function: JPush/Model/send()`
 
 将本payload对象推送到JPUSH服务器  
-返回：PushResponse 服务器响应对象 
+返回：PushResponse 服务器响应对象
+
 PushResponse处理示例:
 ```php
 if ($result->ok) {
@@ -75,32 +76,36 @@ if ($result->ok) {
 `function: JPush/Model/getJSON()`
 
 获取当前payload对象的JSON字符串，仅供调试使用  
-返回：String JSON字符串  
+返回：String JSON字符串
+
 
 `function: JPush/Model/printJSON()`
 
 打印当前JSON字符串，仅供调试使用  
-返回：PushPayload 当前的payload对象  
+返回：PushPayload 当前的payload对象
+
 
 `function: JPush/Model/setAudience()`
 
 设置audience  
-返回：PushPayload 当前的payload对象  
+返回：PushPayload 当前的payload对象
+
 
 `function: JPush/Model/setMessage()`
 
 设置audience  
-返回：PushPayload 当前的payload对象  
+返回：PushPayload 当前的payload对象
+
 
 `function: JPush/Model/setNotification()`
 
 设置audience  
-返回：PushPayload 当前的payload对象  
+返回：PushPayload 当前的payload对象
 
 `function: JPush/Model/setMessage()`
 
 设置audience  
-返回：PushPayload 当前的payload对象  
+返回：PushPayload 当前的payload对象
 
 `function: JPush/Model/setOptions()`
 
@@ -112,6 +117,7 @@ if ($result->ok) {
 `constant: JPush/Model/all`
 
 设置该payload为推送给所有平台（platform）
+
 Example： 
 ```php
 $payload->setPlatform(M\all);
@@ -121,6 +127,7 @@ $payload->setPlatform(M\all);
 
 构建platform对象
 参数： 推送的平台字符串 （android， ios， winphone）
+
 Example：
 ```php
 $payload->setPlatform(M\platform('ios', 'android'))
@@ -130,6 +137,7 @@ $payload->setPlatform(M\platform('ios', 'android'))
 `constant: JPush/Model/all`
 
 设置该payload为推送给所有用户（audience）
+
 Example： 
 ```php
 $payload->setAudience(M\all);
@@ -152,7 +160,7 @@ $payload->setAudience(M\all);
 参数：alias数组
 `function: JPush/Model/registration_id`
 
-构建registration_id对象  
+构建registration_id对象
 参数：registration_id数组
 
 Example:
