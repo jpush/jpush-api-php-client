@@ -146,22 +146,27 @@ $payload->setAudience(M\all);
 
 构建audience对象  
 参数：tag(),tag_and(),alias(),registration_id()构建的对象
+
 `function: JPush/Model/tag`
 
 构建tag对象  
 参数：tag数组
+
 `function: JPush/Model/tag_and`
 
 构建tag_and对象  
 参数：tag_and数组
+
 `function: JPush/Model/alias`
 
 构建alias对象  
 参数：alias数组
+
 `function: JPush/Model/registration_id`
 
 构建registration_id对象
 参数：registration_id数组
+
 
 Example:
 ```php
@@ -183,18 +188,24 @@ $payload->setAudience(M\all);
 `function: JPush/Model/notification($alert /* args */)`
 
 构建notification对象
+
 参数:$alert, ios(),android(),winphone()构建的对象
+
 `function: JPush/Model/ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=null)`
 
 构建ios对象
+
 `function: JPush/Model/android($alert, $title=null, $builder_id=null, $extras=null)`
 
 构建android对象
+
 `function: JPush/Model/winphone($alert, $title=null, $_open_page=null, $extras=null)`
 
 构建winphone对象
+
 Example：
 所有平台都推送同一通知
+
 ```php
 $payload->setNotification(notification('Hi,JPush'));
 ```  
