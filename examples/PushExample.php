@@ -8,6 +8,7 @@ include_once '../src/JPush/Model/PushPayload.php';
 include_once '../src/JPush/Model/PushResponse.php';
 include_once '../src/JPush/Model/ReportResponse.php';
 include_once '../src/JPush/Model/Report.php';
+include_once '../src/JPush/Model/Error.php';
 include_once '../src/JPush/JPushClient.php';
 
 use JPush\Model as M;
@@ -28,10 +29,17 @@ $result = $client->push()
     ->printJSON()
     ->send();
 
-echo 'ok : ' . $result->ok . $br;
-echo 'sendno : ' . $result->sendno . $br;
-echo 'msg_id : ' .$result->msg_id . $br;
-echo $br . '---------' . $br;
+if ($result->ok) {
+    echo 'ok : ' . ($result->ok ? 'true' : 'false') . $br;
+    echo 'sendno : ' . $result->sendno . $br;
+    echo 'msg_id : ' .$result->msg_id . $br;
+    echo $br . '---------' . $br;
+} else {
+    echo 'ok : ' . ($result->ok ? 'true' : 'false') . $br;
+    echo 'code : ' . $result->error->code . $br;
+    echo 'message : ' . $result->error->message . $br;
+}
+
 
 //full push
 
@@ -44,7 +52,34 @@ $result = $client->push()
     ->printJSON()
     ->send();
 
-echo 'ok : ' . $result->ok . $br;
-echo 'sendno : ' . $result->sendno . $br;
-echo 'msg_id : ' .$result->msg_id . $br;
-echo $br . '---------' . $br;
+if ($result->ok) {
+    echo 'ok : ' . ($result->ok ? 'true' : 'false') . $br;
+    echo 'sendno : ' . $result->sendno . $br;
+    echo 'msg_id : ' .$result->msg_id . $br;
+    echo $br . '---------' . $br;
+} else {
+    echo 'ok : ' . ($result->ok ? 'true' : 'false') . $br;
+    echo 'code : ' . $result->error->code . $br;
+    echo 'message : ' . $result->error->message . $br;
+}
+
+
+//fail push
+$result = $client->push()
+    ->setPlatform(M\all)
+    ->setAudience(M\all)
+    ->setNotification(M\notification('Hi, JPush'))
+    ->setAudience(M\audience(['no one']))
+    ->printJSON()
+    ->send();
+
+if ($result->ok) {
+    echo 'ok : ' . ($result->ok ? 'true' : 'false') . $br;
+    echo 'sendno : ' . $result->sendno . $br;
+    echo 'msg_id : ' .$result->msg_id . $br;
+    echo $br . '---------' . $br;
+} else {
+    echo 'ok : ' . ($result->ok ? 'true' : 'false') . $br;
+    echo 'code : ' . $result->error->code . $br;
+    echo 'message : ' . $result->error->message . $br;
+}

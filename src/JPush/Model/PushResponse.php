@@ -15,6 +15,7 @@ class PushResponse {
     public $payload;
     public $response;
     public $ok = true;
+    public $error;
 
     private $expected_keys = array('sendno', 'msg_id');
 
@@ -23,6 +24,7 @@ class PushResponse {
         if ($response['code'] !== 200) {
             $this->ok = false;
             $this->response = $response;
+            $this->error = new Error($response);
             return;
         }
         $payload = json_decode($response['body'], true);

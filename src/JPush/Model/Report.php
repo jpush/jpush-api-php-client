@@ -14,11 +14,16 @@ class Report {
     public $ios_apns_sent;
     public $msg_id;
 
+    private $expected_keys = array('android_received', 'ios_apns_sent', 'msg_id');
+
+
     function __construct($received)
     {
-        $this->android_received = $received['android_received'];
-        $this->ios_apns_sent = $received['ios_apns_sent'];
-        $this->msg_id = $received['msg_id'];
+        foreach ($this->expected_keys as $key) {
+            if (array_key_exists($key, $received)) {
+                $this->$key = $received[$key];
+            }
+        }
     }
 
 
