@@ -37,6 +37,7 @@ class AllTests {
 
 
 
+
         return $suite;
     }
 } 
