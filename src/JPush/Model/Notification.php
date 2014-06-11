@@ -85,8 +85,8 @@ function android($alert, $title=null, $builder_id=null, $extras=null)
         throw new InvalidArgumentException("Invalid android.alert string");
     }
     $payload = array();
-    $payload['alert'] = $alert;
     $payload['platform'] = 'android';
+    $payload['alert'] = $alert;
 
     if (!is_null($title)) {
         if (!is_string($title)) {
@@ -122,8 +122,8 @@ function winphone($alert, $title=null, $_open_page=null, $extras=null)
     }
 
     $payload = array();
-    $payload['alert'] = $alert;
     $payload['platform'] = 'winphone';
+    $payload['alert'] = $alert;
 
     if (!is_null($title)) {
         if (!is_string($title)) {
