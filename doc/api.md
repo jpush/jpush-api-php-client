@@ -52,6 +52,8 @@ if ($result->ok) {
 ## Payload Selectors
 JPush Push JSON Model， JPush API v3中，每一个推送对象都是一个JSON对象。其具体结构可以参考 [推送对象][1]  
 为了开发者更方便构建推送对象，本library提供以下方法：
+
+
 `function: JPush/Model/send()`  
 将本payload对象推送到JPUSH服务器  
 返回：PushResponse 服务器响应对象 
@@ -188,7 +190,7 @@ Example:
 $payload->setMessage(M\message('msg content', null, null, array('key'=>'value')));
 ```
 ### Options Selectors
-`function: options($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_production=null)`  
+`function: options($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_production=null)`
 构建options对象
 Example：
 ```php
