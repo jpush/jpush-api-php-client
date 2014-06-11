@@ -6,11 +6,13 @@ use InvalidArgumentException;
 
 
 
-function notification($alert=null, $android=null, $ios=null, $winphone=null)
+function notification($alert /* platform notification params */)
 {
+    /*
     if ($alert == null && $android == null && $ios == null && $winphone == null) {
         throw new InvalidArgumentException("Not all notification args is null");
     }
+    */
     $payload = array();
     if (!is_null($alert)) {
          if (!is_string($alert)) {
@@ -18,7 +20,21 @@ function notification($alert=null, $android=null, $ios=null, $winphone=null)
          }
         $payload['alert'] = $alert;
     }
+    static $VALID_DEVICE_TYPES = array("ios", "android", "winphone");
+    $args = func_get_args();
+    for ($i=1; $i<count($args); $i++) {
+        $arg = $args[$i];
+        $platform = $arg['platform'];
+        if (is_array($arg) && in_array($platform, $VALID_DEVICE_TYPES)) {
+            unset($arg['platform']);
+            $payload[$platform] = $arg;
+        }
+    }
+    if (count($payload) === 0) {
+        throw new InvalidArgumentException("Invalid notification");
+    }
 
+    /*
     if (!is_null($android)){
         if (!is_array($android)) {
             throw new InvalidArgumentException("Invalid notification.android");
@@ -39,6 +55,7 @@ function notification($alert=null, $android=null, $ios=null, $winphone=null)
         }
         $payload['winphone'] = $winphone;
     }
+    */
 
     return $payload;
 }
@@ -49,6 +66,7 @@ function ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=n
         throw new InvalidArgumentException("Invalid ios.alert string");
     }
     $payload = array();
+    $payload['platform'] = 'ios';
     $payload['alert'] = $alert;
 
     if (!is_null($sound)) {
@@ -71,7 +89,10 @@ function ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=n
         if (!is_bool($contentAvailable)) {
             throw new InvalidArgumentException("Invalid ios.contentAvailable bool");
         }
-        $payload['content-available'] = $contentAvailable;
+        if ($contentAvailable) {
+            $payload['content-available'] = 1;
+        }
+
     }
 
     if(!is_null($extras)) {
@@ -93,6 +114,7 @@ function android($alert, $title=null, $builder_id=null, $extras=null)
     }
     $payload = array();
     $payload['alert'] = $alert;
+    $payload['platform'] = 'android';
 
     if (!is_null($title)) {
         if (!is_string($title)) {
@@ -129,6 +151,7 @@ function winphone($alert, $title=null, $_open_page=null, $extras=null)
 
     $payload = array();
     $payload['alert'] = $alert;
+    $payload['platform'] = 'winphone';
 
     if (!is_null($title)) {
         if (!is_string($title)) {
