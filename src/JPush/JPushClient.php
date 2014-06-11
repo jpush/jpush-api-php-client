@@ -28,6 +28,7 @@ class JPushClient {
         return new PushPayload($this);
     }
 
+
     public function buildAutoCode() {
         return 'Authorization: Basic ' . base64_encode($this->appKey . ':' . $this->masterSecret);
     }
@@ -44,9 +45,6 @@ class JPushClient {
 
         return $this->request(self::PUSH_URL, $data, $header, 'POST');
     }
-
-
-
 
 
     public function request($url, $data, $header, $method = 'POST') {
@@ -69,6 +67,8 @@ class JPushClient {
         curl_close($curl);
         return $tmpInfo;
     }
+
+
 
 
 

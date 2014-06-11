@@ -96,7 +96,8 @@ class PushPayload {
 
     public function send() {
         echo $this->getJSON() . '<br/>';
-        return $this->client->sendPush($this->getJSON());
+        $response = $this->client->sendPush($this->getJSON());
+        return new PushResponse($response);
     }
 
 
