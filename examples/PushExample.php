@@ -21,34 +21,30 @@ $app_key='47a3ddda34b2602fa9e17c01';
 $client = new JPushClient($app_key, $master_secret);
 
 //easy push
-/*
 $result = $client->push()
     ->setPlatform(M\all)
     ->setAudience(M\all)
     ->setNotification(M\notification('Hi, JPush'))
+    ->printJSON()
     ->send();
 
-echo $result->ok . $spilt . $result->sendno . $spilt . $result->msg_id . $spilt . $result->response;
-*/
+echo 'ok : ' . $result->ok . $br;
+echo 'sendno : ' . $result->sendno . $br;
+echo 'msg_id : ' .$result->msg_id . $br;
+echo $br . '---------' . $br;
 
 //full push
-/*
+
 $result = $client->push()
     ->setPlatform(M\platform('ios', 'android'))
     ->setAudience(M\audience(M\tag(['555','666']), M\alias(['555', '666'])))
     ->setNotification(M\notification('Hi, JPush', null, M\android('Hi, android', 'Hi, android title')))
     ->setMessage(M\message('msg content', null, null, array('key'=>'value')))
     ->setOptions(M\options(123456, null, null, false))
+    ->printJSON()
     ->send();
 
-echo $result->ok . $spilt . $result->sendno . $spilt . $result->msg_id . $spilt . $result->response;
-*/
-
-
-//get report
-
-$result = $client->report('1931499836');
-echo $result->ok . $br;
-foreach($result->received_list as  $received) {
-    echo $received->android_received . $spilt . $received->ios_apns_sent . $spilt . $received->msg_id . $br;
-}
+echo 'ok : ' . $result->ok . $br;
+echo 'sendno : ' . $result->sendno . $br;
+echo 'msg_id : ' .$result->msg_id . $br;
+echo $br . '---------' . $br;
