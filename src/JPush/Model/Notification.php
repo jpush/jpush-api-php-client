@@ -8,11 +8,6 @@ use InvalidArgumentException;
 
 function notification($alert /* platform notification params */)
 {
-    /*
-    if ($alert == null && $android == null && $ios == null && $winphone == null) {
-        throw new InvalidArgumentException("Not all notification args is null");
-    }
-    */
     $payload = array();
     if (!is_null($alert)) {
          if (!is_string($alert)) {
@@ -33,29 +28,6 @@ function notification($alert /* platform notification params */)
     if (count($payload) === 0) {
         throw new InvalidArgumentException("Invalid notification");
     }
-
-    /*
-    if (!is_null($android)){
-        if (!is_array($android)) {
-            throw new InvalidArgumentException("Invalid notification.android");
-        }
-        $payload['android'] = $android;
-    }
-
-    if (!is_null($ios)) {
-        if (!is_array($ios)) {
-            throw new InvalidArgumentException("Invalid notification.ios");
-        }
-        $payload['ios'] = $ios;
-    }
-
-    if (!is_null($winphone)) {
-        if (!is_array($winphone)) {
-            throw new InvalidArgumentException("Invalid notification.winphone");
-        }
-        $payload['winphone'] = $winphone;
-    }
-    */
 
     return $payload;
 }
