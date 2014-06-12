@@ -180,7 +180,7 @@ class ParamsBuilder {
             $result->init(1003,"Parameters 'options->timeToLive' must be a int and in [0, 864000]");
             return false;
         }
-        if (is_null($options->time_to_live) == false && is_bool($options->apns_production) === false) {
+        if (is_null($options->apns_production) == false && is_bool($options->apns_production) === false) {
             $result->init(1003,"Parameters 'options->apnsProduction' must be bool");
             return false;
         }

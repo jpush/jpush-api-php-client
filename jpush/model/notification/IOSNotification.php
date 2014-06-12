@@ -15,10 +15,10 @@ class IOSNotification {
 
     public function toJSON() {
         $rs = array();
-        if (is_null($this->alert) === false) {
+        if (is_null($this->alert) === false && strlen(trim($this->alert)) > 0) {
             $rs["alert"] = $this->alert;
         }
-        if (is_null($this->sound) === false) {
+        if (is_null($this->sound) === false && strlen(trim($this->sound)) > 0) {
             $rs["sound"] = $this->sound;
         }
         if (is_null($this->badge) === false) {

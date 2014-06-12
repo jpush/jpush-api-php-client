@@ -10,7 +10,13 @@ include_once "../jpush/model/Audience.php";
 
 class AudienceTests extends PHPUnit_Framework_TestCase {
     public function testAudience() {
-        $result = '{"tag":["tag1","tag2"],"tag_and":["tag3"],"alias":["alias1","alias2"],"registration_is":["id1","id2"]}';
+        $array = array(
+            "tag" => array("tag1", "tag2"),
+            "tag_and" => array("tag3"),
+            "alias" => array("alias1", "alias2"),
+            "registration_id" => array("id1", "id2")
+        );
+        $result = json_encode($array);
 
         $audience = new Audience();
         $audience->tag = "tag1,tag2";

@@ -10,7 +10,8 @@ include_once "../jpush/model/Platform.php";
 class PlatformTests extends PHPUnit_Framework_TestCase {
 
     public function testPlatform() {
-        $result = '["android","ios","winphone"]';
+        $array = array("android","ios","winphone");
+        $result = json_encode($array);
 
         $platform = new Platform();
         $platform->ios = true;

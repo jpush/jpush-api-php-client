@@ -7,9 +7,7 @@ class NativeHttpClient {
 
     public function sendRequest($url, $content) {
         $data = @file_get_contents($url, false, $content);
-        $rs = array("header"=>$http_response_header,"body"=>$data);
-        //$rs = array("header"=>$http_response_header,"body"=>$data);
-        return $rs;
+        return $data;
     }
 
     public function sendRequestByCurl($url, $data, $header, $method = 'POST') {
@@ -18,7 +16,7 @@ class NativeHttpClient {
         if ($method === 'POST') {
             curl_setopt($curl, CURLOPT_POST, 1); // 发送一个常规的Post请求
         }
-
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data); // Post提交的数据包
         curl_setopt($curl, CURLOPT_TIMEOUT, 30); // 设置超时限制防止死循环
         curl_setopt($curl, CURLOPT_HEADER, 0); // 显示返回的Header区域内容
@@ -35,9 +33,7 @@ class NativeHttpClient {
 
     }
 
-    function vpost($url,$data,$cookie){ // 模拟提交数据函数
 
-    }
 }
 
 ?>

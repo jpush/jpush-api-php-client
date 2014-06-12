@@ -10,11 +10,17 @@ include_once "../jpush/model/Message.php";
 class MessageTests extends PHPUnit_Framework_TestCase {
 
     public function testMessage() {
-        $result ='{"msg_content":"message msg content","title":"message title","content_type":"message content tpye","extras":{"key1":"value1","key2":"value2"}}';
+        $array = array(
+            "msg_content" => "message msg content",
+            "title" => "message title",
+            "content_type" => "message content type",
+            "extras" => array("key1"=>"value1", "key2"=>"value2")
+        );
+        $result = json_encode($array);
 
         $message = new Message();
         $message->title = "message title";
-        $message->content_type = "message content tpye";
+        $message->content_type = "message content type";
         $message->msg_content = "message msg content";
         $message->extras = array("key1"=>"value1", "key2"=>"value2");
         $json_arr = $message->toJSON();
