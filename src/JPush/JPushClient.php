@@ -9,6 +9,8 @@
 namespace JPush;
 
 use Httpful\Request;
+use Httpful\Exception\ConnectionErrorException;
+use JPush\Exception\APIConnectionException;
 use JPush\Model\PushPayload;
 use JPush\Model\ReportResponse;
 
@@ -55,7 +57,8 @@ class JPushClient {
             'Connection' => 'Keep-Alive',
             'Charset' => 'UTF-8',
             'Content-Type' => 'application/json');
-        return $this->sendPost(self::PUSH_URL, $data, $header);
+        $response = $this->sendPost(self::PUSH_URL, $data, $header);
+        return $response;
     }
 
     public function sendGet($url, $data=null, $header) {
@@ -74,7 +77,13 @@ class JPushClient {
         if (!is_null($data)) {
             $request->body($data);
         }
-        return $request->send();
+
+        try {
+            $response = $request->send();
+        } catch(ConnectionErrorException $e) {
+            throw new APIConnectionException("Connect timeout. Please retry later.");
+        }
+        return $response;
     }
 
     public function sendPost($url, $data, $header) {
@@ -85,12 +94,17 @@ class JPushClient {
             "headers" => $header,
             "body" => $data));
 
-        $response = Request::post($url)
-            ->authenticateWith($this->appKey, $this->masterSecret)
-            ->body($data)
-            ->addHeaders($header)
-            ->timeout(self::CONNECT_TIMEOUT)
-            ->send();
+
+        try {
+            $response = Request::post($url)
+                ->authenticateWith($this->appKey, $this->masterSecret)
+                ->body($data)
+                ->addHeaders($header)
+                ->timeout(self::CONNECT_TIMEOUT)
+                ->send();
+        } catch(ConnectionErrorException $e) {
+            throw new APIConnectionException("Connect timeout. Please retry later.");
+        }
         return $response;
     }
 
