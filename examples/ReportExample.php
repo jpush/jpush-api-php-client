@@ -11,6 +11,8 @@ include_once '../src/JPush/Model/Report.php';
 include_once '../src/JPush/Model/Error.php';
 include_once '../src/JPush/JPushClient.php';
 
+require_once 'vendor/autoload.php';
+
 use JPush\Model as M;
 use JPush\JPushClient;
 

@@ -17,7 +17,7 @@ class Error {
 
     function __construct($response)
     {
-        $payload = json_decode($response['body'], true);
+        $payload = json_decode($response->raw_body, true);
         $error = $payload['error'];
         foreach ($this->expected_keys as $key) {
             if (array_key_exists($key, $error)) {

@@ -9,3 +9,6 @@ bin/
 .project
 .settings/
 .idea
+vendor/
+composer.phar
+composer.lock

@@ -21,13 +21,13 @@ class PushResponse {
 
     function __construct($response)
     {
-        if ($response['code'] !== 200) {
+        if ($response->code !== 200) {
             $this->ok = false;
-            $this->response = $response;
+            $this->response = $response->raw_body;
             $this->error = new Error($response);
             return;
         }
-        $payload = json_decode($response['body'], true);
+        $payload = json_decode($response->raw_body, true);
 
         foreach ($this->expected_keys as $key) {
             if (array_key_exists($key, $payload)) {
