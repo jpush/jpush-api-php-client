@@ -2,21 +2,17 @@
 
 namespace JPush\Model;
 
+use JPush\Exception\APIRequestException;
 
 class ReportResponse {
-    public $ok = true;
-    public $payload;
+    public $json;
     public $response;
     public $received_list;
-    public $error;
 
     function __construct($response)
     {
         if ($response->code !== 200) {
-            $this->ok = false;
-            $this->response = $response;
-            $this->error = new Error($response);
-            return;
+            throw APIRequestException::fromResponse($response);
         }
         $payload = json_decode($response->raw_body, true);
         $received_list = array();
@@ -25,7 +21,7 @@ class ReportResponse {
         }
 
         $this->received_list = $received_list;
-        $this->payload = $payload;
+        $this->json = $response->raw_body;
         $this->response = $response;
     }
 

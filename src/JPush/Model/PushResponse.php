@@ -8,24 +8,19 @@
 
 namespace JPush\Model;
 
+use JPush\Exception\APIRequestException;
 
 class PushResponse {
     public $sendno;
     public $msg_id;
-    public $payload;
+    public $json;
     public $response;
-    public $ok = true;
-    public $error;
-
     private $expected_keys = array('sendno', 'msg_id');
 
     function __construct($response)
     {
         if ($response->code !== 200) {
-            $this->ok = false;
-            $this->response = $response->raw_body;
-            $this->error = new Error($response);
-            return;
+            throw APIRequestException::fromResponse($response);
         }
         $payload = json_decode($response->raw_body, true);
 
@@ -35,7 +30,7 @@ class PushResponse {
             }
         }
 
-        $this->payload = $payload;
+        $this->json = $response->raw_body;
         $this->response = $response;
     }
 } 
