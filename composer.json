@@ -1,5 +1,5 @@
 {
-    "name": "JPush/JPush",
+    "name": "jpush/jpush",
     "type": "library",
     "description": "JPush API PHP Client",
     "homepage": "http://docs.jpush.cn/display/dev/Push-API-v3",
@@ -13,7 +13,21 @@
         }
     ],
     "autoload" : {
-        "psr-0":{"JPush":"src/"}
+        "psr-0":{"jpush":"src/"},
+        "files": [
+            "src/JPush/Model/Audience.php",
+            "src/JPush/Model/Message.php",
+            "src/JPush/Model/Notification.php",
+            "src/JPush/Model/Options.php",
+            "src/JPush/Model/Platform.php",
+            "src/JPush/Model/PushPayload.php",
+            "src/JPush/Model/PushResponse.php",
+            "src/JPush/Model/ReportResponse.php",
+            "src/JPush/Model/Report.php",
+            "src/JPush/Model/Error.php",
+            "src/JPush/JPushClient.php",
+            "src/JPush/JPushLog.php"
+        ]
 
     },
     "require":{
