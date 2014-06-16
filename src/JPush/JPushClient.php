@@ -12,6 +12,8 @@ use Httpful\Request;
 use JPush\Model\PushPayload;
 use JPush\Model\ReportResponse;
 
+use InvalidArgumentException;
+
 class JPushClient {
     const PUSH_URL = 'https://api.jpush.cn/v3/push';
     const REPORT_URL = 'https://report.jpush.cn/v2/received';
@@ -23,6 +25,13 @@ class JPushClient {
 
     public function __construct($appKey, $masterSecret)
     {
+        if (is_null($appKey) || is_null($masterSecret)) {
+            throw new InvalidArgumentException("appKey and masterSecret must be set.");
+        }
+
+        if (!is_string($appKey) || !is_string($masterSecret)) {
+            throw new InvalidArgumentException("Invalid appKey or masterSecret");
+        }
         $this->appKey = $appKey;
         $this->masterSecret = $masterSecret;
     }
