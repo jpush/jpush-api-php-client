@@ -40,47 +40,12 @@ class JPushClient {
         return new ReportResponse($response);
     }
 
-
-    public function buildAutoCode() {
-        return 'Authorization: Basic ' . base64_encode($this->appKey . ':' . $this->masterSecret);
-    }
-
-    public function buildUserAgent() {
-        return 'User-Agent: ' . self::USER_AGENT;
-    }
-
-
     public function sendPush($data) {
         $header = array('User-Agent' => self::USER_AGENT,
             'Connection' => 'Keep-Alive',
             'Charset' => 'UTF-8',
             'Content-Type' => 'application/json');
         return $this->sendPost(self::PUSH_URL, $data, $header);
-    }
-
-
-    public function request($url, $data, $header, $method = 'POST') {
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        if ($method === 'POST') {
-            curl_setopt($curl, CURLOPT_POST, 1);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        }
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
-        curl_setopt($curl, CURLOPT_TIMEOUT, 60);
-        curl_setopt($curl, CURLOPT_HEADER, 0);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-        $body = curl_exec($curl);
-        $httpCode = curl_getinfo($curl,CURLINFO_HTTP_CODE);
-        if (curl_errno($curl)) {
-            $errnoMsg = 'Curl error: '.curl_error($curl);
-            error_log($errnoMsg);
-        }
-        curl_close($curl);
-        return array('code' => $httpCode, 'body' => $body);
     }
 
     public function sendGet($url, $data=null, $header) {
