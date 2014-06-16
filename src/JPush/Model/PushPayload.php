@@ -89,6 +89,8 @@ class PushPayload {
         if (!is_null($this->options))
         {
             $payload['options'] = $this->options;
+        } else {
+            $payload['options'] = options(generateSendno());
         }
 
         return json_encode($payload);

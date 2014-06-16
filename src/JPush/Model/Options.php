@@ -4,6 +4,14 @@ namespace JPush\Model;
 
 use InvalidArgumentException;
 
+
+const MIN_SENDNO = 100000;
+const MAX_SENDNO = 4294967294;
+
+function generateSendno() {
+    return rand(MIN_SENDNO, MAX_SENDNO);
+}
+
 function options($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_production=null)
 {
     if ($sendno == null && $time_to_live == null && $override_msg_id == null && $apns_production == null) {
@@ -17,6 +25,8 @@ function options($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_
         } else {
             throw new InvalidArgumentException("options.sendno must be a int");
         }
+    } else {
+        $payload['sendno'] = generateSendno();
     }
 
     if (!is_null($time_to_live)) {
@@ -46,3 +56,4 @@ function options($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_
 
     return $payload;
 }
+
