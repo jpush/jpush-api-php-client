@@ -16,6 +16,7 @@ class JPushClient {
     const PUSH_URL = 'https://api.jpush.cn/v3/push';
     const REPORT_URL = 'https://report.jpush.cn/v2/received';
     const USER_AGENT = 'JPush-API-PHP-Client';
+    conST CONNECT_TIMEOUT = 5;
 
     public $appKey;
     public $masterSecret;
@@ -58,7 +59,7 @@ class JPushClient {
 
         $request = Request::get($url)
             ->authenticateWith($this->appKey, $this->masterSecret)
-            ->timeout(30 * 1000)
+            ->timeout(self::CONNECT_TIMEOUT)
             ->addHeaders($header);
 
         if (!is_null($data)) {
@@ -79,7 +80,7 @@ class JPushClient {
             ->authenticateWith($this->appKey, $this->masterSecret)
             ->body($data)
             ->addHeaders($header)
-            ->timeout(30 * 1000)
+            ->timeout(self::CONNECT_TIMEOUT)
             ->send();
         return $response;
     }
