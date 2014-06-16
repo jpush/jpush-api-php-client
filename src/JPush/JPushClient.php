@@ -8,6 +8,7 @@
 
 namespace JPush;
 
+use Httpful\Request;
 use JPush\Model\PushPayload;
 use JPush\Model\ReportResponse;
 
@@ -30,11 +31,12 @@ class JPushClient {
     }
 
     public function report($msg_id) {
-        $autoCode = $this->buildAutoCode();
-        $userAgent = $this->buildUserAgent();
-        $header = array($autoCode, $userAgent, 'Content-type: application/json');
+        $header = array('User-Agent' => self::USER_AGENT,
+            'Connection' => 'Keep-Alive',
+            'Charset' => 'UTF-8',
+            'Content-Type' => 'application/json');
         $url = self::REPORT_URL . '?msg_ids=' . $msg_id;
-        $response = $this->request($url, null, $header, 'GET');
+        $response = $this->sendGet($url, null, $header);
         return new ReportResponse($response);
     }
 
@@ -49,11 +51,11 @@ class JPushClient {
 
 
     public function sendPush($data) {
-        $autoCode = $this->buildAutoCode();
-        $userAgent = $this->buildUserAgent();
-        $header = array($autoCode, $userAgent, 'Content-type: application/json');
-
-        return $this->request(self::PUSH_URL, $data, $header, 'POST');
+        $header = array('User-Agent' => self::USER_AGENT,
+            'Connection' => 'Keep-Alive',
+            'Charset' => 'UTF-8',
+            'Content-Type' => 'application/json');
+        return $this->sendPost(self::PUSH_URL, $data, $header);
     }
 
 
@@ -80,6 +82,27 @@ class JPushClient {
         curl_close($curl);
         return array('code' => $httpCode, 'body' => $body);
     }
+
+    public function sendGet($url, $data=null, $header) {
+        $request = Request::get($url)
+            ->authenticateWith($this->appKey, $this->masterSecret)
+            ->addHeaders($header);
+        if (!is_null($data)) {
+            $request->body($data);
+        }
+        return $request->send();
+    }
+
+    public function sendPost($url, $data, $header) {
+        $response = Request::post($url)
+            ->authenticateWith($this->appKey, $this->masterSecret)
+            ->body($data)
+            ->addHeaders($header)
+            ->send();
+        return $response;
+    }
+
+
 
 
 

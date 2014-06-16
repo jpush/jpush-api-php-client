@@ -12,13 +12,13 @@ class ReportResponse {
 
     function __construct($response)
     {
-        if ($response['code'] !== 200) {
+        if ($response->code !== 200) {
             $this->ok = false;
             $this->response = $response;
             $this->error = new Error($response);
             return;
         }
-        $payload = json_decode($response['body'], true);
+        $payload = json_decode($response->raw_body, true);
         $received_list = array();
         foreach($payload as $received) {
             array_push($received_list, new Report($received));
