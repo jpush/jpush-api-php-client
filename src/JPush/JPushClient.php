@@ -49,9 +49,18 @@ class JPushClient {
     }
 
     public function sendGet($url, $data=null, $header) {
+        $logger = JPushLog::getLogger();
+        $logger->debug("Send Get", array(
+            "method" => 'GET',
+            "uri" => $url,
+            "headers" => $header,
+            "body" => $data));
+
         $request = Request::get($url)
             ->authenticateWith($this->appKey, $this->masterSecret)
+            ->timeout(30 * 1000)
             ->addHeaders($header);
+
         if (!is_null($data)) {
             $request->body($data);
         }
@@ -59,10 +68,18 @@ class JPushClient {
     }
 
     public function sendPost($url, $data, $header) {
+        $logger = JPushLog::getLogger();
+        $logger->debug("Send Post", array(
+            "method" => 'POST',
+            "uri" => $url,
+            "headers" => $header,
+            "body" => $data));
+
         $response = Request::post($url)
             ->authenticateWith($this->appKey, $this->masterSecret)
             ->body($data)
             ->addHeaders($header)
+            ->timeout(30 * 1000)
             ->send();
         return $response;
     }
