@@ -1,5 +1,6 @@
 {
     "require":{
+        "jpush/jpush":"@dev",
         "monolog/monolog":"*",
         "nategood/httpful":"*"
     }
