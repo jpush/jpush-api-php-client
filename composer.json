@@ -24,9 +24,10 @@
             "src/JPush/Model/PushResponse.php",
             "src/JPush/Model/ReportResponse.php",
             "src/JPush/Model/Report.php",
-            "src/JPush/Model/Error.php",
             "src/JPush/JPushClient.php",
-            "src/JPush/JPushLog.php"
+            "src/JPush/JPushLog.php",
+            "src/JPush/Exception/APIConnectionException.php",
+            "src/JPush/Exception/APIRequestException.php"
         ]
 
     },

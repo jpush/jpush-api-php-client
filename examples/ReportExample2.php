@@ -8,7 +8,6 @@ include_once '../src/JPush/Model/PushPayload.php';
 include_once '../src/JPush/Model/PushResponse.php';
 include_once '../src/JPush/Model/ReportResponse.php';
 include_once '../src/JPush/Model/Report.php';
-include_once '../src/JPush/Model/Error.php';
 include_once '../src/JPush/JPushClient.php';
 include_once '../src/JPush/JPushLog.php';
 include_once '../src/JPush/Exception/APIConnectionException.php';
