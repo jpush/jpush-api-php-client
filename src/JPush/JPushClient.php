@@ -20,12 +20,14 @@ class JPushClient {
     const PUSH_URL = 'https://api.jpush.cn/v3/push';
     const REPORT_URL = 'https://report.jpush.cn/v2/received';
     const USER_AGENT = 'JPush-API-PHP-Client';
-    conST CONNECT_TIMEOUT = 5;
+    const CONNECT_TIMEOUT = 5;
+    const DEFAULT_MAX_RETRY_TIMES = 5;
 
     public $appKey;
     public $masterSecret;
+    public $retryTimes;
 
-    public function __construct($appKey, $masterSecret)
+    public function __construct($appKey, $masterSecret, $retryTimes=self::DEFAULT_MAX_RETRY_TIMES)
     {
         if (is_null($appKey) || is_null($masterSecret)) {
             throw new InvalidArgumentException("appKey and masterSecret must be set.");
@@ -36,6 +38,7 @@ class JPushClient {
         }
         $this->appKey = $appKey;
         $this->masterSecret = $masterSecret;
+        $this->retryTimes = $retryTimes;
     }
 
     public function push() {
@@ -48,7 +51,7 @@ class JPushClient {
             'Charset' => 'UTF-8',
             'Content-Type' => 'application/json');
         $url = self::REPORT_URL . '?msg_ids=' . $msg_id;
-        $response = $this->sendGet($url, null, $header);
+        $response = $this->request($url, null, $header, 'GET');
         return new ReportResponse($response);
     }
 
@@ -57,55 +60,52 @@ class JPushClient {
             'Connection' => 'Keep-Alive',
             'Charset' => 'UTF-8',
             'Content-Type' => 'application/json');
-        $response = $this->sendPost(self::PUSH_URL, $data, $header);
-        return $response;
+        return $this->request(self::PUSH_URL, $data, $header, 'POST');
     }
 
-    public function sendGet($url, $data=null, $header) {
+    public function request($url, $data, $header, $method='POST') {
         $logger = JPushLog::getLogger();
-        $logger->debug("Send Get", array(
-            "method" => 'GET',
+        $logger->debug("Send " . $method, array(
+            "method" => $method,
             "uri" => $url,
             "headers" => $header,
             "body" => $data));
 
-        $request = Request::get($url)
-            ->authenticateWith($this->appKey, $this->masterSecret)
-            ->timeout(self::CONNECT_TIMEOUT)
-            ->addHeaders($header);
+        $request = null;
+        if ($method === 'POST') {
+            $request = Request::post($url);
+        } else {
+            $request = Request::get($url);
+        }
 
         if (!is_null($data)) {
             $request->body($data);
         }
 
-        try {
-            $response = $request->send();
-        } catch(ConnectionErrorException $e) {
-            throw new APIConnectionException("Connect timeout. Please retry later.");
+        $request->addHeaders($header)
+            ->authenticateWith($this->appKey, $this->masterSecret)
+            ->timeout(self::CONNECT_TIMEOUT);
+
+        $response = null;
+        for ($retryTimes=0;;$retryTimes++) {
+            try {
+                $response = $request->send();
+                break;
+            } catch (ConnectionErrorException $e) {
+                if ($retryTimes >= $this->retryTimes) {
+                    throw new APIConnectionException("Connect timeout. Please retry later.");
+                } else {
+                    $logger->debug("Retry again send " . $method, array(
+                        "method" => $method,
+                        "uri" => $url,
+                        "headers" => $header,
+                        "body" => $data,
+                        "retryTimes" => $retryTimes + 1));
+                }
+            }
         }
         return $response;
-    }
 
-    public function sendPost($url, $data, $header) {
-        $logger = JPushLog::getLogger();
-        $logger->debug("Send Post", array(
-            "method" => 'POST',
-            "uri" => $url,
-            "headers" => $header,
-            "body" => $data));
-
-
-        try {
-            $response = Request::post($url)
-                ->authenticateWith($this->appKey, $this->masterSecret)
-                ->body($data)
-                ->addHeaders($header)
-                ->timeout(self::CONNECT_TIMEOUT)
-                ->send();
-        } catch(ConnectionErrorException $e) {
-            throw new APIConnectionException("Connect timeout. Please retry later.");
-        }
-        return $response;
     }
 
 
