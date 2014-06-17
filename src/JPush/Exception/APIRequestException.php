@@ -37,7 +37,6 @@ class APIRequestException extends \Exception {
         $exc->response = $response->raw_body;
         $exc->httpCode = $response->code;
         $headers = $response->headers;
-        var_dump($headers);
         if (!is_null($headers)) {
             $exc->rateLimitLimit = $headers['x-rate-limit-limit'];
             $exc->rateLimitRemaining = $headers['x-rate-limit-remaining'];
