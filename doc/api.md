@@ -109,6 +109,7 @@ JPush Push JSON Model， JPush API v3中，每一个推送对象都是一个JSON
 
 将本payload对象推送到JPUSH服务器  
 返回：PushResponse 服务器响应对象
+
 | PushResponse |
 | 属性        | 类型 | 说明  |
 | --------   | -----  | -----  |
