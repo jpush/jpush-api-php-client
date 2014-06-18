@@ -18,6 +18,19 @@ PHP >= 5.1.4
 * PHPUnit
 
 
+### Composer install
+
+Use composer to fetch the library and dependencies defined in `composer.json`, and install them:
+
+```
+#download the composer.phar
+$ curl -sS https://getcomposer.org/installer | php
+#install by composer.json
+$ php composer.phar install
+```
+
+
+
 ## 快速使用
 ### Easy Push
 
@@ -32,29 +45,15 @@ use JPush\Exception\APIRequestException;
 $br = '<br/>';
 $client = new JPushClient($app_key, $master_secret);
 
-try {
-    $result = $client->push()
-        ->setPlatform(M\all)
-        ->setAudience(M\all)
-        ->setNotification(M\notification('Hi, JPush'))
-        ->send();
-    echo 'Push Success.' . $br;
-    echo 'sendno : ' . $result->sendno . $br;
-    echo 'msg_id : ' .$result->msg_id . $br;
-    echo 'Response JSON : ' . $result->json . $br;
-} catch (APIRequestException $e) {
-    echo 'Push Fail.' . $br;
-    echo 'Http Code : ' . $e->httpCode . $br;
-    echo 'code : ' . $e->code . $br;
-    echo 'message : ' . $e->message . $br;
-    echo 'Response JSON : ' . $e->json . $br;
-    echo 'rateLimitLimit : ' . $e->rateLimitLimit . $br;
-    echo 'rateLimitRemaining : ' . $e->rateLimitRemaining . $br;
-    echo 'rateLimitReset : ' . $e->rateLimitReset . $br;
-} catch (APIConnectionException $e) {
-    echo 'Push Fail.' . $br;
-    echo 'message' . $e->getMessage() . $br;
-}
+$result = $client->push()
+    ->setPlatform(M\all)
+    ->setAudience(M\all)
+    ->setNotification(M\notification('Hi, JPush'))
+    ->send();
+echo 'Push Success.' . $br;
+echo 'sendno : ' . $result->sendno . $br;
+echo 'msg_id : ' .$result->msg_id . $br;
+echo 'Response JSON : ' . $result->json . $br;
 
 ```
 
@@ -71,27 +70,13 @@ $br = '<br/>';
 
 $client = new JPushClient($app_key, $master_secret);
 
-try {
-    $msg_ids = '1931816610,1466786990,1931499836';
-    $result = $client->report($msg_ids);
-    foreach($result->received_list as  $received) {
-        echo '---------' . $br;
-        echo 'msg_id : ' . $received->msg_id . $br;
-        echo 'android_received : ' .  $received->android_received . $br;
-        echo 'ios_apns_sent : ' .  $received->ios_apns_sent . $br;
-    }
-} catch (APIRequestException $e) {
-    echo 'Push Fail.' . $br;
-    echo 'Http Code : ' . $e->httpCode . $br;
-    echo 'code : ' . $e->code . $br;
-    echo 'message : ' . $e->message . $br;
-    echo 'Response JSON : ' . $e->json . $br;
-    echo 'rateLimitLimit : ' . $e->rateLimitLimit . $br;
-    echo 'rateLimitRemaining : ' . $e->rateLimitRemaining . $br;
-    echo 'rateLimitReset : ' . $e->rateLimitReset . $br;
-} catch (APIConnectionException $e) {
-    echo 'Push Fail.' . $br;
-    echo 'message' . $e->getMessage() . $br;
+$msg_ids = '1931816610,1466786990,1931499836';
+$result = $client->report($msg_ids);
+foreach($result->received_list as  $received) {
+    echo '---------' . $br;
+    echo 'msg_id : ' . $received->msg_id . $br;
+    echo 'android_received : ' .  $received->android_received . $br;
+    echo 'ios_apns_sent : ' .  $received->ios_apns_sent . $br;
 }
 ```
 
