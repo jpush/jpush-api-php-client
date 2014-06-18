@@ -11,6 +11,7 @@ namespace JPush\Model;
 use JPush\Exception\APIRequestException;
 
 class PushResponse {
+    public $isOk = false;
     public $sendno;
     public $msg_id;
     public $json;
@@ -32,5 +33,6 @@ class PushResponse {
 
         $this->json = $response->raw_body;
         $this->response = $response;
+        $this->isOk = true;
     }
 } 
