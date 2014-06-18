@@ -1,36 +1,15 @@
 <?php
-include_once '../src/JPush/Model/Audience.php';
-include_once '../src/JPush/Model/Message.php';
-include_once '../src/JPush/Model/Notification.php';
-include_once '../src/JPush/Model/Options.php';
-include_once '../src/JPush/Model/Platform.php';
-include_once '../src/JPush/Model/PushPayload.php';
-include_once '../src/JPush/Model/PushResponse.php';
-include_once '../src/JPush/Model/ReportResponse.php';
-include_once '../src/JPush/Model/Report.php';
-include_once '../src/JPush/JPushClient.php';
-include_once '../src/JPush/JPushLog.php';
-include_once '../src/JPush/Exception/APIConnectionException.php';
-include_once '../src/JPush/Exception/APIRequestException.php';
 require_once 'vendor/autoload.php';
 
 use JPush\Model as M;
 use JPush\JPushClient;
-use JPush\JPushLog;
-
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-
 use JPush\Exception\APIConnectionException;
 use JPush\Exception\APIRequestException;
 
 $br = '<br/>';
-$spilt = ' - ';
 
 $master_secret = 'd94f733358cca97b18b2cb98';
 $app_key='47a3ddda34b2602fa9e17c01';
-
-JPushLog::setLogHandlers(array(new StreamHandler('jpush.log', Logger::DEBUG)));
 $client = new JPushClient($app_key, $master_secret);
 
 
