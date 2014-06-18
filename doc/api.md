@@ -20,6 +20,8 @@ PHP >= 5.1.4
 ### Development Dependencies
 * PHPUnit
 
+### About Log
+请确保当前用户对日志文件夹有读写权限。
 
 ## Example
 
