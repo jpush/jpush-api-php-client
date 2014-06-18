@@ -110,13 +110,12 @@ JPush Push JSON Model， JPush API v3中，每一个推送对象都是一个JSON
 将本payload对象推送到JPUSH服务器  
 返回：PushResponse 服务器响应对象
 
-| PushResponse |
-| 属性        | 类型 | 说明  |
-| --------   | -----  | -----  |
-| $sendno | int | 开发者指定的 API 调用标识 |
-| $msg_id | long | 推送信息的唯一标示 |
-| $json | string | 返回的JSON字符串 | 
-| $response | object | 返回的response | 
+ 属性        | 类型 | 说明
+ -------- | -----  | -----
+ $sendno | int | 开发者指定的 API 调用标识
+ $msg_id | long | 推送信息的唯一标示
+ $json | string | 返回的JSON字符串
+ $response | object | 返回的response
 
 `function: JPush/Model/getJSON()`
 
