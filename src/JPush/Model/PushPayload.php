@@ -96,14 +96,94 @@ class PushPayload {
         return json_encode($payload);
     }
 
+
     public function printJSON() {
         echo $this->getJSON() . '<br/>';
         return $this;
     }
 
     public function send() {
+        $this->validate();
         $response = $this->client->sendPush($this->getJSON());
         return new PushResponse($response);
+    }
+
+
+    /**
+     * calculate string length by byte
+     * @param $string
+     * @return int
+     */
+    private function calculateLength($string) {
+        $bytes = array();
+        for($i = 0; $i < strlen($string); $i++){
+            $bytes[] = ord($string[$i]);
+        }
+        return count($bytes);
+    }
+
+    /**
+     * validate payload legality
+     */
+    private function validate() {
+        $message = $this->message;
+        $notification = $this->notification;
+
+
+        $ios = 0;
+        $android = 0;
+        $winphone = 0;
+
+        if (!is_null($notification)) {
+            $hasAlert = array_key_exists('alert', $notification);
+            $alert = $notification['alert'];
+            if (array_key_exists('ios', $notification)) {
+                $ios = $this->calculateLength(json_encode($notification['ios']));
+            } else if ($hasAlert) {
+                $ios = $this->calculateLength(json_encode(array('alert'=>$alert, 'sound'=>'', 'badge'=>1)));
+            }
+
+            if ($ios > 220) {
+                throw new InvalidArgumentException("ios notification length should be less than 220");
+            }
+
+            if (array_key_exists('android', $notification)) {
+                $android = $this->calculateLength(json_encode($notification['android']));
+            } else if ($hasAlert) {
+                $android = $this->calculateLength(json_encode(array('alert'=>$alert)));
+            }
+
+            if (array_key_exists('winphone', $notification)) {
+                $winphone = $this->calculateLength(json_encode($notification['winphone']));
+            } else if ($hasAlert) {
+                $winphone = $this->calculateLength(json_encode(array('alert'=>$alert)));
+            }
+
+            if (!is_null($message)) {
+                $msg_len = $this->calculateLength($message);
+                $ios += $msg_len;
+                $winphone += $msg_len;
+                $android += $msg_len;
+            }
+
+            if ($ios > 1200) {
+                throw new InvalidArgumentException("ios notification and message length should be less than 1200");
+            }
+            if ($android > 1200) {
+                throw new InvalidArgumentException("android notification and message length should be less than 1200");
+            }
+            if ($winphone > 1200) {
+                throw new InvalidArgumentException("winphone notification and message length should be less than 1200");
+            }
+
+        }
+
+
+
+
+
+
+
     }
 
 
