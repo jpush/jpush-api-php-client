@@ -5,6 +5,7 @@ namespace JPush\Model;
 use InvalidArgumentException;
 
 CONST disableSound = "disableSound";
+CONST disableBadge = -1;
 
 function notification($alert /* platform notification params */)
 {
@@ -56,7 +57,9 @@ function ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=n
         if (!is_int($badge)) {
             throw new InvalidArgumentException("Invalid ios.badge int");
         }
-        $payload['badge'] = $badge;
+        if ($badge != disableBadge) {
+            $payload['badge'] = $badge;
+        }
     } else {
         $payload['badge'] = 1;
     }
