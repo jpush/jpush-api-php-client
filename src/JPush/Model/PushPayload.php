@@ -136,7 +136,10 @@ class PushPayload {
 
         if (!is_null($notification)) {
             $hasAlert = array_key_exists('alert', $notification);
-            $alert = $notification['alert'];
+            $alert = "";
+            if ($hasAlert) {
+                $notification['alert'];
+            }
             if (array_key_exists('ios', $notification)) {
                 $ios = $this->calculateLength(json_encode($notification['ios']));
             } else if ($hasAlert) {

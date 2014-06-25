@@ -230,7 +230,8 @@ class PushPayloadTest extends PHPUnit_Framework_TestCase {
                 "alert" => "Hi, JPush"
             ),
             "options" => array(
-                "sendno" => 654321
+                "sendno" => 654321,
+                "apns_production" => false
             )
         );
         $json = json_encode($array);

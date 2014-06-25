@@ -5,6 +5,7 @@ namespace JPush\Model;
 use JPush\Exception\APIRequestException;
 
 class ReportResponse {
+    public $isOk = false;
     public $json;
     public $response;
     public $received_list;
@@ -23,6 +24,7 @@ class ReportResponse {
         $this->received_list = $received_list;
         $this->json = $response->raw_body;
         $this->response = $response;
+        $this->isOk = true;
     }
 
 

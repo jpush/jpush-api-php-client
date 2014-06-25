@@ -52,6 +52,8 @@ function options($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_
         } else {
             throw new InvalidArgumentException("options.apns_production must be a bool");
         }
+    } else {
+        $payload['apns_production'] = false;
     }
 
     return $payload;
