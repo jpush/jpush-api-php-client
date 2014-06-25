@@ -4,7 +4,7 @@ namespace JPush\Model;
 
 use InvalidArgumentException;
 
-
+CONST disableSound = "disableSound";
 
 function notification($alert /* platform notification params */)
 {
@@ -45,9 +45,11 @@ function ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=n
         if (!is_string($sound)) {
             throw new InvalidArgumentException("Invalid ios.sound string");
         }
-        if (strlen($sound) > 0) {
+        if ($sound !== disableSound) {
             $payload['sound'] = $sound;
         }
+    } else {
+        $payload['sound'] = '';
     }
 
     if (!is_null($badge)) {
@@ -55,6 +57,8 @@ function ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=n
             throw new InvalidArgumentException("Invalid ios.badge int");
         }
         $payload['badge'] = $badge;
+    } else {
+        $payload['badge'] = 1;
     }
 
     if (!is_null($contentAvailable)) {
