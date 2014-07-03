@@ -21,7 +21,7 @@ class JPushClient {
     const REPORT_URL = 'https://report.jpush.cn/v2/received';
     const USER_AGENT = 'JPush-API-PHP-Client';
     const CONNECT_TIMEOUT = 5;
-    const DEFAULT_MAX_RETRY_TIMES = 5;
+    const DEFAULT_MAX_RETRY_TIMES = 3;
 
     public $appKey;
     public $masterSecret;
