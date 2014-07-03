@@ -286,6 +286,14 @@ Example：
 $payload->setOptions(M\options(123456, null, null, false))
 ```
 
+### Vaildate 
+
+| Method | Description |
+| ------- | ------ |
+| isIosExceedLength | 检测当前payload是否超出ios notification长度限定。返回true/false。（ios notification不超过220并且ios notification + message不超过1200） |
+| isGlobalExceedLength | 检测当前payload是否超出长度限定。返回true/false。（ios notification不超过220并且所有平台的notification + message不超过1200） |
+
+
 ## Report
 `function: JPush\JPushClient::report($msg_ids)`
 
