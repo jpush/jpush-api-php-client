@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: xiezefan
- * Date: 14-6-9
- * Time: 下午1:49
- */
 
 namespace JPush;
 
@@ -21,6 +15,7 @@ class JPushClient {
     const REPORT_URL = 'https://report.jpush.cn/v2/received';
     const USER_AGENT = 'JPush-API-PHP-Client';
     const CONNECT_TIMEOUT = 5;
+    const READ_TIMEOUT = 30;
     const DEFAULT_MAX_RETRY_TIMES = 3;
 
     public $appKey;
@@ -84,7 +79,7 @@ class JPushClient {
 
         $request->addHeaders($header)
             ->authenticateWith($this->appKey, $this->masterSecret)
-            ->timeout(self::CONNECT_TIMEOUT);
+            ->timeout(self::READ_TIMEOUT);
 
         $response = null;
         for ($retryTimes=0;;$retryTimes++) {
@@ -92,6 +87,10 @@ class JPushClient {
                 $response = $request->send();
                 break;
             } catch (ConnectionErrorException $e) {
+                if (strpos($e->getMessage(),'28')) {
+                    throw new APIConnectionException("Response timeout. Your request has probably be received by JPUsh Server,please check that whether need to be pushed again.", true);
+                }
+                //echo '<br/>';
                 if ($retryTimes >= $this->retryTimes) {
                     throw new APIConnectionException("Connect timeout. Please retry later.");
                 } else {
