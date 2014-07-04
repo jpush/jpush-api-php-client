@@ -10,7 +10,9 @@ namespace JPush\Exception;
 
 
 class APIConnectionException extends \Exception {
-    function __construct($message) {
+    public $isResponseTimeout;
+    function __construct($message, $isResponseTimeout = false) {
         parent::__construct($message);
+        $this->isResponseTimeout = $isResponseTimeout;
     }
 }

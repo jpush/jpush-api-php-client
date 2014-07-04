@@ -38,17 +38,20 @@ try {
     echo 'Push Fail.' . $br;
     echo 'Http Code : ' . $e->httpCode . $br;
     echo 'code : ' . $e->code . $br;
-    echo 'message : ' . $e->message . $br;
+    echo 'Error Message : ' . $e->message . $br;
     echo 'Response JSON : ' . $e->json . $br;
     echo 'rateLimitLimit : ' . $e->rateLimitLimit . $br;
     echo 'rateLimitRemaining : ' . $e->rateLimitRemaining . $br;
     echo 'rateLimitReset : ' . $e->rateLimitReset . $br;
 } catch (APIConnectionException $e) {
-    echo 'Push Fail.' . $br;
-    echo 'message' . $e->getMessage() . $br;
+    echo 'Push Fail: ' . $br;
+    echo 'Error Message: ' . $e->getMessage() . $br;
+    //response timeout means your request has probably be received by JPUsh Server,please check that whether need to be pushed again.
+    echo 'IsResponseTimeout: ' . $e->isResponseTimeout . $br;
 }
 
 echo $br . '-------------' . $br;
+
 
 //full push
 try {
@@ -75,8 +78,10 @@ try {
     echo 'rateLimitRemaining : ' . $e->rateLimitRemaining . $br;
     echo 'rateLimitReset : ' . $e->rateLimitReset . $br;
 } catch (APIConnectionException $e) {
-    echo 'Push Fail.' . $br;
-    echo 'message' . $e->getMessage() . $br;
+    echo 'Push Fail: ' . $br;
+    echo 'Error Message: ' . $e->getMessage() . $br;
+    //response timeout means your request has probably be received by JPUsh Server,please check that whether need to be pushed again.
+    echo 'IsResponseTimeout: ' . $e->isResponseTimeout . $br;
 }
 
 
@@ -108,6 +113,8 @@ try {
     echo 'rateLimitRemaining : ' . $e->rateLimitRemaining . $br;
     echo 'rateLimitReset : ' . $e->rateLimitReset . $br;
 } catch (APIConnectionException $e) {
-    echo 'Push Fail.' . $br;
-    echo 'message' . $e->getMessage() . $br;
+    echo 'Push Fail: ' . $br;
+    echo 'Error Message: ' . $e->getMessage() . $br;
+    //response timeout means your request has probably be received by JPUsh Server,please check that whether need to be pushed again.
+    echo 'IsResponseTimeout: ' . $e->isResponseTimeout . $br;
 }
