@@ -1,0 +1,224 @@
+[
+    {
+        "name": "nategood/httpful",
+        "version": "0.2.13",
+        "version_normalized": "0.2.13.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/nategood/httpful.git",
+            "reference": "e923b8e3903bc81e9300a386fff1074364fb3bc1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/nategood/httpful/zipball/e923b8e3903bc81e9300a386fff1074364fb3bc1",
+            "reference": "e923b8e3903bc81e9300a386fff1074364fb3bc1",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "php": ">=5.3"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "*"
+        },
+        "time": "2014-05-21 10:58:38",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Httpful": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nate Good",
+                "email": "me@nategood.com",
+                "homepage": "http://nategood.com"
+            }
+        ],
+        "description": "A Readable, Chainable, REST friendly, PHP HTTP Client",
+        "homepage": "http://github.com/nategood/httpful",
+        "keywords": [
+            "api",
+            "curl",
+            "http",
+            "requests",
+            "rest",
+            "restful"
+        ]
+    },
+    {
+        "name": "psr/log",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/log.git",
+            "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
+            "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
+            "shasum": ""
+        },
+        "time": "2012-12-21 11:40:51",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Psr\\Log\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for logging libraries",
+        "keywords": [
+            "log",
+            "psr",
+            "psr-3"
+        ]
+    },
+    {
+        "name": "monolog/monolog",
+        "version": "1.10.0",
+        "version_normalized": "1.10.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Seldaek/monolog.git",
+            "reference": "25b16e801979098cb2f120e697bfce454b18bf23"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/25b16e801979098cb2f120e697bfce454b18bf23",
+            "reference": "25b16e801979098cb2f120e697bfce454b18bf23",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0",
+            "psr/log": "~1.0"
+        },
+        "require-dev": {
+            "aws/aws-sdk-php": "~2.4, >2.4.8",
+            "doctrine/couchdb": "~1.0@dev",
+            "graylog2/gelf-php": "~1.0",
+            "phpunit/phpunit": "~3.7.0",
+            "raven/raven": "~0.5",
+            "ruflin/elastica": "0.90.*"
+        },
+        "suggest": {
+            "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
+            "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+            "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+            "ext-mongo": "Allow sending log messages to a MongoDB server",
+            "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+            "raven/raven": "Allow sending log messages to a Sentry server",
+            "rollbar/rollbar": "Allow sending log messages to Rollbar",
+            "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
+        },
+        "time": "2014-06-04 16:30:04",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.10.x-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Monolog\\": "src/Monolog"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jordi Boggiano",
+                "email": "j.boggiano@seld.be",
+                "homepage": "http://seld.be",
+                "role": "Developer"
+            }
+        ],
+        "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
+        "homepage": "http://github.com/Seldaek/monolog",
+        "keywords": [
+            "log",
+            "logging",
+            "psr-3"
+        ]
+    },
+    {
+        "name": "jpush/jpush",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/jpush/jpush-api-php-client.git",
+            "reference": "cddaf7a5f0b61a8a57e4e6c0a2ba08e2bd013b64"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/jpush/jpush-api-php-client/zipball/cddaf7a5f0b61a8a57e4e6c0a2ba08e2bd013b64",
+            "reference": "cddaf7a5f0b61a8a57e4e6c0a2ba08e2bd013b64",
+            "shasum": ""
+        },
+        "require": {
+            "monolog/monolog": "1.*",
+            "nategood/httpful": "*"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "*"
+        },
+        "time": "2014-07-05 07:41:02",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "jpush": "src/"
+            },
+            "files": [
+                "src/JPush/Model/Audience.php",
+                "src/JPush/Model/Message.php",
+                "src/JPush/Model/Notification.php",
+                "src/JPush/Model/Options.php",
+                "src/JPush/Model/Platform.php",
+                "src/JPush/Model/PushPayload.php",
+                "src/JPush/Model/PushResponse.php",
+                "src/JPush/Model/ReportResponse.php",
+                "src/JPush/Model/Report.php",
+                "src/JPush/JPushClient.php",
+                "src/JPush/JPushLog.php",
+                "src/JPush/Exception/APIConnectionException.php",
+                "src/JPush/Exception/APIRequestException.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache"
+        ],
+        "authors": [
+            {
+                "name": "JPush",
+                "email": "support@jpush.cn",
+                "homepage": "https://www.jpush.cn/",
+                "role": "Developer"
+            }
+        ],
+        "description": "JPush API PHP Client",
+        "homepage": "http://docs.jpush.cn/display/dev/Push-API-v3"
+    }
+]
