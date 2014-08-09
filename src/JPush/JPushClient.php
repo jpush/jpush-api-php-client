@@ -90,7 +90,6 @@ class JPushClient {
                 if (strpos($e->getMessage(),'28')) {
                     throw new APIConnectionException("Response timeout. Your request has probably be received by JPUsh Server,please check that whether need to be pushed again.", true);
                 }
-                //echo '<br/>';
                 if ($retryTimes >= $this->retryTimes) {
                     throw new APIConnectionException("Connect timeout. Please retry later.");
                 } else {

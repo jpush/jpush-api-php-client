@@ -54,8 +54,10 @@ function ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=n
     }
 
     if (!is_null($badge)) {
-        if (!is_int($badge)) {
-            throw new InvalidArgumentException("Invalid ios.badge int");
+        if (is_string($badge) && !preg_match("/^[+-]{1}[0-9]{1,3}$/", $badge)) {
+            if (!is_int($badge)) {
+                throw new InvalidArgumentException("Invalid ios.badge");
+            }
         }
         if ($badge != disableBadge) {
             $payload['badge'] = $badge;

@@ -34,10 +34,10 @@ class PushPayloadTest extends PHPUnit_Framework_TestCase {
         $json = json_encode($array);
 
         $payload = M\audience(
-            M\tag(["tag1", "tag2"]),
-            M\tag_and(["tag3"]),
-            M\alias(["alias1", "alias2"]),
-            M\registration_id(["id1", "id2"]));
+            M\tag(array("tag1", "tag2")),
+            M\tag_and(array("tag3")),
+            M\alias(array("alias1", "alias2")),
+            M\registration_id(array("id1", "id2")));
         $result = json_encode($payload);
 
         $this->assertEquals($json, $result);
@@ -102,6 +102,24 @@ class PushPayloadTest extends PHPUnit_Framework_TestCase {
         $json = json_encode($array);
 
         $payload = M\ios('ios alert', 'happy', 1, true, array("key1"=>"value1", "key2"=>"value2"));
+        $result = json_encode($payload);
+
+        $this->assertEquals($json, $result);
+    }
+
+    public function testIOSNotificationBadge() {
+        $array = array(
+            "platform" => "ios",
+            "alert" => "ios alert",
+            "sound" => "happy",
+            "badge" => "+1",
+            "content-available" => 1,
+            "extras" => array("key1"=>"value1", "key2"=>"value2")
+
+        );
+        $json = json_encode($array);
+
+        $payload = M\ios('ios alert', 'happy', "+1", true, array("key1"=>"value1", "key2"=>"value2"));
         $result = json_encode($payload);
 
         $this->assertEquals($json, $result);
@@ -206,10 +224,10 @@ class PushPayloadTest extends PHPUnit_Framework_TestCase {
 
         $payload = new M\PushPayload(null);
         $result = $payload->setPlatform(M\platform('android', 'ios', 'winphone'))
-            ->setAudience(M\audience(M\tag(["tag1", "tag2"]),
-                M\tag_and(["tag3"]),
-                M\alias(["alias1", "alias2"]),
-                M\registration_id(["id1", "id2"])))
+            ->setAudience(M\audience(M\tag(array("tag1", "tag2")),
+                M\tag_and(array("tag3")),
+                M\alias(array("alias1", "alias2")),
+                M\registration_id(array("id1", "id2"))))
             ->setNotification(M\notification('notification alert',
                 M\ios('ios alert', 'happy', 1, true, array("key1"=>"value1", "key2"=>"value2")),
                 M\android('android alert', 'android title', 1, array("key1"=>"value1", "key2"=>"value2")),
