@@ -69,7 +69,7 @@ class PushTest extends PHPUnit_Framework_TestCase {
     public function testSendByTag() {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $response = $client->push()->setPlatform(M\all)
-            ->setAudience(M\audience(M\tag([$this->tag1])))
+            ->setAudience(M\audience(M\tag(array($this->tag1))))
             ->setNotification(M\notification($this->alert))
             ->send();
 
@@ -78,7 +78,7 @@ class PushTest extends PHPUnit_Framework_TestCase {
     public function testSendByTagAnd() {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $response = $client->push()->setPlatform(M\all)
-            ->setAudience(M\audience(M\tag_and([$this->tag1])))
+            ->setAudience(M\audience(M\tag_and(array($this->tag1))))
             ->setNotification(M\notification($this->alert))
             ->send();
 
@@ -87,7 +87,7 @@ class PushTest extends PHPUnit_Framework_TestCase {
     public function testSendByAlias() {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $response = $client->push()->setPlatform(M\all)
-            ->setAudience(M\audience(M\alias([$this->alias1])))
+            ->setAudience(M\audience(M\alias(array($this->alias1))))
             ->setNotification(M\notification($this->alert))
             ->send();
 
@@ -96,7 +96,7 @@ class PushTest extends PHPUnit_Framework_TestCase {
     public function testSendByRegistrationID() {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $response = $client->push()->setPlatform(M\all)
-            ->setAudience(M\audience(M\registration_id([$this->registration_id1])))
+            ->setAudience(M\audience(M\registration_id(array($this->registration_id1))))
             ->setNotification(M\notification($this->alert))
             ->send();
 
@@ -106,7 +106,7 @@ class PushTest extends PHPUnit_Framework_TestCase {
     public function testSendByTagMore() {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $response = $client->push()->setPlatform(M\all)
-            ->setAudience(M\audience(M\tag([$this->tag1, $this->tag2])))
+            ->setAudience(M\audience(M\tag(array($this->tag1, $this->tag2))))
             ->setNotification(M\notification($this->alert))
             ->send();
 
@@ -115,7 +115,7 @@ class PushTest extends PHPUnit_Framework_TestCase {
     public function testSendByTagAndMore() {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $response = $client->push()->setPlatform(M\all)
-            ->setAudience(M\audience(M\tag_and([$this->tag1, $this->tag_all])))
+            ->setAudience(M\audience(M\tag_and(array($this->tag1, $this->tag_all))))
             ->setNotification(M\notification($this->alert))
             ->send();
 
@@ -124,7 +124,7 @@ class PushTest extends PHPUnit_Framework_TestCase {
     public function testSendByAliasMore() {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $response = $client->push()->setPlatform(M\all)
-            ->setAudience(M\audience(M\alias([$this->alias1, $this->alias2])))
+            ->setAudience(M\audience(M\alias(array($this->alias1, $this->alias2))))
             ->setNotification(M\notification($this->alert))
             ->send();
 
@@ -133,7 +133,7 @@ class PushTest extends PHPUnit_Framework_TestCase {
     public function testSendByRegistrationIDMore() {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $response = $client->push()->setPlatform(M\all)
-            ->setAudience(M\audience(M\registration_id([$this->registration_id1, $this->registration_id2])))
+            ->setAudience(M\audience(M\registration_id(array($this->registration_id1, $this->registration_id2))))
             ->setNotification(M\notification($this->alert))
             ->send();
 
@@ -144,8 +144,8 @@ class PushTest extends PHPUnit_Framework_TestCase {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $response = $client->push()->setPlatform(M\all)
             ->setAudience(M\audience(
-                M\tag([$this->tag1]),
-                M\alias([$this->alias1])
+                M\tag(array($this->tag1)),
+                M\alias(array($this->alias1))
             ))
             ->setNotification(M\notification($this->alert))
             ->send();
@@ -156,8 +156,8 @@ class PushTest extends PHPUnit_Framework_TestCase {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $response = $client->push()->setPlatform(M\all)
             ->setAudience(M\audience(
-                M\tag([$this->tag1]),
-                M\registration_id([$this->registration_id1])
+                M\tag(array($this->tag1)),
+                M\registration_id(array($this->registration_id1))
             ))
             ->setNotification(M\notification($this->alert))
             ->send();
@@ -168,8 +168,8 @@ class PushTest extends PHPUnit_Framework_TestCase {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $response = $client->push()->setPlatform(M\all)
             ->setAudience(M\audience(
-                M\tag([$this->tag_no]),
-                M\registration_id([$this->registration_id1])
+                M\tag(array($this->tag_no)),
+                M\registration_id(array($this->registration_id1))
             ))
             ->setNotification(M\notification($this->alert))
             ->send();
@@ -180,8 +180,8 @@ class PushTest extends PHPUnit_Framework_TestCase {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $response = $client->push()->setPlatform(M\all)
             ->setAudience(M\audience(
-                M\tag([$this->tag_no]),
-                M\alias([$this->alias1])
+                M\tag(array($this->tag_no)),
+                M\alias(array($this->alias1))
             ))
             ->setNotification(M\notification($this->alert))
             ->send();
@@ -192,8 +192,8 @@ class PushTest extends PHPUnit_Framework_TestCase {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $response = $client->push()->setPlatform(M\all)
             ->setAudience(M\audience(
-                M\tag([$this->tag_all]),
-                M\alias([$this->alias_no])
+                M\tag(array($this->tag_all)),
+                M\alias(array($this->alias_no))
             ))
             ->setNotification(M\notification($this->alert))
             ->send();
