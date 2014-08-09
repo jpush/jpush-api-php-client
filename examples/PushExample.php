@@ -57,7 +57,7 @@ echo $br . '-------------' . $br;
 try {
     $result = $client->push()
         ->setPlatform(M\platform('ios', 'android'))
-        ->setAudience(M\audience(M\tag(['555','666']), M\alias(['555', '666'])))
+        ->setAudience(M\audience(M\tag(array('555','666')), M\alias(array('555', '666'))))
         ->setNotification(M\notification('Hi, JPush', M\android('Hi, android'), M\ios('Hi, ios', 'happy', 1, true)))
         ->setMessage(M\message('msg content', null, null, array('key'=>'value')))
         ->setOptions(M\options(123456, null, null, false))
@@ -95,7 +95,7 @@ try {
         ->setPlatform(M\all)
         ->setAudience(M\all)
         ->setNotification(M\notification('Hi, JPush'))
-        ->setAudience(M\audience(['no one']))
+        ->setAudience(M\audience(array('no one')))
         ->printJSON()
         ->send();
 
