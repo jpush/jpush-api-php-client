@@ -4,7 +4,7 @@ This example is a simple PHP script using the JPush API PHP Client. It has an ex
 
 ## 快速安装
 
-解压 **examples/vendor.tar.gz** 到项目目录，在需要所用JPush的源文件头部 引入 vendor/autoload.php  既可使用。
+解压 **examples/vendor.tar.gz** 到项目目录，在需要使用JPush的源文件头部 引入 vendor/autoload.php  既可使用。
 ```php
 require_once 'vendor/autoload.php';
 ```
