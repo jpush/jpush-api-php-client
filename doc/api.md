@@ -8,9 +8,26 @@ JPush API PHP Library 提供简化构建JPush Push JSON的API，开发者只需�
  4. 指定额外的配置options
  5. 调用推送
 
+
+## 版本更新
+
+### v3.1.2
+
+* examples中加入**vendor.tar.gz**，现在开发者直接解压此文件到项目目录，引入 **vendor/autoload.php** 既可以使用**JPush**。
+* 添加了IOS推送中，支持badge +1， badge -1的操作
+    
+    ```
+    // badge 数值在原来的基础上+1
+    ->setNotification(M\notification('Hi, JPush', M\ios("Hi, IOS", "happy", "+1")))
+    // badge 数值在原来的基础上-1
+    ->setNotification(M\notification('Hi, JPush', M\ios("Hi, IOS", "happy", "-1")))
+    // badge 数值在原来的基础上+5
+    ->setNotification(M\notification('Hi, JPush', M\ios("Hi, IOS", "happy", "+5")))
+    ```
+ 
 ## 依赖
 
-PHP >= 5.1.4
+PHP >= 5.3
 
 ### Dependencies
 * Composer
