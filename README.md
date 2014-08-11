@@ -7,15 +7,13 @@
 
 ## 依赖
 
-PHP >= 5.1.4
+PHP >= 5.3
 
-### Dependencies
-* Composer
-* Httpful
-* Monolog
-
-### Development Dependencies
-* PHPUnit
+### 快速安装
+解压 **examples/vendor.tar.gz** 到项目目录，在需要所用JPush的源文件头部 引入 vendor/autoload.php  既可使用。
+```php
+require_once 'vendor/autoload.php';
+```
 
 
 ### Composer install
