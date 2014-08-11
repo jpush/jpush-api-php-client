@@ -10,3 +10,5 @@ bin/
 .settings/
 .idea
 composer.lock
+vendor/
+.log
