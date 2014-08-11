@@ -1,17 +1,17 @@
 [
     {
         "name": "nategood/httpful",
-        "version": "0.2.13",
-        "version_normalized": "0.2.13.0",
+        "version": "0.2.16",
+        "version_normalized": "0.2.16.0",
         "source": {
             "type": "git",
             "url": "https://github.com/nategood/httpful.git",
-            "reference": "e923b8e3903bc81e9300a386fff1074364fb3bc1"
+            "reference": "150bfb53f6e4b78e8152e0a9ccc227bb0e3daf62"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/nategood/httpful/zipball/e923b8e3903bc81e9300a386fff1074364fb3bc1",
-            "reference": "e923b8e3903bc81e9300a386fff1074364fb3bc1",
+            "url": "https://api.github.com/repos/nategood/httpful/zipball/150bfb53f6e4b78e8152e0a9ccc227bb0e3daf62",
+            "reference": "150bfb53f6e4b78e8152e0a9ccc227bb0e3daf62",
             "shasum": ""
         },
         "require": {
@@ -21,9 +21,9 @@
         "require-dev": {
             "phpunit/phpunit": "*"
         },
-        "time": "2014-05-21 10:58:38",
+        "time": "2014-07-19 15:28:59",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Httpful": "src/"
@@ -68,7 +68,7 @@
         },
         "time": "2012-12-21 11:40:51",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Psr\\Log\\": ""
@@ -135,7 +135,7 @@
                 "dev-master": "1.10.x-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-4": {
                 "Monolog\\": "src/Monolog"
@@ -168,12 +168,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/jpush/jpush-api-php-client.git",
-            "reference": "cddaf7a5f0b61a8a57e4e6c0a2ba08e2bd013b64"
+            "reference": "060a200e4512e65eb856243d9071ca8988497af3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/jpush/jpush-api-php-client/zipball/cddaf7a5f0b61a8a57e4e6c0a2ba08e2bd013b64",
-            "reference": "cddaf7a5f0b61a8a57e4e6c0a2ba08e2bd013b64",
+            "url": "https://api.github.com/repos/jpush/jpush-api-php-client/zipball/060a200e4512e65eb856243d9071ca8988497af3",
+            "reference": "060a200e4512e65eb856243d9071ca8988497af3",
             "shasum": ""
         },
         "require": {
@@ -183,7 +183,7 @@
         "require-dev": {
             "phpunit/phpunit": "*"
         },
-        "time": "2014-07-05 07:41:02",
+        "time": "2014-08-09 10:08:38",
         "type": "library",
         "installation-source": "source",
         "autoload": {
