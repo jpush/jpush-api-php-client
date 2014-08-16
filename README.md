@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jpush/jpush-api-php-client.svg?branch=master)](https://travis-ci.org/jpush/jpush-api-php-client)
+
 # JPush API client library for PHP
 
 ## 简要概述  
