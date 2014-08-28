@@ -234,10 +234,10 @@ $payload->setAudience(M\all);
 Example:
 ```php
 $payload->setAudience(M\audience(
-    M\tag(['tag1','tag2']), 
-    M\alias(['alias1', 'alias2']),
-    M\alias(["alias1", "alias2"]),
-    M\registration_id(["id1", "id2"])));
+    M\tag(array('tag1','tag2')), 
+    M\alias(array('alias1', 'alias2'),
+    M\alias(array("alias1", "alias2")),
+    M\registration_id(array("id1", "id2"))));
 ```
 or：
 ```php
