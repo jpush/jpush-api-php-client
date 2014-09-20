@@ -39,7 +39,7 @@ function ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=n
         throw new InvalidArgumentException("Invalid ios.alert string");
     }
     $payload = array();
-    $payload['platform'] = 'ios';
+    // $payload['platform'] = 'ios';
     $payload['alert'] = $alert;
 
     if (!is_null($sound)) {
@@ -85,7 +85,7 @@ function ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=n
         }
     }
 
-    return $payload;
+    return array('ios' => $payload);
 }
 
 function android($alert, $title=null, $builder_id=null, $extras=null)
@@ -94,7 +94,7 @@ function android($alert, $title=null, $builder_id=null, $extras=null)
         throw new InvalidArgumentException("Invalid android.alert string");
     }
     $payload = array();
-    $payload['platform'] = 'android';
+    // $payload['platform'] = 'android';
     $payload['alert'] = $alert;
 
     if (!is_null($title)) {
@@ -121,7 +121,7 @@ function android($alert, $title=null, $builder_id=null, $extras=null)
             $payload['extras'] = $extras;
         }
     }
-    return $payload;
+    return array('android' => $payload);
 }
 
 function winphone($alert, $title=null, $_open_page=null, $extras=null)
@@ -131,7 +131,7 @@ function winphone($alert, $title=null, $_open_page=null, $extras=null)
     }
 
     $payload = array();
-    $payload['platform'] = 'winphone';
+    // $payload['platform'] = 'winphone';
     $payload['alert'] = $alert;
 
     if (!is_null($title)) {
@@ -161,5 +161,5 @@ function winphone($alert, $title=null, $_open_page=null, $extras=null)
         }
     }
 
-    return $payload;
+    return array('winphone' => $payload);
 }
