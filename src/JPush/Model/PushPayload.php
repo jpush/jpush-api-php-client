@@ -43,6 +43,10 @@ class PushPayload {
         if (!is_array($notification)) {
             throw new InvalidArgumentException("Invalid Notification");
         }
+
+        if (!is_null($notification['platform'])) {
+            throw new InvalidArgumentException("Invalid Notification Object, M\\android(),M\\ios(),M\\winphone() must wrapper by M\\notification()");
+        }
         $this->notification = $notification;
         return $this;
     }

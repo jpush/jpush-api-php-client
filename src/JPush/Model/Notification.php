@@ -10,20 +10,18 @@ CONST disableBadge = -1;
 function notification($alert /* platform notification params */)
 {
     $payload = array();
-    if (!is_null($alert)) {
-         if (!is_string($alert)) {
-             throw new InvalidArgumentException("Invalid notification.alert string");
-         }
-        $payload['alert'] = $alert;
-    }
     static $VALID_DEVICE_TYPES = array("ios", "android", "winphone");
     $args = func_get_args();
-    for ($i=1; $i<count($args); $i++) {
+    for ($i=0; $i<count($args); $i++) {
         $arg = $args[$i];
-        $platform = $arg['platform'];
-        if (is_array($arg) && in_array($platform, $VALID_DEVICE_TYPES)) {
-            unset($arg['platform']);
-            $payload[$platform] = $arg;
+        if (is_string($arg)) {
+            $payload['alert'] = $arg;
+        } else {
+            $platform = $arg['platform'];
+            if (is_array($arg) && in_array($platform, $VALID_DEVICE_TYPES)) {
+                unset($arg['platform']);
+                $payload[$platform] = $arg;
+            }
         }
     }
     if (count($payload) === 0) {
