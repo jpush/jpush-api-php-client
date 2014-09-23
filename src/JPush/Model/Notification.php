@@ -7,11 +7,15 @@ use InvalidArgumentException;
 CONST disableSound = "disableSound";
 CONST disableBadge = -1;
 
-function notification($alert /* platform notification params */)
+function notification( /* platform notification params */)
 {
     $payload = array();
     static $VALID_DEVICE_TYPES = array("ios", "android", "winphone");
     $args = func_get_args();
+    $count = count($args);
+    if ($count < 1) {
+        throw new InvalidArgumentException("Invalid notification");
+    }
     for ($i=0; $i<count($args); $i++) {
         $arg = $args[$i];
         if (is_string($arg)) {
