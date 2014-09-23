@@ -65,7 +65,7 @@ function ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=n
             $payload['badge'] = $badge;
         }
     } else {
-        $payload['badge'] = 1;
+        $payload['badge'] = '+1';
     }
 
     if (!is_null($contentAvailable)) {
