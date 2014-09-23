@@ -274,10 +274,8 @@ $payload->setNotification(notification('Hi,JPush'));
 ```  
 对象不同平台的通知，需要注意以下几点：  
 
- 1. 如果不设定共同的alert， notification() 第一个参数要为null
- 2. 第2,3,4个参数无排序要求
- 3. 设置ios消息时，默认sound=''，如果不需要sound，请指定sound为M\disableSound.
- 4. 设置ios消息时，默认badge=１，如果步需要badge,请指定badge为M\disableBadge.
+ 1. 设置ios消息时，默认sound=''，如果不需要sound，请指定sound为M\disableSound.
+ 2. 设置ios消息时，默认badge=１，如果步需要badge,请指定badge为M\disableBadge.
 
 ```php
 $payload->setNotification(M\notification('Hi, JPush', 
