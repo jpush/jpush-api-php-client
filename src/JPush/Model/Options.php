@@ -12,9 +12,9 @@ function generateSendno() {
     return rand(MIN_SENDNO, MAX_SENDNO);
 }
 
-function options($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_production=null)
+function options($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_production=null, $big_push_duration=null)
 {
-    if ($sendno == null && $time_to_live == null && $override_msg_id == null && $apns_production == null) {
+    if ($sendno == null && $time_to_live == null && $override_msg_id == null && $apns_production == null && $big_push_duration == null) {
         throw new InvalidArgumentException("Not all options args is null");
     }
     $payload = array();
@@ -56,6 +56,13 @@ function options($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_
         $payload['apns_production'] = false;
     }
 
+    if (!is_null($big_push_duration)) {
+        if (is_int($big_push_duration) && $big_push_duration >= 0 && $big_push_duration <= 1440) {
+            $payload['big_push_duration'] = $big_push_duration;
+        } else {
+            throw new InvalidArgumentException("options.big_push_duration must be a int and between 0 and 1440");
+        }
+    }
     return $payload;
 }
 
