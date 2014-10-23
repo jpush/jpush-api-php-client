@@ -112,6 +112,15 @@ class PushPayload {
         return new PushResponse($response);
     }
 
+    public function validate() {
+        $response = $this->client->sendValidate($this->getJSON());
+        return new PushResponse($response);
+    }
+
+
+
+
+
 
     /**
      * calculate string length by byte

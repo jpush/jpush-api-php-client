@@ -11,4 +11,4 @@ bin/
 .idea
 composer.lock
 vendor/
-.log
+*.log

@@ -13,6 +13,7 @@ use InvalidArgumentException;
 class JPushClient {
     const PUSH_URL = 'https://api.jpush.cn/v3/push';
     const REPORT_URL = 'https://report.jpush.cn/v2/received';
+    const VALIDATE_URL = 'https://api.jpush.cn/v3/push/validate';
     const USER_AGENT = 'JPush-API-PHP-Client';
     const CONNECT_TIMEOUT = 5;
     const READ_TIMEOUT = 30;
@@ -56,6 +57,14 @@ class JPushClient {
             'Charset' => 'UTF-8',
             'Content-Type' => 'application/json');
         return $this->request(self::PUSH_URL, $data, $header, 'POST');
+    }
+
+    public function sendValidate($data) {
+        $header = array('User-Agent' => self::USER_AGENT,
+            'Connection' => 'Keep-Alive',
+            'Charset' => 'UTF-8',
+            'Content-Type' => 'application/json');
+        return $this->request(self::VALIDATE_URL, $data, $header, 'POST');
     }
 
     public function request($url, $data, $header, $method='POST') {
