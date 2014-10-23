@@ -47,4 +47,26 @@ try {
     echo 'IsResponseTimeout: ' . $e->isResponseTimeout . $br;
 }
 
+echo '--------------------------' . $br;
+
+try {
+    $msg_ids = '1150720279,1492401191,1150722083';
+    $result = $client->messages($msg_ids);
+    echo json_encode($result);
+} catch (APIRequestException $e) {
+    echo 'Push Fail.' . $br;
+    echo 'Http Code : ' . $e->httpCode . $br;
+    echo 'code : ' . $e->code . $br;
+    echo 'Error Message : ' . $e->message . $br;
+    echo 'Response JSON : ' . $e->json . $br;
+    echo 'rateLimitLimit : ' . $e->rateLimitLimit . $br;
+    echo 'rateLimitRemaining : ' . $e->rateLimitRemaining . $br;
+    echo 'rateLimitReset : ' . $e->rateLimitReset . $br;
+} catch (APIConnectionException $e) {
+    echo 'Push Fail: ' . $br;
+    echo 'Error Message: ' . $e->getMessage() . $br;
+    //response timeout means your request has probably be received by JPUsh Server,please check that whether need to be pushed again.
+    echo 'IsResponseTimeout: ' . $e->isResponseTimeout . $br;
+}
+
 

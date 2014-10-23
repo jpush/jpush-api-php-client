@@ -7,6 +7,7 @@ use Httpful\Exception\ConnectionErrorException;
 use JPush\Exception\APIConnectionException;
 use JPush\Model\PushPayload;
 use JPush\Model\ReportResponse;
+use JPush\Model\MessageResponse;
 
 use InvalidArgumentException;
 
@@ -14,6 +15,8 @@ class JPushClient {
     const PUSH_URL = 'https://api.jpush.cn/v3/push';
     const REPORT_URL = 'https://report.jpush.cn/v2/received';
     const VALIDATE_URL = 'https://api.jpush.cn/v3/push/validate';
+    const MESSAGES_URL = 'https://report.jpush.cn/v3/messages';
+    const USERS_URL = 'https://report.jpush.cn/v3/users';
     const USER_AGENT = 'JPush-API-PHP-Client';
     const CONNECT_TIMEOUT = 5;
     const READ_TIMEOUT = 30;
@@ -50,6 +53,22 @@ class JPushClient {
         $response = $this->request($url, null, $header, 'GET');
         return new ReportResponse($response);
     }
+
+    public function messages($msg_id) {
+        $header = array('User-Agent' => self::USER_AGENT,
+            'Connection' => 'Keep-Alive',
+            'Charset' => 'UTF-8',
+            'Content-Type' => 'application/json');
+        $url = self::MESSAGES_URL . '?msg_ids=' . $msg_id;
+        $response = $this->request($url, null, $header, 'GET');
+        return new MessageResponse($response);
+    }
+
+    public function users($msg_id) {
+
+    }
+
+
 
     public function sendPush($data) {
         $header = array('User-Agent' => self::USER_AGENT,
