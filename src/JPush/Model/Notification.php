@@ -35,7 +35,7 @@ function notification( /* platform notification params */)
     return $payload;
 }
 
-function ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=null)
+function ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=null, $category=null)
 {
     if (is_null($alert) || !is_string($alert) || strlen($alert) < 1) {
         throw new InvalidArgumentException("Invalid ios.alert string");
@@ -84,6 +84,15 @@ function ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=n
         }
         if (count($extras) > 0) {
             $payload['extras'] = $extras;
+        }
+    }
+
+    if (!is_null($category)) {
+        if (!is_string($category)) {
+            throw new InvalidArgumentException("Invalid ios.category string");
+        }
+        if (strlen($category)) {
+            $payload['category'] = $category;
         }
     }
 
