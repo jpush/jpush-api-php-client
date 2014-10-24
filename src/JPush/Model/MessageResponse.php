@@ -1,6 +1,6 @@
 <?php
 
-namespace JPush\Model\report;
+namespace JPush\Model;
 
 use JPush\Exception\APIRequestException;
 
