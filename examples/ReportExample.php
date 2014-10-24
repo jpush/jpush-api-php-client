@@ -23,13 +23,14 @@ $client = new JPushClient($app_key, $master_secret);
 
 
 try {
+    echo '<h1>API /v3/report</h1>';
     $msg_ids = '1150720279,1492401191,1150722083';
     $result = $client->report($msg_ids);
-    foreach($result->received_list as  $received) {
+    foreach($result->received_list as  $item) {
         echo '---------' . $br;
-        echo 'msg_id : ' . $received->msg_id . $br;
-        echo 'android_received : ' .  $received->android_received . $br;
-        echo 'ios_apns_sent : ' .  $received->ios_apns_sent . $br;
+        echo 'msg_id : ' . $item->msg_id . $br;
+        echo 'android_received : ' .  $item->android_received . $br;
+        echo 'ios_apns_sent : ' .  $item->ios_apns_sent . $br;
     }
 } catch (APIRequestException $e) {
     echo 'Push Fail.' . $br;
@@ -50,9 +51,29 @@ try {
 echo '--------------------------' . $br;
 
 try {
-    $msg_ids = '1150720279,1492401191,1150722083';
+    echo '<h1>API /v3/messages</h1>';
+    $msg_ids = '478284636,1150722083,979475499';
     $result = $client->messages($msg_ids);
-    echo json_encode($result);
+    echo 'JSON : ' . $result->json . $br;
+    foreach($result->received_list as  $item) {
+        echo '---------' . $br;
+        echo 'msg_id : ' . $item->msg_id . $br;
+        if ($item->android) {
+            $android = $item->android;
+            echo 'android.received : ' .  $android->received . $br;
+            echo 'android.target : ' .  $android->target . $br;
+            echo 'android.online_push : ' .  $android->online_push . $br;
+            echo 'android.click : ' .  $android->click . $br;
+        }
+
+        if ($item->ios) {
+            $ios = $item->ios;
+            echo 'ios.apns_send : ' . $ios->apns_sentz . $br;
+            echo 'ios.apns_target : ' . $ios->apns_target . $br;
+            echo 'ios.click : ' . $ios->click . $br;
+        }
+    }
+
 } catch (APIRequestException $e) {
     echo 'Push Fail.' . $br;
     echo 'Http Code : ' . $e->httpCode . $br;
@@ -68,5 +89,3 @@ try {
     //response timeout means your request has probably be received by JPUsh Server,please check that whether need to be pushed again.
     echo 'IsResponseTimeout: ' . $e->isResponseTimeout . $br;
 }
-
-

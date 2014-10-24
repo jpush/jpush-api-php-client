@@ -8,6 +8,7 @@ use JPush\Exception\APIConnectionException;
 use JPush\Model\PushPayload;
 use JPush\Model\ReportResponse;
 use JPush\Model\MessageResponse;
+use JPush\Model\UserResponse;
 
 use InvalidArgumentException;
 
@@ -64,8 +65,14 @@ class JPushClient {
         return new MessageResponse($response);
     }
 
-    public function users($msg_id) {
-
+    public function users($time_unit, $start, $duration) {
+        $header = array('User-Agent' => self::USER_AGENT,
+            'Connection' => 'Keep-Alive',
+            'Charset' => 'UTF-8',
+            'Content-Type' => 'application/json');
+        $url = self::USERS_URL . '?time_unit=' . $time_unit . '&start=' . $start . '&duration' . $duration;
+        $response = $this->request($url, null, $header, 'GET');
+        return new UserResponse($response);
     }
 
 

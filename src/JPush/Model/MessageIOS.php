@@ -14,7 +14,7 @@ class MessageIOS {
     public $apns_target;
     public $click;
 
-    private $expected_keys = array('apns_send', 'apns_target', 'click');
+    private $expected_keys = array('apns_sent', 'apns_target', 'click');
 
     function __construct($received)
     {
