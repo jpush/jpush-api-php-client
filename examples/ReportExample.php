@@ -18,8 +18,8 @@ $spilt = ' - ';
 /*$master_secret = 'd94f733358cca97b18b2cb98';
 $app_key='47a3ddda34b2602fa9e17c01';*/
 
-$app_key = '85ce41c93d7042c047c84e44';
-$master_secret = 'e8afe0f0fdde94e3a0004011';
+$app_key = 'e5c0d34f58732cf09b2d4d74';
+$master_secret = '4cdda6d3c8b029941dbc5cb3';
 
 
 JPushLog::setLogHandlers(array(new StreamHandler('jpush.log', Logger::DEBUG)));
