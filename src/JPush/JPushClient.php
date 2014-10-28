@@ -70,7 +70,7 @@ class JPushClient {
             'Connection' => 'Keep-Alive',
             'Charset' => 'UTF-8',
             'Content-Type' => 'application/json');
-        $url = self::USERS_URL . '?time_unit=' . $time_unit . '&start=' . $start . '&duration' . $duration;
+        $url = self::USERS_URL . '?time_unit=' . $time_unit . '&start=' . $start . '&duration=' . $duration;
         $response = $this->request($url, null, $header, 'GET');
         return new UserResponse($response);
     }

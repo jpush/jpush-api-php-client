@@ -14,8 +14,9 @@ class UserResponse {
         if ($response->code !== 200) {
             throw APIRequestException::fromResponse($response);
         }
+
         $payload = json_decode($response->raw_body, true);
-        $this->processItem($payload);
+        $this->process($payload);
         $this->json = $response->raw_body;
         $this->response = $response;
         $this->isOk = true;
@@ -23,10 +24,10 @@ class UserResponse {
 
     public $time_unit;
     public $start;
-    public $step;
+    public $duration;
     public $items;
 
-    private $response_keys = array('time_unit', 'start', 'step', 'items');
+    private $response_keys = array('time_unit', 'start', 'duration', 'items');
     private $item_keys = array('time', 'android', 'ios');
     private $android_keys = array('new', 'online', 'active');
     private $ios_keys = array('new', 'active');
@@ -48,7 +49,7 @@ class UserResponse {
         $android = array();
         foreach ($this->android_keys as $key) {
             if (array_key_exists($key, $androidDate)) {
-                $android->$key = $androidDate[$key];
+                $android[$key] = $androidDate[$key];
             }
         }
         return $android;
@@ -59,7 +60,7 @@ class UserResponse {
 
         foreach ($this->ios_keys as $key) {
             if (array_key_exists($key, $iosDate)) {
-                $ios->$key = $ios[$key];
+                $ios[$key] = $iosDate[$key];
             }
         }
         return $ios;
@@ -68,18 +69,20 @@ class UserResponse {
     private function processItem($item_arr) {
         $items = array();
         foreach ($item_arr as $item) {
+            $_item = array();
             foreach ($this->item_keys as $key) {
                 if (array_key_exists($key, $item)) {
                     if ($key == 'android') {
-                        $items->$key = $this->processAndroid($item[$key]);
+                        $_item['android'] = $this->processAndroid($item[$key]);
                     } else if ($key == 'ios') {
-                        $items->$key = $this->processIos($item[$key]);
-                    } else {
-                        $items->$key = $item[$key];
+                        $_item['ios'] = $this->processIos($item[$key]);
+                    } else if ($key == 'time'){
+                        $_item['time'] = $item['time'];
                     }
 
                 }
             }
+            array_push($items, $_item);
         }
 
         return $items;
