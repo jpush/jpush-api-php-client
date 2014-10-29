@@ -18,6 +18,12 @@ class JPushClient {
     const VALIDATE_URL = 'https://api.jpush.cn/v3/push/validate';
     const MESSAGES_URL = 'https://report.jpush.cn/v3/messages';
     const USERS_URL = 'https://report.jpush.cn/v3/users';
+    const DEVICES_URL = 'https://device.jpush.cn/v3/devices/{registration_id}';
+    const ALL_TAGS_URL = 'https://device.jpush.cn/v3/tags/';
+    const IS_IN_TAG_URL = 'https://device.jpush.cn/v3/tags/{tag}/registration_ids/{registration_id}';
+    const TAG_URL = 'https://device.jpush.cn/v3/tags/{tag}';
+    const ALIAS_URL = 'https://device.jpush.cn/v3/aliases/{alias}';
+
     const USER_AGENT = 'JPush-API-PHP-Client';
     const CONNECT_TIMEOUT = 5;
     const READ_TIMEOUT = 30;
@@ -45,6 +51,8 @@ class JPushClient {
         return new PushPayload($this);
     }
 
+
+    /*----Report API start----*/
     public function report($msg_id) {
         $header = array('User-Agent' => self::USER_AGENT,
             'Connection' => 'Keep-Alive',
@@ -74,9 +82,267 @@ class JPushClient {
         $response = $this->request($url, null, $header, 'GET');
         return new UserResponse($response);
     }
+    /*----Report API end----*/
 
 
+    /*----Device API start----*/
+    /**
+     * 获取当前用户的所有属性，包含tags, alias。
+     * @param $registrationId
+     * @return \Httpful\associative|null|string
+     */
+    public function getDeviceTagAlias($registrationId) {
+        $header = array('User-Agent' => self::USER_AGENT,
+            'Connection' => 'Keep-Alive',
+            'Charset' => 'UTF-8',
+            'Content-Type' => 'application/json');
+        $url = str_replace('{registration_id}' , $registrationId, self::DEVICES_URL);
+        $response = $this->request($url, null, $header, 'GET');
+        return $response;
+        //{"alias": "alias1", "tags": ["tag1", "tag2"]}
+    }
 
+
+    public function removeDeviceTag($registrationId) {
+        if (is_null($registrationId) || !is_string($registrationId)) {
+            throw new InvalidArgumentException("Invalid registrationId string");
+        }
+        $payload = array('tags'=>'');
+        $header = array('User-Agent' => self::USER_AGENT,
+            'Connection' => 'Keep-Alive',
+            'Charset' => 'UTF-8',
+            'Content-Type' => 'application/json');
+        $url = str_replace('{registration_id}' , $registrationId, self::DEVICES_URL);
+        $response = $this->request($url, json_encode($payload), $header, 'POST');
+        return $response;
+    }
+
+    public function removeDeviceAlias($registrationId) {
+        if (is_null($registrationId) || !is_string($registrationId)) {
+            throw new InvalidArgumentException("Invalid registrationId string");
+        }
+        $payload = array('alias'=>'');
+        $header = array('User-Agent' => self::USER_AGENT,
+            'Connection' => 'Keep-Alive',
+            'Charset' => 'UTF-8',
+            'Content-Type' => 'application/json');
+        $url = str_replace('{registration_id}' , $registrationId, self::DEVICES_URL);
+        $response = $this->request($url, json_encode($payload), $header, 'POST');
+        return $response;
+    }
+
+    /**
+     * 更新当前用户的指定属性，当前支持tags, alias
+     * @param $registrationId
+     * @param $alias
+     * @param $addTags
+     * @param $removeTags
+     * @return \Httpful\associative|null|string
+     * @throws \InvalidArgumentException
+     */
+    public function updateDeviceTagAlias($registrationId, $alias = null, $addTags = null, $removeTags = null) {
+        $payload = array();
+
+        if (is_null($registrationId) || !is_string($registrationId)) {
+            throw new InvalidArgumentException("Invalid registrationId string");
+        }
+
+        $aliasIsNull = is_null($alias);
+        $addTagsIsNull = is_null($addTags);
+        $removeTagsIsNull = is_null($removeTags);
+
+        if ($aliasIsNull && $addTagsIsNull && $removeTagsIsNull) {
+            throw new InvalidArgumentException("alias, addTags, removeTags not all null");
+        }
+
+        if (!$aliasIsNull) {
+            if (is_string($alias)) {
+                $payload['alias'] = $alias;
+            } else {
+                throw new InvalidArgumentException("Invalid alias string");
+            }
+        }
+
+        $tags = array();
+
+        if (!$addTagsIsNull) {
+           if (is_array($addTags)) {
+               $tags['add'] = $addTags;
+           } else {
+               throw new InvalidArgumentException("Invalid addTags array");
+           }
+        }
+
+        if (!$removeTagsIsNull) {
+            if (is_array($removeTags)) {
+                $tags['remove'] = $removeTags;
+            } else {
+                throw new InvalidArgumentException("Invalid removeTags array");
+            }
+        }
+
+        if (count($tags) > 0) {
+            $payload['tags'] = $tags;
+        }
+
+        $header = array('User-Agent' => self::USER_AGENT,
+            'Connection' => 'Keep-Alive',
+            'Charset' => 'UTF-8',
+            'Content-Type' => 'application/json');
+        $url = str_replace('{registration_id}' , $registrationId, self::DEVICES_URL);
+        $response = $this->request($url, json_encode($payload), $header, 'POST');
+        return $response;
+    }
+
+    /**
+     * 获取当前应用的所有标签列表
+     * @return \Httpful\associative|null|string
+     */
+    public function getTags() {
+        $header = array('User-Agent' => self::USER_AGENT,
+            'Connection' => 'Keep-Alive',
+            'Charset' => 'UTF-8',
+            'Content-Type' => 'application/json');
+        $response = $this->request(self::ALL_TAGS_URL, null, $header, 'GET');
+        return $response;
+        //{"tags":["555","tag1","tag2","0900e8d85ef"]}
+    }
+
+    /**
+     * 查询某个用户是否在tag下
+     * @param $registrationId
+     * @param $tag
+     * @return \Httpful\associative|null|string
+     * @throws \InvalidArgumentException
+     */
+    public function isDeviceInTag($registrationId, $tag) {
+        if (is_null($registrationId) || !is_string($registrationId)) {
+            throw new InvalidArgumentException("Invalid registrationId string");
+        }
+
+        if (is_null($tag) || !is_string($tag)) {
+            throw new InvalidArgumentException("Invalid tag string");
+        }
+
+        $header = array('User-Agent' => self::USER_AGENT,
+            'Connection' => 'Keep-Alive',
+            'Charset' => 'UTF-8',
+            'Content-Type' => 'application/json');
+
+        $url = str_replace('{tag}', $tag, self::IS_IN_TAG_URL);
+        $url = str_replace('{registration_id}', $registrationId, $url);
+        $response = $this->request($url, null, $header, 'GET');
+        return $response;
+        //{"result": false}
+    }
+
+    /**
+     * 为一个标签添加或者删除用户
+     * @param $tag
+     * @param null $addDevices
+     * @param null $removeDevices
+     * @return \Httpful\associative|null|string
+     * @throws \InvalidArgumentException
+     */
+    public function updateTagDevices($tag, $addDevices = null, $removeDevices = null) {
+        if (is_null($tag) || !is_string($tag)) {
+            throw new InvalidArgumentException("Invalid tag string");
+        }
+
+        $addDevicesIsNull = is_null($addDevices);
+        $removeDevicesIsNull = is_null($removeDevices);
+
+        if ($addDevicesIsNull && $removeDevicesIsNull) {
+            throw new InvalidArgumentException("Either or both addDevices and removeDevices must be set.");
+        }
+
+        $registrationId = array();
+
+        if (!$addDevicesIsNull) {
+            if (is_array($addDevices)) {
+                $registrationId['add'] = $addDevices;
+            } else {
+                throw new InvalidArgumentException("Invalid addDevices array");
+            }
+        }
+
+        if (!$removeDevicesIsNull) {
+            if (is_array($removeDevices)) {
+                $registrationId['remove'] = $removeDevices;
+            } else {
+                throw new InvalidArgumentException("Invalid removeDevices array");
+            }
+        }
+
+        $payload = array('registration_ids'=>$registrationId);
+        $header = array('User-Agent' => self::USER_AGENT,
+            'Connection' => 'Keep-Alive',
+            'Charset' => 'UTF-8',
+            'Content-Type' => 'application/json');
+        $url = str_replace('{tag}', $tag, self::TAG_URL);
+        $response = $this->request($url, json_encode($payload), $header, 'POST');
+        return $response;
+    }
+
+    /**
+     * 删除一个标签，以及标签与用户之间的关联关系
+     * @param $tag
+     */
+    public function deleteTag($tag) {
+
+    }
+
+    /**
+     * 获取指定alias下的用户，最多输出10个
+     * @param $alias
+     * @param null $platform
+     * @return \Httpful\associative|null|string
+     * @throws \InvalidArgumentException
+     */
+    public function getAliasDevices($alias, $platform = null) {
+        if (is_null($alias) || !is_string($alias)) {
+            throw new InvalidArgumentException("Invalid alias string");
+        }
+
+        $url = str_replace('{alias}', $alias, self::ALIAS_URL);
+
+        if (!is_null($platform)) {
+            if (is_array($platform)) {
+                $isFirst = true;
+                foreach($platform as $item) {
+                    if ($isFirst) {
+                        $url = $url . '?platform=' . $item;
+                        $isFirst = false;
+                    } else {
+                        $url = $url . ',' . $item;
+                    }
+                }
+            } else {
+                throw new InvalidArgumentException("Invalid platform array");
+            }
+        }
+
+        $header = array('User-Agent' => self::USER_AGENT,
+            'Connection' => 'Keep-Alive',
+            'Charset' => 'UTF-8',
+            'Content-Type' => 'application/json');
+        $response = $this->request($url, null, $header, 'GET');
+        return $response;
+        //{"registration_ids":["0900e8d85ef"]}
+    }
+
+    /**
+     * 删除一个别名，以及该别名与用户的绑定关系
+     * @param $alias
+     */
+    public function deleteAlias($alias) {
+
+    }
+
+    /*----Device API end----*/
+
+
+    /*----Push API start----*/
     public function sendPush($data) {
         $header = array('User-Agent' => self::USER_AGENT,
             'Connection' => 'Keep-Alive',
@@ -92,6 +358,7 @@ class JPushClient {
             'Content-Type' => 'application/json');
         return $this->request(self::VALIDATE_URL, $data, $header, 'POST');
     }
+    /*----Push API end----*/
 
     public function request($url, $data, $header, $method='POST') {
         $logger = JPushLog::getLogger();
