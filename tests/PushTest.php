@@ -23,6 +23,14 @@ class PushTest extends PHPUnit_Framework_TestCase {
     public $registration_id1 = "0900e8d85ef";
     public $registration_id2 = "0a04ad7d8b4";
 
+    /**
+     * @beforeClass
+     */
+    public static function init() {
+        $client = new JPushClient('dd1066407b044738b6479275', '2b38ce69b1de2a7fa95706ea');
+        $client->updateDeviceTagAlias('0900e8d85ef', 'alias1', array('tag1', 'tag_all'));
+        $client->updateDeviceTagAlias('0a04ad7d8b4', 'alias1', array('tag2', 'tag_all'));
+    }
 
 
     public function testAlertAll() {
