@@ -28,6 +28,7 @@
             "src/JPush/Model/MessageIOS.php",
             "src/JPush/Model/MessageItem.php",
             "src/JPush/Model/UserResponse.php",
+            "src/JPush/Model/DeviceResponse.php",
             "src/JPush/Model/Report.php",
             "src/JPush/JPushClient.php",
             "src/JPush/JPushLog.php",

@@ -289,7 +289,17 @@ class JPushClient {
      * @param $tag
      */
     public function deleteTag($tag) {
+        if (is_null($tag) || !is_string($tag)) {
+            throw new InvalidArgumentException("Invalid tag string");
+        }
 
+        $header = array('User-Agent' => self::USER_AGENT,
+            'Connection' => 'Keep-Alive',
+            'Charset' => 'UTF-8',
+            'Content-Type' => 'application/json');
+        $url = str_replace('{tag}', $tag, self::TAG_URL);
+        $response = $this->request($url, null, $header, 'DELETE');
+        return $response;
     }
 
     /**
@@ -334,9 +344,20 @@ class JPushClient {
     /**
      * 删除一个别名，以及该别名与用户的绑定关系
      * @param $alias
+     * @return \Httpful\associative|null|string
+     * @throws \InvalidArgumentException
      */
     public function deleteAlias($alias) {
-
+        if (is_null($alias) || !is_string($alias)) {
+            throw new InvalidArgumentException("Invalid alias string");
+        }
+        $header = array('User-Agent' => self::USER_AGENT,
+            'Connection' => 'Keep-Alive',
+            'Charset' => 'UTF-8',
+            'Content-Type' => 'application/json');
+        $url = str_replace('{alias}', $alias, self::ALIAS_URL);
+        $response = $this->request($url, null, $header, 'DELETE');
+        return $response;
     }
 
     /*----Device API end----*/
@@ -371,6 +392,8 @@ class JPushClient {
         $request = null;
         if ($method === 'POST') {
             $request = Request::post($url);
+        } else if ($method == 'DELETE') {
+            $request = Request::delete($url);
         } else {
             $request = Request::get($url);
         }
