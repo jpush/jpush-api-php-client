@@ -6,7 +6,7 @@ require_once '../vendor/autoload.php';
 use JPush\Model as M;
 use JPush\JPushClient;
 
-class PushTest extends PHPUnit_Framework_TestCase {
+class ValidateTest extends PHPUnit_Framework_TestCase {
     public $appKey = "dd1066407b044738b6479275";
     public $masterSecret = '2b38ce69b1de2a7fa95706ea';
     public $alert = "JPush Test - alert";
