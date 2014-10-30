@@ -9,6 +9,7 @@ use JPush\Model\PushPayload;
 use JPush\Model\ReportResponse;
 use JPush\Model\MessageResponse;
 use JPush\Model\UserResponse;
+use JPush\Model\DeviceResponse;
 
 use InvalidArgumentException;
 
@@ -98,8 +99,7 @@ class JPushClient {
             'Content-Type' => 'application/json');
         $url = str_replace('{registration_id}' , $registrationId, self::DEVICES_URL);
         $response = $this->request($url, null, $header, 'GET');
-        return $response;
-        //{"alias": "alias1", "tags": ["tag1", "tag2"]}
+        return new DeviceResponse($response);
     }
 
 
@@ -114,7 +114,7 @@ class JPushClient {
             'Content-Type' => 'application/json');
         $url = str_replace('{registration_id}' , $registrationId, self::DEVICES_URL);
         $response = $this->request($url, json_encode($payload), $header, 'POST');
-        return $response;
+        return new DeviceResponse($response);
     }
 
     public function removeDeviceAlias($registrationId) {
@@ -128,7 +128,7 @@ class JPushClient {
             'Content-Type' => 'application/json');
         $url = str_replace('{registration_id}' , $registrationId, self::DEVICES_URL);
         $response = $this->request($url, json_encode($payload), $header, 'POST');
-        return $response;
+        return new DeviceResponse($response);
     }
 
     /**
@@ -191,7 +191,7 @@ class JPushClient {
             'Content-Type' => 'application/json');
         $url = str_replace('{registration_id}' , $registrationId, self::DEVICES_URL);
         $response = $this->request($url, json_encode($payload), $header, 'POST');
-        return $response;
+        return new DeviceResponse($response);
     }
 
     /**
@@ -204,8 +204,7 @@ class JPushClient {
             'Charset' => 'UTF-8',
             'Content-Type' => 'application/json');
         $response = $this->request(self::ALL_TAGS_URL, null, $header, 'GET');
-        return $response;
-        //{"tags":["555","tag1","tag2","0900e8d85ef"]}
+        return new DeviceResponse($response);
     }
 
     /**
@@ -232,8 +231,7 @@ class JPushClient {
         $url = str_replace('{tag}', $tag, self::IS_IN_TAG_URL);
         $url = str_replace('{registration_id}', $registrationId, $url);
         $response = $this->request($url, null, $header, 'GET');
-        return $response;
-        //{"result": false}
+        return new DeviceResponse($response);
     }
 
     /**
@@ -281,7 +279,7 @@ class JPushClient {
             'Content-Type' => 'application/json');
         $url = str_replace('{tag}', $tag, self::TAG_URL);
         $response = $this->request($url, json_encode($payload), $header, 'POST');
-        return $response;
+        return new DeviceResponse($response);
     }
 
     /**
@@ -299,7 +297,7 @@ class JPushClient {
             'Content-Type' => 'application/json');
         $url = str_replace('{tag}', $tag, self::TAG_URL);
         $response = $this->request($url, null, $header, 'DELETE');
-        return $response;
+        return new DeviceResponse($response);
     }
 
     /**
@@ -337,8 +335,7 @@ class JPushClient {
             'Charset' => 'UTF-8',
             'Content-Type' => 'application/json');
         $response = $this->request($url, null, $header, 'GET');
-        return $response;
-        //{"registration_ids":["0900e8d85ef"]}
+        return new DeviceResponse($response);
     }
 
     /**
@@ -357,7 +354,7 @@ class JPushClient {
             'Content-Type' => 'application/json');
         $url = str_replace('{alias}', $alias, self::ALIAS_URL);
         $response = $this->request($url, null, $header, 'DELETE');
-        return $response;
+        return new DeviceResponse($response);
     }
 
     /*----Device API end----*/
