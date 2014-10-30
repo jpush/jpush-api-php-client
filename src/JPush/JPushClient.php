@@ -88,9 +88,9 @@ class JPushClient {
 
     /*----Device API start----*/
     /**
-     * 获取当前用户的所有属性，包含tags, alias。
+     * 获取指定RegistrationId的所有属性，包含tags, alias。
      * @param $registrationId
-     * @return \Httpful\associative|null|string
+     * @return DeviceResponse
      */
     public function getDeviceTagAlias($registrationId) {
         $header = array('User-Agent' => self::USER_AGENT,
@@ -102,7 +102,12 @@ class JPushClient {
         return new DeviceResponse($response);
     }
 
-
+    /**
+     * 移除指定RegistrationId的所有tag
+     * @param $registrationId
+     * @return DeviceResponse
+     * @throws \InvalidArgumentException
+     */
     public function removeDeviceTag($registrationId) {
         if (is_null($registrationId) || !is_string($registrationId)) {
             throw new InvalidArgumentException("Invalid registrationId string");
@@ -117,6 +122,12 @@ class JPushClient {
         return new DeviceResponse($response);
     }
 
+    /**
+     * 移除指定RegistrationId的所有alias
+     * @param $registrationId
+     * @return DeviceResponse
+     * @throws \InvalidArgumentException
+     */
     public function removeDeviceAlias($registrationId) {
         if (is_null($registrationId) || !is_string($registrationId)) {
             throw new InvalidArgumentException("Invalid registrationId string");
@@ -132,12 +143,12 @@ class JPushClient {
     }
 
     /**
-     * 更新当前用户的指定属性，当前支持tags, alias
+     * 更新指定RegistrationId的指定属性，当前支持tags, alias
      * @param $registrationId
-     * @param $alias
-     * @param $addTags
-     * @param $removeTags
-     * @return \Httpful\associative|null|string
+     * @param null $alias
+     * @param null $addTags
+     * @param null $removeTags
+     * @return DeviceResponse
      * @throws \InvalidArgumentException
      */
     public function updateDeviceTagAlias($registrationId, $alias = null, $addTags = null, $removeTags = null) {
@@ -196,7 +207,7 @@ class JPushClient {
 
     /**
      * 获取当前应用的所有标签列表
-     * @return \Httpful\associative|null|string
+     * @return DeviceResponse
      */
     public function getTags() {
         $header = array('User-Agent' => self::USER_AGENT,
@@ -211,7 +222,7 @@ class JPushClient {
      * 查询某个用户是否在tag下
      * @param $registrationId
      * @param $tag
-     * @return \Httpful\associative|null|string
+     * @return DeviceResponse
      * @throws \InvalidArgumentException
      */
     public function isDeviceInTag($registrationId, $tag) {
@@ -235,7 +246,7 @@ class JPushClient {
     }
 
     /**
-     * 为一个标签添加或者删除用户
+     * 对指定tag添加或者删除registrationId
      * @param $tag
      * @param null $addDevices
      * @param null $removeDevices
@@ -283,8 +294,10 @@ class JPushClient {
     }
 
     /**
-     * 删除一个标签，以及标签与用户之间的关联关系
+     * 删除指定Tag，以及与其关联的用户之间的关联关系
      * @param $tag
+     * @return DeviceResponse
+     * @throws \InvalidArgumentException
      */
     public function deleteTag($tag) {
         if (is_null($tag) || !is_string($tag)) {
@@ -304,7 +317,7 @@ class JPushClient {
      * 获取指定alias下的用户，最多输出10个
      * @param $alias
      * @param null $platform
-     * @return \Httpful\associative|null|string
+     * @return DeviceResponse
      * @throws \InvalidArgumentException
      */
     public function getAliasDevices($alias, $platform = null) {
@@ -339,9 +352,9 @@ class JPushClient {
     }
 
     /**
-     * 删除一个别名，以及该别名与用户的绑定关系
+     * 删除指定alias，以及该alias与用户的绑定关系
      * @param $alias
-     * @return \Httpful\associative|null|string
+     * @return DeviceResponse
      * @throws \InvalidArgumentException
      */
     public function deleteAlias($alias) {

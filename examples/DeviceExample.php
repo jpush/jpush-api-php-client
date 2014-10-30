@@ -52,6 +52,7 @@ function printAPIConnectionErrorStack($e) {
 
 /*----Devices Example----*/
 try {
+    //获取当前用户的所有属性，包含tags, alias。
     $result = $client->getDeviceTagAlias($REGISTRATION_ID1);
     $payload = $result->body;
     echo '<b>getDeviceTagAlias</b>' . $br;
@@ -65,6 +66,7 @@ try {
 }
 
 try {
+    //移除指定RegistrationId的所有alias
     $result = $client->removeDeviceAlias($REGISTRATION_ID1);
     echo '<b>removeDeviceAlias</b>' . $br;
     if ($result->isOk) {
@@ -81,6 +83,7 @@ try {
 
 
 try {
+    //移除指定RegistrationId的所有tag
     $result = $client->removeDeviceTag($REGISTRATION_ID1);
     echo '<b>removeDeviceTag</b>' . $br;
     if ($result->isOk) {
@@ -97,6 +100,7 @@ try {
 
 
 try {
+    //更新指定RegistrationId的指定属性，当前支持tags, alias
     $result = $client->updateDeviceTagAlias($REGISTRATION_ID1, $ALIAS1, array($TAG1, $TAG2), array($TAG3));
     echo '<b>updateTagDevices</b>' . $br;
     if ($result->isOk) {
@@ -114,6 +118,7 @@ try {
 
 /*----Tags Example----*/
 try {
+    //获取当前应用的所有标签列表
     $result = $client->getTags();
     $payload = $result->body;
     echo '<b>getTags</b>' . $br;
@@ -126,6 +131,7 @@ try {
 }
 
 try {
+    //查询某个用户是否在tag下
     $result = $client->isDeviceInTag($REGISTRATION_ID1, $TAG1);
     $payload = $result->body;
     echo '<b>isDeviceInTag</b>' . $br;
@@ -138,6 +144,7 @@ try {
 }
 
 try {
+    //对指定tag添加或者删除registrationId
     $result = $client->updateTagDevices($TAG1, array($REGISTRATION_ID1), array($REGISTRATION_ID2));
     echo '<b>updateTagDevices</b>' . $br;
     if ($result->isOk) {
@@ -153,6 +160,7 @@ try {
 }
 
 try {
+    //删除指定Tag，以及与其关联的用户之间的关联关系
     $result = $client->deleteTag($TAG2);
     echo '<b>deleteTag</b>' . $br;
     if ($result->isOk) {
@@ -169,6 +177,7 @@ try {
 
 /*----Alias Example----*/
 try {
+    //删除指定alias，以及该alias与用户的绑定关系
     $result = $client->getAliasDevices($ALIAS1, array('ios', 'android'));
     $payload = $result->body;
     echo '<b>getAliasDevices</b>' . $br;
