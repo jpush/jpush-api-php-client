@@ -1,5 +1,6 @@
 # JPush API PHP Library doc
 
+
 JPush API PHP Library 提供简化构建JPush Push JSON的API，开发者只需要完成一下几个操作就能完成一次推送。
 
  1. 指定推送的平台(platform)
@@ -10,6 +11,28 @@ JPush API PHP Library 提供简化构建JPush Push JSON的API，开发者只需�
 
 
 ## 版本更新
+
+### v3.2.0
+* 支持设置IOS Notification的category属性
+    * 设置APNs payload中的"category"字段值(仅支持IOS8) 
+* 支持设置big_push_duration属性
+    * 指定时长。规定应在这个时间内推送完成，用于“定速推送”
+* 新增Report接口
+    * API /v3/messages 获取消息统计详细数据
+    * API /v3/users 获取用户统计详细数据
+* 新增Validate接口
+    * 调用Validate可以模拟真实推送,获取msgId,查询影响人群以及其他统计信息,但JPush服务器不会将消息推送给目标用户 
+* 新增Device API
+    * getDeviceTagAlias 获取指定RegistrationId的所有属性，包含tags, alias
+    * removeDeviceTag 移除指定RegistrationId的所有tag
+    * removeDeviceAlias 移除指定RegistrationId的所有alias
+    * updateDeviceTagAlias 更新指定RegistrationId的指定属性，当前支持tags, alias
+    * getTags 获取当前应用的所有标签列表
+    * isDeviceInTag 查询某个用户是否在tag下
+    * updateTagDevices 对指定tag添加或者删除registrationId
+    * deleteUpdate 删除指定Tag，以及与其关联的用户之间的关联关系
+    * getAliasDevices 获取指定alias下的用户，最多输出10个
+    * deleteAlias 删除指定alias，以及该alias与用户的绑定关系
 
 ### v3.1.2
 
@@ -258,7 +281,7 @@ $payload->setAudience(M\all);
 
 构建ios对象
 
-`function: JPush/Model/android($alert, $title=null, $builder_id=null, $extras=null)`
+`function: JPush/Model/android($alert, $title=null, $builder_id=null, $extras=null, $category=null)`
 
 构建android对象
 
@@ -275,7 +298,7 @@ $payload->setNotification(notification('Hi,JPush'));
 对象不同平台的通知，需要注意以下几点：  
 
  1. 设置ios消息时，默认sound=''，如果不需要sound，请指定sound为M\disableSound.
- 2. 设置ios消息时，默认badge=１，如果步需要badge,请指定badge为M\disableBadge.
+ 2. 设置ios消息时，默认badge=１，如果不需要badge,请指定badge为M\disableBadge.
 
 ```php
 $payload->setNotification(M\notification('Hi, JPush', 
@@ -293,12 +316,23 @@ Example:
 $payload->setMessage(M\message('msg content', null, null, array('key'=>'value')));
 ```
 ### Options Selectors
-`function: options($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_production=null)`
+
+`function: options($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_production=null, $big_push_duration=null)`
 
 构建options对象
+
+|PARAMS|DESCRIPTION|REQUIRE|
+|----|----|----|
+|sendno|-|false|
+|time_to_live|离线消息保留时长（秒）。如果不填默认 1 天。不能小于 0|false|
+|override_msg_id|要覆盖的消息ID。必须大于 0|false|
+|apns_production|APNs 是否生产环境推送。默认为 True|false|
+|big_push_duration|大推送指定时长。规定应在这个时间内推送完成，用于“定速推送,单位:分钟|false|
+
+
 Example：
 ```php
-$payload->setOptions(M\options(123456, null, null, false))
+$payload->setOptions(M\options(123456, null, null, false, 60))
 ```
 
 ### Vaildate 
@@ -309,7 +343,7 @@ $payload->setOptions(M\options(123456, null, null, false))
 | isGlobalExceedLength | 检测当前payload是否超出长度限定。返回true/false。（ios notification不超过220并且所有平台的notification + message不超过1200） |
 
 
-## Report
+## Report API
 `function: JPush\JPushClient::report($msg_ids)`
 
 获取统计信息，msg_ids为推送API返回的 msg_id 列表，多个 msg_id 用逗号隔开，最多支持100个msg_id。具体细节可参考 [Report API][2]
@@ -349,6 +383,71 @@ try {
     echo 'Push Fail.' . $br;
     echo 'message' . $e->getMessage() . $br;
 }
+```
+`function: JPush\JPushClient::messages($msg_ids)`
+获取指定msg_ids的详细统计报告，msg_ids为推送API返回的 msg_id 列表，多个 msg_id 用逗号隔开，最多支持100个msg_id。具体细节可参考 [Report API][2]
+
+`function: JPush\JPushClient::users($time_unit, $start, $duration)`
+
+获取当前应用指定时间段内的用户统计数据
+
+* time_unit 时间单位，有 3 个可选：HOUR, DAY, MONTH （这三个字串有效，兼容大小写）
+* start 起始时间。根据 time_unit 不同，有效值是不同的。取一般的年月日时字符串形式，比如 "2014-06-06 12"，即年月日用 "-" 隔开，时用空格隔开。
+* duration 基于起始时间的步长。即从起始时间开始持续多久。只支持查询60天以内的用户信息。
+
+
+## Device API
+`function: JPush\JPushClient::getDeviceTagAlias($registrationId)`  
+
+获取指定RegistrationId的所有属性，包含tags, alias
+
+`function: JPush\JPushClient::removeDeviceTag($registrationId)`  
+
+移除指定RegistrationId的所有tag
+
+`function: JPush\JPushClient::removeDeviceAlias($registrationId)`  
+
+移除指定RegistrationId的所有alias
+
+`function: JPush\JPushClient::updateDeviceTagAlias($registrationId, $alias = null, $addTags = null, $removeTags = null)`  
+
+更新指定RegistrationId的指定属性，当前支持tags, alias
+
+`function: JPush\JPushClient::getTags()`  
+
+获取当前应用的所有标签列表
+
+`function: JPush\JPushClient::isDeviceInTag($registrationId, $tag)`  
+
+查询某个用户是否在tag下
+
+`function: JPush\JPushClient::updateTagDevices($tag, $addDevices = null, $removeDevices = null)`  
+对指定tag添加或者删除registrationId
+
+`function: JPush\JPushClient::deleteUpdate($tag)`  
+
+删除指定Tag，以及与其关联的用户之间的关联关系
+
+`function: JPush\JPushClient::getAliasDevices($alias, $platform = null)`  
+
+获取指定alias下的用户，最多输出10个
+
+`function: JPush\JPushClient::deleteAlias($alias)`  
+
+删除指定alias，以及该alias与用户的绑定关系
+
+
+## Validate API
+与Push API调用方法一致,但最终不执行推送操作
+Example:
+```
+$result = $client->push()
+        ->setPlatform(M\all)
+        ->setAudience(M\all)
+        ->setNotification(M\notification('Hi, JPush'))
+        ->setAudience(M\audience(array('no one')))
+        ->printJSON()
+        ->validate();
 ```
 
 
