@@ -31,7 +31,6 @@ class ValidateTest extends PHPUnit_Framework_TestCase {
             ->setAudience(M\all)
             ->setNotification(M\notification($this->alert))
             ->validate();
-
         $this->assertTrue($response->isOk === true);
     }
 
