@@ -1,7 +1,0 @@
-{
-    "require":{
-        "jpush/jpush": "dev-master",
-        "monolog/monolog":"*",
-        "nategood/httpful":"*"
-    }
-}
