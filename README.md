@@ -53,12 +53,19 @@ PS: 在下载的[JPush PHP Library][5]中的[example][6]文件夹有简单示例
 [example][6]文件夹有简单示例代码, 开发者可参考以快速使用该库
 
 ├── examples
+
 │   ├── composer.json　项目依赖
+
 │   ├── DeviceExample.php 对Tag, Alias, Registeration_id的操作示例
+
 │   ├── PushExample.php　推送示例
+
 │   ├── README.md　说明
+
 │   ├── ReportExample.php　获取统计信息示例
+
 │   └── ValidateExample.php　使用validate接口示例
+
 
 
 
