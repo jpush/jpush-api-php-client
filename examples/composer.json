@@ -1,7 +1,5 @@
 {
     "require":{
-        "jpush/jpush": "v3.2.0",
-        "monolog/monolog":"*",
-        "nategood/httpful":"*"
+        "jpush/jpush": "v3.2.0"
     }
 }
