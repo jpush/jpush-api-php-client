@@ -12,3 +12,5 @@ bin/
 composer.lock
 vendor/
 *.log
+vendor.tar.gz
+composer.phar
