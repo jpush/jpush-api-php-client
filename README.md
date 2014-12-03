@@ -52,6 +52,7 @@ PS: 在下载的[JPush PHP Library][5]中的[example][6]文件夹有简单示例
 
 [example][6]文件夹有简单示例代码, 开发者可参考以快速使用该库
 
+
 ├── examples
 
 │   ├── composer.json　项目依赖
