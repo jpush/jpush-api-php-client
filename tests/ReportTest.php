@@ -30,7 +30,7 @@ class ReportTest extends PHPUnit_Framework_TestCase {
 
     function testUsers() {
         $client = new JPushClient($this->appKey, $this->masterSecret);
-        $result = $client->messages('month', '2014-09', 2);
+        $result = $client->users('month', '2014-09', 2);
         $this->assertTrue($result->isOk === true);
     }
 } 
