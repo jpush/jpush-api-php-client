@@ -14,9 +14,8 @@ use JPush\Exception\APIRequestException;
 $br = '<br/>';
 $spilt = ' - ';
 
-
-$master_secret = 'd94f733358cca97b18b2cb98';
-$app_key='47a3ddda34b2602fa9e17c01';
+$app_key='dd1066407b044738b6479275';
+$master_secret = '6b135be0037a5c1e693c3dfa';
 JPushLog::setLogHandlers(array(new StreamHandler('jpush.log', Logger::DEBUG)));
 $client = new JPushClient($app_key, $master_secret);
 

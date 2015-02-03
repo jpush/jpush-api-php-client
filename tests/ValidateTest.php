@@ -8,7 +8,7 @@ use JPush\JPushClient;
 
 class ValidateTest extends PHPUnit_Framework_TestCase {
     public $appKey = "dd1066407b044738b6479275";
-    public $masterSecret = '2b38ce69b1de2a7fa95706ea';
+    public $masterSecret = '6b135be0037a5c1e693c3dfa';
     public $alert = "JPush Test - alert";
     public $title = "JPUsh Test - title";
     public $extras = array("key1" => "value1", "key2" => "value2");
@@ -28,7 +28,7 @@ class ValidateTest extends PHPUnit_Framework_TestCase {
      * @beforeClass
      */
     public static function init() {
-        $client = new JPushClient('dd1066407b044738b6479275', '2b38ce69b1de2a7fa95706ea');
+        $client = new JPushClient('dd1066407b044738b6479275', '6b135be0037a5c1e693c3dfa');
         $client->updateDeviceTagAlias('0900e8d85ef', 'alias1', array('tag1', 'tag_all'));
         $client->updateDeviceTagAlias('0a04ad7d8b4', 'alias1', array('tag2', 'tag_all'));
     }

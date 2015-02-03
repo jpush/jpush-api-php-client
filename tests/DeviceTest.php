@@ -7,7 +7,7 @@ use JPush\JPushClient;
 
 class DeviceTest extends PHPUnit_Framework_TestCase {
     public $appKey = "dd1066407b044738b6479275";
-    public $masterSecret = '2b38ce69b1de2a7fa95706ea';
+    public $masterSecret = '6b135be0037a5c1e693c3dfa';
 
     public $TAG1 = "tag1";
     public $TAG2 = "tag2";
