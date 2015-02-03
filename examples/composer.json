@@ -1,5 +1,5 @@
 {
     "require":{
-        "jpush/jpush": "v3.2.1"
+        "jpush/jpush": "v3.2.2"
     }
 }
