@@ -37,7 +37,7 @@ function notification( /* platform notification params */)
 
 function ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=null, $category=null)
 {
-    if (is_null($alert) || !is_string($alert) || strlen($alert) < 1) {
+    if (is_null($alert) || !is_string($alert)) {
         throw new InvalidArgumentException("Invalid ios.alert string");
     }
     $payload = array();
@@ -101,7 +101,7 @@ function ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=n
 
 function android($alert, $title=null, $builder_id=null, $extras=null)
 {
-    if (is_null($alert) || !is_string($alert) || strlen($alert) < 1) {
+    if (is_null($alert) || !is_string($alert)) {
         throw new InvalidArgumentException("Invalid android.alert string");
     }
     $payload = array();
@@ -137,7 +137,7 @@ function android($alert, $title=null, $builder_id=null, $extras=null)
 
 function winphone($alert, $title=null, $_open_page=null, $extras=null)
 {
-    if (is_null($alert) || !is_string($alert) || strlen($alert) < 1) {
+    if (is_null($alert) || !is_string($alert)) {
         throw new InvalidArgumentException("Invalid winphone.alert string");
     }
 
