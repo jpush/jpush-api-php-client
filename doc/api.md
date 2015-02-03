@@ -277,11 +277,11 @@ $payload->setAudience(M\all);
 
 参数:$alert, ios(),android(),winphone()构建的对象
 
-`function: JPush/Model/ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=null)`
+`function: JPush/Model/ios($alert, $sound=null, $badge=null, $contentAvailable=null, $extras=null, $category=null)`
 
 构建ios对象
 
-`function: JPush/Model/android($alert, $title=null, $builder_id=null, $extras=null, $category=null)`
+`function: JPush/Model/android($alert, $title=null, $builder_id=null, $extras=null)`
 
 构建android对象
 
