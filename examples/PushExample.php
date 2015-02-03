@@ -50,12 +50,17 @@ try {
 
 echo $br . '-------------' . $br;
 
-//easy push with ios badge +1
+// easy push with ios badge +1
+// 以下演示推送给 Android, IOS 平台下Tag为tag1的用户的示例
 try {
     $result = $client->push()
-        ->setPlatform(M\all)
-        ->setAudience(M\all)
-        ->setNotification(M\notification('Hi, JPush', M\ios("Hi, IOS", "happy", "+1")))
+        ->setPlatform(M\Platform('android', 'ios'))
+        ->setAudience(M\Audience(M\Tag(array('tag1'))))
+        ->setNotification(M\notification('Hi, JPush',
+            M\android('Hi, Android', 'Message Title', 1, array("key1"=>"value1", "key2"=>"value2")),
+            M\ios("Hi, IOS", "happy", "+1", true, array("key1"=>"value1", "key2"=>"value2"), "Ios8 Category")
+        ))
+        ->setMessage(M\message('Message Content', 'Message Title', 'Message Type', array("key1"=>"value1", "key2"=>"value2")))
         ->printJSON()
         ->send();
     echo 'Push Success.' . $br;
