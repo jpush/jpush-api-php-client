@@ -339,8 +339,8 @@ $payload->setOptions(M\options(123456, null, null, false, 60))
 
 | Method | Description |
 | ------- | ------ |
-| isIosExceedLength | 检测当前payload是否超出ios notification长度限定。返回true/false。（ios notification不超过220并且ios notification + message不超过1200） |
-| isGlobalExceedLength | 检测当前payload是否超出长度限定。返回true/false。（ios notification不超过220并且所有平台的notification + message不超过1200） |
+| isIosExceedLength | 检测当前payload是否超出ios notification长度限定。返回true/false。（ios notification不超过2000并且ios message不超过1000） |
+| isGlobalExceedLength | 检测当前payload是否超出长度限定。返回true/false。（ios notification不超过2000并且ios message不超过1000, Android，WinPhone Notification 对象长度 + Message 对象长度不得超过：1000 字节） |
 
 
 ## Report API
