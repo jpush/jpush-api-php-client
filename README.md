@@ -29,7 +29,7 @@ PS: 在下载的[JPush PHP Library][5]中的[example][6]文件夹有简单示例
 
 ### 使用 Composer
 
-如果你的项目使用Composer管理依赖, 可以通过以下方式使用JPush PHP Library.
+如果你的项目使用composer管理依赖, 可以通过以下方式使用JPush PHP Library.
 
 
 1. 在 `composer.json` 中添加 jpush依赖, 目前最新版本为 v3.2.0
