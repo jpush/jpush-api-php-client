@@ -154,8 +154,8 @@ A: 在调用示例推送的时候, 注释掉 `->printJSON()` 即可, 该函数�
 
   [1]: http://docs.jpush.cn/display/dev/Push-API-v3
   [2]: http://docs.jpush.cn/display/dev/Report-API
-  [3]: http://jpushsdk.qiniudn.com/vendor.tar.gz
-  [4]: http://jpushsdk.qiniudn.com/vendor.tar.gz
+  [3]: http://docs.jpush.cn/download/attachments/2228302/vendor.tar.gz
+  [4]: http://docs.jpush.cn/download/attachments/2228302/vendor.tar.gz
   [5]: http://jpushsdk.qiniudn.com/jpush-api-php-client-latest.tar.gz
   [6]: /examples
   [7]: http://docs.jpush.cn/display/dev/Push-API-v3
