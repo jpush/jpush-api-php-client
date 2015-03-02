@@ -169,25 +169,17 @@ class PushPayload {
         $message = $this->message;
         $notification = $this->notification;
 
-        $ios = 0;
         $android = 0;
         $winphone = 0;
-
+        $isIosExceed = false;
         if (!is_null($notification)) {
             $hasAlert = array_key_exists('alert', $notification);
             $alert = "";
             if ($hasAlert) {
                 $alert = $notification['alert'];
             }
-            if (array_key_exists('ios', $notification)) {
-                $ios = $this->calculateLength(json_encode($notification['ios']));
-            } else if ($hasAlert) {
-                $ios = $this->calculateLength(json_encode(array('alert'=>$alert, 'sound'=>'', 'badge'=>1)));
-            }
 
-            if ($ios > 220) {
-                return true;
-            }
+            $isIosExceed = $this->isIosExceedLength();
 
             if (array_key_exists('android', $notification)) {
                 $android = $this->calculateLength(json_encode($notification['android']));
@@ -205,12 +197,11 @@ class PushPayload {
 
         if (!is_null($message)) {
             $msg_len = $this->calculateLength(json_encode($message));
-            $ios += $msg_len;
             $winphone += $msg_len;
             $android += $msg_len;
         }
 
-        return $ios > 1200 || $winphone > 1200 || $android > 1200;
+        return $isIosExceed || $winphone >= 1000 || $android >= 1000;
     }
 
 
