@@ -154,19 +154,14 @@ class PushPayload {
             } else if ($hasAlert) {
                 $ios = $this->calculateLength(json_encode(array('alert'=>$alert, 'sound'=>'', 'badge'=>1)));
             }
-            // ios notification length should be less than 220
-            if ($ios > 220) {
+            // ios notification length should be less than 2048
+            if ($ios > 2000) {
                 return true;
             }
         }
 
-        if (!is_null($ios)) {
-            $msg_len = $this->calculateLength(json_encode($message));
-            $ios += $msg_len;
-        }
-
-        //ios notification and message length should be less than 1200
-        return $ios > 1200;
+        $msg_len = $this->calculateLength(json_encode($message));
+        return $msg_len > 1000;
     }
 
 
