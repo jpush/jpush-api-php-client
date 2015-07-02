@@ -326,7 +326,7 @@ $payload->setMessage(M\message('msg content', null, null, array('key'=>'value'))
 |sendno|-|false|
 |time_to_live|离线消息保留时长（秒）。如果不填默认 1 天。不能小于 0|false|
 |override_msg_id|要覆盖的消息ID。必须大于 0|false|
-|apns_production|APNs 是否生产环境推送。默认为 True|false|
+|apns_production|APNs 是否生产环境推送。默认为 False |false|
 |big_push_duration|大推送指定时长。规定应在这个时间内推送完成，用于“定速推送,单位:分钟|false|
 
 
