@@ -10,25 +10,25 @@ class ReportTest extends PHPUnit_Framework_TestCase {
     public $masterSecret = '6b135be0037a5c1e693c3dfa';
 
 
-    function testReport() {
+    public function testReport() {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $result = $client->report('769835449');
         $this->assertTrue($result->isOk === true);
     }
 
-    function testReportMore() {
+    public function testReportMore() {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $result = $client->report('769835449,1093175430');
         $this->assertTrue($result->isOk === true);
     }
 
-    function testMessages() {
+    public function testMessages() {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $result = $client->messages('478284636,1150722083,979475499');
         $this->assertTrue($result->isOk === true);
     }
 
-    function testUsers() {
+    public function testUsers() {
         $client = new JPushClient($this->appKey, $this->masterSecret);
         $result = $client->users('month', '2014-09', 2);
         $this->assertTrue($result->isOk === true);

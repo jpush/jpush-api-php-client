@@ -14,7 +14,7 @@ function generateSendno() {
 
 function options($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_production=null, $big_push_duration=null)
 {
-    if ($sendno == null && $time_to_live == null && $override_msg_id == null && $apns_production == null && $big_push_duration == null) {
+    if (is_null($sendno) && is_null($time_to_live) && is_null($override_msg_id) && is_null($apns_production) && is_null($big_push_duration)) {
         throw new InvalidArgumentException("Not all options args is null");
     }
     $payload = array();
