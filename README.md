@@ -15,9 +15,9 @@ PHP >= 5.3
 JPush PHP Library 使用 Composer管理项目依赖, 鉴于某些原因, 国内的用户使用Composer下载依赖库比较困难,所以我们将Composer依赖打包. 用户可以通过以下方式在您的项目中加入JPush PHP Library.
 
 
-1.下载依赖包 [vendor.tar.gz][3]
+1.下载依赖包 [vendor.zip](http://7qn8xa.com1.z0.glb.clouddn.com/vendor.zip)
 
-2.解压 [vendor.tar.gz][4] 到您的项目目录下，在需要使用JPush的源文件头部 引入 `vendor/autoload.php`  既可使用.
+2.解压 [vendor.zip](http://7qn8xa.com1.z0.glb.clouddn.com/vendor.zip) 到您的项目目录下，在需要使用JPush的源文件头部 引入 `vendor/autoload.php`  既可使用.
 
 ```
 # 引入代码
