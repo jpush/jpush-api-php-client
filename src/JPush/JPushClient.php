@@ -423,11 +423,16 @@ class JPushClient {
                 break;
             } catch (ConnectionErrorException $e) {
                 if (strpos($e->getMessage(),'28')) {
-                    throw new APIConnectionException("Response timeout. Your request has probably be received by JPUsh Server,please check that whether need to be pushed again.", true);
+                    throw new APIConnectionException("Response timeout. Your request has probably be received by JPush Server,please check that whether need to be pushed again.", true);
+                }
+                if (strpos($e->getMessage(),'56')) {
+                    // resolve error[56 Problem (2) in the Chunked-Encoded data]
+                    throw new APIConnectionException("Response timeout, maybe cause by old CURL version. Your request has probably be received by JPush Server, please check that whether need to be pushed again.", true);
                 }
                 if ($retryTimes >= $this->retryTimes) {
                     throw new APIConnectionException("Connect timeout. Please retry later.");
                 } else {
+                    $logger->debug("Exception - Message:" . $e->getMessage() . ", Code:" . $e->getCode());
                     $logger->debug("Retry again send " . $method, array(
                         "method" => $method,
                         "uri" => $url,
