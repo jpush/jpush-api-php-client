@@ -222,41 +222,52 @@ class PushPayload {
             if (!is_array($extras)) {
                 throw new InvalidArgumentException("Invalid ios extras value");
             }
-            if (count($extras) <= 0) {
-                throw new InvalidArgumentException("Invalid ios extras value");
+            if (count($extras) > 0) {
+                $ios['extras'] = $extras;
             }
-            $ios['extras'] = $extras;
+        }
+
+        if (count($ios) <= 0) {
+            throw new InvalidArgumentException("Invalid iOS notification");
         }
 
         $this->iosNotification = $ios;
         return $this;
     }
 
-    public function addAndroidNotification($alert, $title, $builderId, $extras) {
+    public function addAndroidNotification($alert=null, $title=null, $builderId=null, $extras=null) {
         $android = array();
 
-        if (!is_null($alert) && !is_string($alert)) {
-            throw new InvalidArgumentException("Invalid android alert value");
-        } else {
+        if (!is_null($alert)) {
+            if (!is_string($alert)) {
+                throw new InvalidArgumentException("Invalid android alert value");
+            }
             $android['alert'] = $alert;
         }
 
-        if (!is_null($title) && !is_string($title)) {
-            throw new InvalidArgumentException("Invalid android title value");
-        } else {
-            $android['title'] = $title;
+        if (!is_null($title)) {
+            if(!is_string($title)) {
+                throw new InvalidArgumentException("Invalid android title value");
+            }
+            if(strlen($title) > 0) {
+                $android['title'] = $title;
+            }
         }
 
-        if (!is_null($builderId) && !is_int($builderId)) {
-            throw new InvalidArgumentException("Invalid android builder_id value");
-        } else {
+        if (!is_null($builderId)) {
+            if (!is_int($builderId)) {
+                throw new InvalidArgumentException("Invalid android builder_id value");
+            }
             $android['builder_id'] = $builderId;
         }
 
-        if (!is_null($extras) && !is_array($extras)) {
-            throw new InvalidArgumentException("Invalid android extras value");
-        } else {
-            $android['extras'] = $extras;
+        if (!is_null($extras)) {
+            if (!is_array($extras)) {
+                throw new InvalidArgumentException("Invalid android extras value");
+            }
+            if (count($extras) > 0) {
+                $android['extras'] = $extras;
+            }
         }
 
         if (count($android) <= 0) {
@@ -267,29 +278,41 @@ class PushPayload {
         return $this;
     }
 
-    public function addWinPhoneNotification($alert, $title, $_open_page, $extras) {
+    public function addWinPhoneNotification($alert=null, $title=null, $_open_page=null, $extras=null) {
         $winPhone = array();
 
-        if (!is_null($alert) && !is_string($alert)) {
-            throw new InvalidArgumentException("Invalid winphone notification");
-        } else {
+        if (!is_null($alert)) {
+            if (!is_string($alert)) {
+                throw new InvalidArgumentException("Invalid winphone notification");
+            }
             $winPhone['alert'] = $alert;
         }
 
-        if (!is_null($title) && !is_string($title)) {
-            throw new InvalidArgumentException("Invalid winphone title notification");
-        } else {
-            $winPhone['title'] = $title;
+        if (!is_null($title)) {
+            if (!is_string($title)) {
+                throw new InvalidArgumentException("Invalid winphone title notification");
+            }
+            if(strlen($title) > 0) {
+                $winPhone['title'] = $title;
+            }
         }
 
-        if (!is_null($_open_page) && !is_string($_open_page)) {
-            throw new InvalidArgumentException("Invalid winphone _open_page notification");
-        } else {
-            $winPhone['_open_page'] = $_open_page;
+        if (!is_null($_open_page)) {
+            if (!is_string($_open_page)) {
+                throw new InvalidArgumentException("Invalid winphone _open_page notification");
+            }
+            if (strlen($_open_page) > 0) {
+                $winPhone['_open_page'] = $_open_page;
+            }
         }
 
-        if (!is_null($extras) && !is_array($extras)) {
-            throw new InvalidArgumentException("Invalid winphone extras notification");
+        if (!is_null($extras)) {
+            if (!is_array($extras)) {
+                throw new InvalidArgumentException("Invalid winphone extras notification");
+            }
+            if (count($extras) > 0) {
+                $winPhone['extras'] = $extras;
+            }
         }
 
         if (count($winPhone) <= 0) {
@@ -384,7 +407,7 @@ class PushPayload {
                 if (is_null($this->winPhoneNotification)) {
                     throw new InvalidArgumentException("WinPhone alert can not be null");
                 } else {
-                    $notification['winphone']['alert'] = $this->winPhoneNotification;
+                    $notification['winphone']['alert'] = $this->notificationAlert;
                 }
             }
         }
