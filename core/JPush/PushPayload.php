@@ -22,6 +22,7 @@ class PushPayload {
     private $iosNotification;
     private $androidNotification;
     private $winPhoneNotification;
+    private $smsMessage;
     private $message;
     private $options;
 
@@ -325,6 +326,25 @@ class PushPayload {
         return $this;
     }
 
+    public function setSmsMessage($content, $delay_time) {
+        $sms = array();
+        if (is_null($content) || !is_string($content) || strlen($content) < 0 || strlen($content) > 480) {
+            throw new InvalidArgumentException('Invalid sms content, sms content\'s length must in [0, 480]');
+        } else {
+            $sms['content'] = $content;
+        }
+
+        if (is_null($delay_time) || !is_int($delay_time) || $delay_time < 0 || $delay_time > 86400) {
+            throw new InvalidArgumentException('Invalid sms delay time, delay time must in [0, 86400]');
+        } else {
+            $sms['delay_time'] = $delay_time;
+        }
+
+        $this->smsMessage = $sms;
+        return $this;
+    }
+
+
     public function setMessage($msg_content, $title=null, $content_type=null, $extras=null) {
         $message = array();
 
@@ -486,6 +506,10 @@ class PushPayload {
 
         if (count($this->message) > 0) {
             $payload['message'] = $this->message;
+        }
+
+        if (count($this->smsMessage)) {
+            $payload['sms_message'] = $this->smsMessage;
         }
 
         if (count($this->options) > 0) {
