@@ -323,12 +323,40 @@ class PushPayload {
         return $this;
     }
 
-    /**
-     * @param mixed $message
-     */
-    public function setMessage($message)
-    {
+    public function setMessage($msg_content, $title=null, $content_type=null, $extras=null) {
+        $message = array();
+
+        if (is_null($msg_content) || !is_string($msg_content)) {
+            throw new InvalidArgumentException("Invalid message content");
+        } else {
+            $message['msg_content'] = $msg_content;
+        }
+
+        if (!is_null($title)) {
+            if (!is_string($title)) {
+                throw new InvalidArgumentException("Invalid message title");
+            }
+            $message['title'] = $title;
+        }
+
+        if (!is_null($content_type)) {
+            if (!is_string($content_type)) {
+                throw new InvalidArgumentException("Invalid message content type");
+            }
+            $message["content_type"] = $content_type;
+        }
+
+        if (!is_null($extras)) {
+            if (!is_array($extras)) {
+                throw new InvalidArgumentException("Invalid message extras");
+            }
+            if (count($extras) > 0) {
+                $message['extras'] = $extras;
+            }
+        }
+
         $this->message = $message;
+        return $this;
     }
 
     /**
@@ -414,6 +442,10 @@ class PushPayload {
 
         if (count($notification) > 0) {
             $payload['notification'] = $notification;
+        }
+
+        if (count($this->message) > 0) {
+            $payload['message'] = $this->message;
         }
 
 
