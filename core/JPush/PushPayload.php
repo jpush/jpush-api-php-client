@@ -3,6 +3,8 @@
 CONST disableSound = "disableSound";
 CONST disableBadge = -1;
 
+
+
 class PushPayload {
 
     static $EFFECTIVE_DEVICE_TYPES = array("ios", "android", "winphone");
@@ -359,12 +361,50 @@ class PushPayload {
         return $this;
     }
 
-    /**
-     * @param mixed $options
-     */
-    public function setOptions($options)
-    {
+    public function setOptions($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_production=null, $big_push_duration=null) {
+        $options = array();
+
+        if (!is_null($sendno)) {
+            if (!is_int($sendno)) {
+                throw new InvalidArgumentException('Invalid option sendno');
+            }
+            $options['sendno'] = $sendno;
+        } else {
+            $options['sendno'] = $this->generateSendno();
+        }
+
+        if (!is_null($time_to_live)) {
+            if (!is_int($time_to_live) || $time_to_live < 0 || $time_to_live > 864000) {
+                throw new InvalidArgumentException('Invalid option time to live, it must be a int and in [0, 864000]');
+            }
+            $options['time_to_live'] = $time_to_live;
+        }
+
+        if (!is_null($override_msg_id)) {
+            if (!is_long($override_msg_id)) {
+                throw new InvalidArgumentException('Invalid option override msg id');
+            }
+            $options['override_msg_id'] = $override_msg_id;
+        }
+
+        if (!is_null($apns_production)) {
+            if (!is_bool($apns_production)) {
+                throw new InvalidArgumentException('Invalid option apns production');
+            }
+            $options['apns_production'] = $apns_production;
+        } else {
+            $options['apns_production'] = false;
+        }
+
+        if (!is_null($big_push_duration)) {
+            if (!is_int($big_push_duration) || $big_push_duration < 0 || $big_push_duration > 1440) {
+                throw new InvalidArgumentException('Invalid option big push duration, it must be a int and in [0, 1440]');
+            }
+            $options['big_push_duration'] = $big_push_duration;
+        }
+
         $this->options = $options;
+        return $this;
     }
 
 
@@ -448,6 +488,12 @@ class PushPayload {
             $payload['message'] = $this->message;
         }
 
+        if (count($this->options) > 0) {
+            $payload['options'] = $this->options;
+        } else {
+            $this->setOptions();
+            $payload['options'] = $this->options;
+        }
 
 
         return json_encode($payload);
@@ -467,6 +513,8 @@ class PushPayload {
     }
 
 
-
+    private function generateSendno() {
+        return rand(100000, 4294967294);
+    }
 
 }
