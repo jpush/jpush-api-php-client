@@ -172,7 +172,7 @@ class PushPayload {
         $ios = array();
 
         if (!is_null($alert)) {
-            if (!is_string($alert)) {
+            if (!is_string($alert) && !is_array($alert)) {
                 throw new InvalidArgumentException("Invalid ios alert value");
             }
             $ios['alert'] = $alert;
