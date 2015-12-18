@@ -428,7 +428,7 @@ class PushPayload {
 
         // validate platform
         if (is_null($this->platform)) {
-            throw new InvalidArgumentException("Platform must be set");
+            throw new InvalidArgumentException("platform must be set");
         }
         $payload["platform"] = $this->platform;
 
@@ -448,7 +448,7 @@ class PushPayload {
                 $audience["registration_id"] = $this->registrationIds;
             }
             if (count($audience) <= 0) {
-                throw new InvalidArgumentException("Audience must be set");
+                throw new InvalidArgumentException("audience must be set");
             }
             $payload["audience"] = $audience;
         } else {
@@ -477,7 +477,7 @@ class PushPayload {
             $notification['ios'] = $this->iosNotification;
             if (is_null($this->iosNotification['alert'])) {
                 if (is_null($this->notificationAlert)) {
-                    throw new InvalidArgumentException("Ios alert can not be null");
+                    throw new InvalidArgumentException("iOS alert can not be null");
                 } else {
                     $notification['ios']['alert'] = $this->notificationAlert;
                 }
@@ -501,6 +501,10 @@ class PushPayload {
 
         if (count($this->message) > 0) {
             $payload['message'] = $this->message;
+        }
+
+        if (is_null($payload['notification']) && is_null($payload['message'])) {
+            throw new InvalidArgumentException('notification and message can not all be null');
         }
 
         if (count($this->smsMessage)) {
