@@ -32,9 +32,11 @@ class APIRequestException extends \Exception {
         $payload = json_decode($response['body'], true);
         if ($payload != null) {
             $error = $payload['error'];
-            foreach (self::$expected_keys as $key) {
-                if (array_key_exists($key, $error)) {
-                    $this->$key = $error[$key];
+            if (!is_null($error)) {
+                foreach (self::$expected_keys as $key) {
+                    if (array_key_exists($key, $error)) {
+                        $this->$key = $error[$key];
+                    }
                 }
             }
         }

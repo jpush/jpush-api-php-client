@@ -22,16 +22,18 @@ class JPush {
     const CONNECT_TIMEOUT = 5;
     const READ_TIMEOUT = 30;
     const DEFAULT_MAX_RETRY_TIMES = 3;
+    const DEFAULT_LOG_FILE = "./jpush.log";
 
-    const HTTP_GET = 0x10000;
-    const HTTP_POST = 0x20000;
+    const HTTP_GET = 'GET';
+    const HTTP_POST = 'POST';
 
-    public $appKey;
-    public $masterSecret;
-    public $retryTimes;
+    private $appKey;
+    private $masterSecret;
+    private $retryTimes;
+    private $logFile;
 
 
-    public function __construct($appKey, $masterSecret, $retryTimes=self::DEFAULT_MAX_RETRY_TIMES) {
+    public function __construct($appKey, $masterSecret, $retryTimes=self::DEFAULT_MAX_RETRY_TIMES, $logFile=self::DEFAULT_LOG_FILE) {
         if (is_null($appKey) || is_null($masterSecret)) {
             throw new InvalidArgumentException("appKey and masterSecret must be set.");
         }
@@ -41,7 +43,10 @@ class JPush {
         }
         $this->appKey = $appKey;
         $this->masterSecret = $masterSecret;
-        $this->retryTimes = $retryTimes;
+        if (!is_null($retryTimes)) {
+            $this->retryTimes = $retryTimes;
+        }
+        $this->logFile = $logFile;
     }
 
     public function push() {
@@ -59,6 +64,7 @@ class JPush {
      * @throws APIConnectionException
      */
     public function _request($url, $method, $body=null, $times=1) {
+        $this->log("Send " . $method . " " . $url . ", body:" . $body . ", times:" . $times);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -97,10 +103,10 @@ class JPush {
             } else if ($errorCode === 56) {
                 // resolve error[56 Problem (2) in the Chunked-Encoded data]
                 throw new APIConnectionException("Response timeout, maybe cause by old CURL version. Your request has probably be received by JPush Server, please check that whether need to be pushed again.", true);
-            } else if ($times > $this->retryTimes) {
+            } else if ($times >= $this->retryTimes) {
                 throw new APIConnectionException("Connect timeout. Please retry later. Error:" . $errorCode . " " . curl_error($ch));
             } else {
-                // TODO log
+                $this->log("Send " . $method . " " . $url . " fail, curl_code:" . $errorCode . ", body:" . $body . ", times:" . $times);
                 $this->_request($url, $method, $body, ++$times);
             }
         } else {
@@ -125,7 +131,11 @@ class JPush {
         return $response;
     }
 
-
+    public function log($content) {
+        if (!is_null($this->logFile)) {
+            error_log($content . "\r\n", 3, $this->logFile);
+        }
+    }
 
 
 
