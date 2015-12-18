@@ -16,3 +16,4 @@ class APIConnectionException extends \Exception {
         $this->isResponseTimeout = $isResponseTimeout;
     }
 }
+

@@ -1,14 +1,7 @@
 <?php
 
-CONST disableSound = "disableSound";
-CONST disableBadge = -1;
-
-
-
 class PushPayload {
-
-    static $EFFECTIVE_DEVICE_TYPES = array("ios", "android", "winphone");
-
+    private static $EFFECTIVE_DEVICE_TYPES = array('ios', 'android', 'winphone');
     private $client;
     private $platform;
 
@@ -26,13 +19,15 @@ class PushPayload {
     private $message;
     private $options;
 
-    function __construct($client)
-    {
+    /**
+     * PushPayload constructor.
+     * @param $client JPush
+     */
+    function __construct($client) {
         $this->client = $client;
     }
 
-    public function setPlatform($platform)
-    {
+    public function setPlatform($platform) {
         if (is_string($platform) && strcasecmp("all", $platform) === 0) {
             $this->platform = "all";
         } else {
@@ -43,7 +38,7 @@ class PushPayload {
             $platform = array();
             foreach($args as $type) {
                 $type = strtolower($type);
-                if (!in_array($type, PushPayload::$EFFECTIVE_DEVICE_TYPES)) {
+                if (!in_array($type, self::$EFFECTIVE_DEVICE_TYPES)) {
                     throw new InvalidArgumentException("Invalid device type: " . $type);
                 }
                 if (!in_array($type, $platform)) {
@@ -183,7 +178,7 @@ class PushPayload {
             if (!is_string($sound)) {
                 throw new InvalidArgumentException("Invalid ios sound value");
             }
-            if ($sound !== disableSound) {
+            if ($sound !== JPush::DISABLE_SOUND) {
                 $ios['sound'] = $sound;
             }
         } else {
@@ -197,7 +192,7 @@ class PushPayload {
                     throw new InvalidArgumentException("Invalid ios badge value");
                 }
             }
-            if ($badge != disableBadge) {
+            if ($badge != JPush::DISABLE_BADGE) {
                 $ios['badge'] = $badge;
             }
         } else {
@@ -428,7 +423,7 @@ class PushPayload {
     }
 
 
-    public function getJSON() {
+    public function toJSON() {
         $payload = array();
 
         // validate platform
@@ -524,12 +519,33 @@ class PushPayload {
     }
 
     public function printJSON() {
-        echo $this->getJSON();
+        echo $this->toJSON();
         return $this;
     }
 
     public function send() {
-
+        $response = $this->client->_request(JPush::PUSH_URL, JPush::HTTP_POST, $this->toJSON());
+        if($response['http_code'] === 200) {
+            $body = json_decode($response['body']);
+            if (!is_null($body->sendno)) {
+                $result['sendno'] = $body->sendno;
+            }
+            if (!is_null($body->msg_id)) {
+                $result['msg_id'] = $body->msg_id;
+            }
+            $headers = $response['headers'];
+            if (is_array($headers)) {
+                $limit = array();
+                $limit['rateLimitLimit'] = $headers['X-Rate-Limit-Limit'];
+                $limit['rateLimitRemaining'] = $headers['X-Rate-Limit-Remaining'];
+                $limit['rateLimitReset'] = $headers['X-Rate-Limit-Reset'];
+                $result['limit'] = $limit;
+                return (object)array_merge((array)$body, $limit);
+            }
+            return $body;
+        } else {
+            throw new APIRequestException($response);
+        }
     }
 
     public function validate() {

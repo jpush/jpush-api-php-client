@@ -1,8 +1,12 @@
 <?php
 
 require_once("./PushPayload.php");
+require_once("./JPushException.php");
 
 class JPush {
+    CONST DISABLE_SOUND = "_disable_Sound";
+    CONST DISABLE_BADGE = 0x10000;
+
     const PUSH_URL = 'https://api.jpush.cn/v3/push';
     const REPORT_URL = 'https://report.jpush.cn/v2/received';
     const VALIDATE_URL = 'https://api.jpush.cn/v3/push/validate';
@@ -45,17 +49,16 @@ class JPush {
     }
 
 
-
-
-
     /**
      * 发送HTTP请求
-     * @param $url String 请求的URL
-     * @param $method Int 请求的方法
+     * @param $url string 请求的URL
+     * @param $method int 请求的方法
      * @param null $body String POST请求的Body
+     * @param int $times 当前重试的册数
      * @return array
+     * @throws APIConnectionException
      */
-    public function _request($url, $method, $body=null) {
+    public function _request($url, $method, $body=null, $times=1) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -89,8 +92,17 @@ class JPush {
         $response = array();
         $errorCode = curl_errno($ch);
         if ($errorCode) {
-            $response['error'] = $errorCode;
-            $response['error_desc'] = curl_error($ch);
+            if ($errorCode === 28) {
+                throw new APIConnectionException("Response timeout. Your request has probably be received by JPush Server,please check that whether need to be pushed again.", true);
+            } else if ($errorCode === 56) {
+                // resolve error[56 Problem (2) in the Chunked-Encoded data]
+                throw new APIConnectionException("Response timeout, maybe cause by old CURL version. Your request has probably be received by JPush Server, please check that whether need to be pushed again.", true);
+            } else if ($times > $this->retryTimes) {
+                throw new APIConnectionException("Connect timeout. Please retry later. Error:" . $errorCode . " " . curl_error($ch));
+            } else {
+                // TODO log
+                $this->_request($url, $method, $body, ++$times);
+            }
         } else {
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
@@ -118,3 +130,4 @@ class JPush {
 
 
 }
+
