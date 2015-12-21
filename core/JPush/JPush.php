@@ -16,6 +16,7 @@ class JPush {
     const DEFAULT_LOG_FILE = "./jpush.log";
     const HTTP_GET = 'GET';
     const HTTP_POST = 'POST';
+    const HTTP_DELETE = 'DELETE';
 
     private $appKey;
     private $masterSecret;
@@ -86,8 +87,13 @@ class JPush {
         // 设置Post参数
         if ($method === self::HTTP_POST) {
             curl_setopt($ch, CURLOPT_POST, true);
+        } else if ($method === self::HTTP_DELETE) {
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        }
+        if (!is_null($body)) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
         }
+
         // 设置headers
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',

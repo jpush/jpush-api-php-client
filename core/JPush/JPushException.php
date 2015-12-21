@@ -38,6 +38,12 @@ class APIRequestException extends Exception {
                         $this->$key = $error[$key];
                     }
                 }
+            } else {
+                foreach (self::$expected_keys as $key) {
+                    if (array_key_exists($key, $payload)) {
+                        $this->$key = $payload[$key];
+                    }
+                }
             }
         }
         $headers = $response['headers'];
