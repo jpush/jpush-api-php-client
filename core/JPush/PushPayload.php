@@ -50,6 +50,14 @@ class PushPayload {
         return $this;
     }
 
+    public function setAudience($all) {
+        if (strtolower($all) === 'all') {
+            $this->addAllAudience();
+        } else {
+            throw new InvalidArgumentException('Invalid audience value');
+        }
+    }
+
     public function addAllAudience() {
         $this->audience = "all";
         return $this;
@@ -531,20 +539,15 @@ class PushPayload {
         $response = $this->client->_request(JPush::PUSH_URL, JPush::HTTP_POST, $this->toJSON());
         if($response['http_code'] === 200) {
             $body = json_decode($response['body']);
-            if (!is_null($body->sendno)) {
-                $result['sendno'] = $body->sendno;
-            }
-            if (!is_null($body->msg_id)) {
-                $result['msg_id'] = $body->msg_id;
-            }
             $headers = $response['headers'];
             if (is_array($headers)) {
                 $limit = array();
                 $limit['rateLimitLimit'] = $headers['X-Rate-Limit-Limit'];
                 $limit['rateLimitRemaining'] = $headers['X-Rate-Limit-Remaining'];
                 $limit['rateLimitReset'] = $headers['X-Rate-Limit-Reset'];
-                $result['limit'] = $limit;
-                return (object)array_merge((array)$body, $limit);
+                $body = (array)$body;
+                $body['limit'] = (object)$limit;
+                return (object)$body;
             }
             return $body;
         } else {
