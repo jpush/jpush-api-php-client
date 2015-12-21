@@ -2,6 +2,8 @@
 
 class PushPayload {
     private static $EFFECTIVE_DEVICE_TYPES = array('ios', 'android', 'winphone');
+    const PUSH_URL = 'https://api.jpush.cn/v3/push';
+
     private $client;
     private $platform;
 
@@ -536,20 +538,20 @@ class PushPayload {
     }
 
     public function send() {
-        $response = $this->client->_request(JPush::PUSH_URL, JPush::HTTP_POST, $this->toJSON());
+        $response = $this->client->_request(PushPayload::PUSH_URL, JPush::HTTP_POST, $this->toJSON());
         if($response['http_code'] === 200) {
-            $body = json_decode($response['body']);
+            $body = array();
+            $body['data'] = json_decode($response['body']);
             $headers = $response['headers'];
             if (is_array($headers)) {
                 $limit = array();
                 $limit['rateLimitLimit'] = $headers['X-Rate-Limit-Limit'];
                 $limit['rateLimitRemaining'] = $headers['X-Rate-Limit-Remaining'];
                 $limit['rateLimitReset'] = $headers['X-Rate-Limit-Reset'];
-                $body = (array)$body;
                 $body['limit'] = (object)$limit;
                 return (object)$body;
             }
-            return $body;
+            return (object)$body;
         } else {
             throw new APIRequestException($response);
         }

@@ -1,29 +1,19 @@
 <?php
 
 require_once("./PushPayload.php");
+require_once("./ReportPayload.php");
+require_once("./DevicePayload.php");
+require_once("./SchedulePayload.php");
 require_once("./JPushException.php");
 
 class JPush {
-    CONST DISABLE_SOUND = "_disable_Sound";
-    CONST DISABLE_BADGE = 0x10000;
-
-    const PUSH_URL = 'https://api.jpush.cn/v3/push';
-    const REPORT_URL = 'https://report.jpush.cn/v2/received';
-    const VALIDATE_URL = 'https://api.jpush.cn/v3/push/validate';
-    const MESSAGES_URL = 'https://report.jpush.cn/v3/messages';
-    const USERS_URL = 'https://report.jpush.cn/v3/users';
-    const DEVICES_URL = 'https://device.jpush.cn/v3/devices/{registration_id}';
-    const ALL_TAGS_URL = 'https://device.jpush.cn/v3/tags/';
-    const IS_IN_TAG_URL = 'https://device.jpush.cn/v3/tags/{tag}/registration_ids/{registration_id}';
-    const TAG_URL = 'https://device.jpush.cn/v3/tags/{tag}';
-    const ALIAS_URL = 'https://device.jpush.cn/v3/aliases/{alias}';
-
+    const DISABLE_SOUND = "_disable_Sound";
+    const DISABLE_BADGE = 0x10000;
     const USER_AGENT = 'JPush-API-PHP-Client';
     const CONNECT_TIMEOUT = 5;
     const READ_TIMEOUT = 30;
     const DEFAULT_MAX_RETRY_TIMES = 3;
     const DEFAULT_LOG_FILE = "./jpush.log";
-
     const HTTP_GET = 'GET';
     const HTTP_POST = 'POST';
 
@@ -33,7 +23,7 @@ class JPush {
     private $logFile;
 
 
-    public function __construct($appKey, $masterSecret, $retryTimes=self::DEFAULT_MAX_RETRY_TIMES, $logFile=self::DEFAULT_LOG_FILE) {
+    public function __construct($appKey, $masterSecret, $logFile=self::DEFAULT_LOG_FILE, $retryTimes=self::DEFAULT_MAX_RETRY_TIMES) {
         if (is_null($appKey) || is_null($masterSecret)) {
             throw new InvalidArgumentException("appKey and masterSecret must be set.");
         }
@@ -51,6 +41,18 @@ class JPush {
 
     public function push() {
         return new PushPayload($this);
+    }
+
+    public function report() {
+        return new ReportPayload($this);
+    }
+
+    public function device() {
+        return new DevicePayload($this);
+    }
+
+    public function schedule() {
+        return new SchedulePayload($this);
     }
 
 
