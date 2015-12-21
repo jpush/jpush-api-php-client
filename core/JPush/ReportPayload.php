@@ -37,7 +37,37 @@ class ReportPayload {
         }
 
         $url = ReportPayload::REPORT_URL . $queryParams;
+        return $this->__request($url);
+    }
 
+    public function getMessages($msgIds) {
+        $queryParams = '?msg_ids=';
+        if (is_array($msgIds) && count($msgIds) > 0) {
+            $isFirst = true;
+            foreach ($msgIds as $msgId) {
+                if ($isFirst) {
+                    $queryParams .= $msgId;
+                    $isFirst = false;
+                } else {
+                    $queryParams .= ',';
+                    $queryParams .= $msgId;
+                }
+            }
+        } else if (is_string($msgIds)) {
+            $queryParams .= $msgIds;
+        } else {
+            throw new InvalidArgumentException("Invalid msg_ids");
+        }
+
+        $url = ReportPayload::MESSAGES_URL . $queryParams;
+        return $this->__request($url);
+    }
+
+    public function getUsers($time_unit, $start, $duration) {
+
+    }
+
+    private function __request($url) {
         $response = $this->client->_request($url, JPush::HTTP_GET);
         if($response['http_code'] === 200) {
             $body = array();
@@ -55,14 +85,5 @@ class ReportPayload {
         } else {
             throw new APIRequestException($response);
         }
-
-    }
-
-    public function getMessages() {
-
-    }
-
-    public function getUsers() {
-
     }
 }
