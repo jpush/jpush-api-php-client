@@ -28,7 +28,6 @@ class SchedulePayload {
         $payload['enabled'] = true;
         $payload['trigger'] = array("single"=>$trigger);
         $payload['push'] = $push_payload;
-        echo "Payload=" . json_encode($payload) . "\r\n";
         $response = $this->client->_request(SchedulePayload::SCHEDULES_URL, JPush::HTTP_POST, json_encode($payload));
         return $this->__processResp($response);
     }
@@ -48,7 +47,6 @@ class SchedulePayload {
         $payload['enabled'] = true;
         $payload['trigger'] = array("periodical"=>$trigger);
         $payload['push'] = $push_payload;
-        echo "Payload=" . json_encode($payload) . "\r\n";
         $response = $this->client->_request(SchedulePayload::SCHEDULES_URL, JPush::HTTP_POST, json_encode($payload));
         return $this->__processResp($response);
     }
