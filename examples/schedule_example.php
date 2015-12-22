@@ -3,7 +3,6 @@
 require_once("../src/JPush/JPush.php");
 
 $br = '<br/>';
-$br = "\r\n";
 $app_key = 'dd1066407b044738b6479275';
 $master_secret = 'e8cc9a76d5b7a580859bcfa7';
 
