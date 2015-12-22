@@ -22,7 +22,7 @@ $result = $client->push()
 
 echo 'Result=' . json_encode($result) . $br;
 
-// 完成的推送示例,包含指定Platform,指定Alias,Tag,指定iOS,Android notification,指定Message等
+// 完整的推送示例,包含指定Platform,指定Alias,Tag,指定iOS,Android notification,指定Message等
 $result = $client->push()
     ->setPlatform('ios', 'android')
     ->addAlias('alias1')
