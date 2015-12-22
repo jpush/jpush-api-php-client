@@ -1,6 +1,6 @@
 <?php
 
-require_once("./JPush.php");
+require_once("../src/JPush/JPush.php");
 //
 //$pushPayload = new PushPayload("");
 //
