@@ -3,7 +3,7 @@
 class PushPayload {
     private static $EFFECTIVE_DEVICE_TYPES = array('ios', 'android', 'winphone');
     const PUSH_URL = 'https://api.jpush.cn/v3/push';
-
+    const PUSH_VALIDATE_URL = ' https://api.jpush.cn/v3/push/validate';
     private $client;
     private $platform;
 
@@ -432,8 +432,7 @@ class PushPayload {
         return $this;
     }
 
-
-    public function toJSON() {
+    public function build() {
         $payload = array();
 
         // validate platform
@@ -527,8 +526,11 @@ class PushPayload {
             $this->setOptions();
             $payload['options'] = $this->options;
         }
+        return $payload;
+    }
 
-
+    public function toJSON() {
+        $payload = $this->build();
         return json_encode($payload);
     }
 
@@ -539,6 +541,15 @@ class PushPayload {
 
     public function send() {
         $response = $this->client->_request(PushPayload::PUSH_URL, JPush::HTTP_POST, $this->toJSON());
+        return $this->__processResp($response);
+    }
+
+    public function validate() {
+        $response = $this->client->_request(PushPayload::PUSH_VALIDATE_URL, JPush::HTTP_POST, $this->toJSON());
+        return $this->__processResp($response);
+    }
+
+    private function __processResp($response) {
         if($response['http_code'] === 200) {
             $body = array();
             $body['data'] = json_decode($response['body']);
@@ -556,12 +567,6 @@ class PushPayload {
             throw new APIRequestException($response);
         }
     }
-
-    public function validate() {
-
-    }
-
-
     private function generateSendno() {
         return rand(100000, 4294967294);
     }

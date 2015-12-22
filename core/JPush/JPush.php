@@ -17,6 +17,7 @@ class JPush {
     const HTTP_GET = 'GET';
     const HTTP_POST = 'POST';
     const HTTP_DELETE = 'DELETE';
+    const HTTP_PUT = 'PUT';
 
     private $appKey;
     private $masterSecret;
@@ -87,8 +88,8 @@ class JPush {
         // 设置Post参数
         if ($method === self::HTTP_POST) {
             curl_setopt($ch, CURLOPT_POST, true);
-        } else if ($method === self::HTTP_DELETE) {
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        } else if ($method === self::HTTP_DELETE || $method === self::HTTP_PUT) {
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         }
         if (!is_null($body)) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
