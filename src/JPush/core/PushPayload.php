@@ -33,21 +33,24 @@ class PushPayload {
         if (is_string($platform) && strcasecmp("all", $platform) === 0) {
             $this->platform = "all";
         } else {
-            $args = func_get_args();
-            if (count($args) <= 0) {
-                throw new InvalidArgumentException("Missing argument for PushPayload::setPlatform()");
+            if (!is_array($platform)) {
+                $platform = func_get_args();
+                if (count($platform) <= 0) {
+                    throw new InvalidArgumentException("Missing argument for PushPayload::setPlatform()");
+                }
             }
-            $platform = array();
-            foreach($args as $type) {
+
+            $_platform = array();
+            foreach($platform as $type) {
                 $type = strtolower($type);
                 if (!in_array($type, self::$EFFECTIVE_DEVICE_TYPES)) {
                     throw new InvalidArgumentException("Invalid device type: " . $type);
                 }
-                if (!in_array($type, $platform)) {
-                    array_push($platform, $type);
+                if (!in_array($type, $_platform)) {
+                    array_push($_platform, $type);
                 }
             }
-            $this->platform = $platform;
+            $this->platform = $_platform;
         }
         return $this;
     }

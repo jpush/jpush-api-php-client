@@ -37,6 +37,8 @@ class JPush {
         $this->masterSecret = $masterSecret;
         if (!is_null($retryTimes)) {
             $this->retryTimes = $retryTimes;
+        } else {
+            $this->retryTimes = 1;
         }
         $this->logFile = $logFile;
     }

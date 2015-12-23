@@ -24,12 +24,12 @@ echo 'Result=' . json_encode($result) . $br;
 
 // 完整的推送示例,包含指定Platform,指定Alias,Tag,指定iOS,Android notification,指定Message等
 $result = $client->push()
-    ->setPlatform('ios', 'android')
+    ->setPlatform(array('ios', 'android'))
     ->addAlias('alias1')
     ->addTag(array('tag1', 'tag2'))
     ->setNotificationAlert('Hi, JPush')
     ->addAndroidNotification('Hi, android notification', 'notification title', 1, array("key1"=>"value1", "key2"=>"value2"))
-    ->addIosNotification("Hi, iOS notification", 'iOS sound', '+1', true, 'iOS category', array("key1"=>"value1", "key2"=>"value2"))
+    ->addIosNotification("Hi, iOS notification", 'iOS sound', JPush::DISABLE_BADGE, true, 'iOS category', array("key1"=>"value1", "key2"=>"value2"))
     ->setMessage("msg content", 'msg title', 'type', array("key1"=>"value1", "key2"=>"value2"))
     ->setOptions(100000, 3600, null, false)
     ->send();
