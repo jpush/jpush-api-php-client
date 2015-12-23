@@ -83,6 +83,7 @@ class JPush {
         curl_setopt($ch, CURLOPT_TIMEOUT, self::READ_TIMEOUT);
         // 设置SSL版本
         curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'TLSv1');
         // 设置Basic认证
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
