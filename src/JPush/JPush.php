@@ -84,7 +84,8 @@ class JPush {
         // 设置SSL版本
         curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'TLSv1');
+        // 如果报证书相关失败,可以考虑取消注释掉该行,强制指定证书版本
+        //curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'TLSv1');
         // 设置Basic认证
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($ch, CURLOPT_USERPWD, $this->appKey . ":" . $this->masterSecret);
