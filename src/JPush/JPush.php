@@ -129,11 +129,13 @@ class JPush {
             $body = substr($output, $header_size);
             $headers = array();
             foreach (explode("\r\n", $header_text) as $i => $line) {
-                if ($i === 0) {
-                    $headers['http_code'] = $line;
-                } else {
-                    list ($key, $value) = explode(': ', $line);
-                    $headers[$key] = $value;
+                if (!empty($line)) {
+                    if ($i === 0) {
+                        $headers['http_code'] = $line;
+                    } else {
+                        list ($key, $value) = explode(': ', $line);
+                        $headers[$key] = $value;
+                    }
                 }
             }
             $response['headers'] = $headers;
