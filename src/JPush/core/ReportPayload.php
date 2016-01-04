@@ -2,7 +2,7 @@
 
 class ReportPayload {
     private static $EFFECTIVE_TIME_UNIT = array('HOUR', 'DAY', 'MONTH');
-
+    private static $LIMIT_KEYS = array('X-Rate-Limit-Limit'=>'rateLimitLimit', 'X-Rate-Limit-Remaining'=>'rateLimitRemaining', 'X-Rate-Limit-Reset'=>'rateLimitReset');
     const REPORT_URL = 'https://report.jpush.cn/v3/received';
     const MESSAGES_URL = 'https://report.jpush.cn/v3/messages';
     const USERS_URL = 'https://report.jpush.cn/v3/users';
@@ -81,12 +81,17 @@ class ReportPayload {
             $body = array();
             $body['data'] = (array)json_decode($response['body']);
             $headers = $response['headers'];
+
             if (is_array($headers)) {
                 $limit = array();
-                $limit['rateLimitLimit'] = $headers['X-Rate-Limit-Limit'];
-                $limit['rateLimitRemaining'] = $headers['X-Rate-Limit-Remaining'];
-                $limit['rateLimitReset'] = $headers['X-Rate-Limit-Reset'];
-                $body['limit'] = (object)$limit;
+                foreach (self::$LIMIT_KEYS as $key => $value) {
+                    if (array_key_exists($key, $headers)) {
+                        $limit[$value] = $headers[$key];
+                    }
+                }
+                if (count($limit) > 0) {
+                    $body['limit'] = (object)$limit;
+                }
                 return (object)$body;
             }
             return $body;

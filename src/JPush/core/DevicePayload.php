@@ -1,6 +1,7 @@
 <?php
 
 class DevicePayload {
+    private static $LIMIT_KEYS = array('X-Rate-Limit-Limit'=>'rateLimitLimit', 'X-Rate-Limit-Remaining'=>'rateLimitRemaining', 'X-Rate-Limit-Reset'=>'rateLimitReset');
 
     const DEVICE_URL = 'https://device.jpush.cn/v3/devices/';
     const DEVICE_STATUS_URL = 'https://device.jpush.cn/v3/devices/status/';
@@ -27,17 +28,19 @@ class DevicePayload {
         return $this->__processResp($response);
     }
 
-    public function updateDevice($registrationId, $alias = null, $addTags = null, $removeTags = null) {
+    public function updateDevice($registrationId, $alias = null, $mobile=null, $addTags = null, $removeTags = null) {
         $payload = array();
         if (!is_string($registrationId)) {
             throw new InvalidArgumentException('Invalid registration_id');
         }
 
         $aliasIsNull = is_null($alias);
+        $mobileIsNull = is_null($mobile);
         $addTagsIsNull = is_null($addTags);
         $removeTagsIsNull = is_null($removeTags);
 
-        if ($aliasIsNull && $addTagsIsNull && $removeTagsIsNull) {
+
+        if ($aliasIsNull && $addTagsIsNull && $removeTagsIsNull && $mobileIsNull) {
             throw new InvalidArgumentException("alias, addTags, removeTags not all null");
         }
 
@@ -46,6 +49,14 @@ class DevicePayload {
                 $payload['alias'] = $alias;
             } else {
                 throw new InvalidArgumentException("Invalid alias string");
+            }
+        }
+
+        if (!$mobileIsNull) {
+            if (is_string($mobile)) {
+                $payload['mobile'] = $mobile;
+            } else {
+                throw new InvalidArgumentException("Invalid mobile string");
             }
         }
 
@@ -227,10 +238,14 @@ class DevicePayload {
             $headers = $response['headers'];
             if (is_array($headers)) {
                 $limit = array();
-                $limit['rateLimitLimit'] = $headers['X-Rate-Limit-Limit'];
-                $limit['rateLimitRemaining'] = $headers['X-Rate-Limit-Remaining'];
-                $limit['rateLimitReset'] = $headers['X-Rate-Limit-Reset'];
-                $body['limit'] = (object)$limit;
+                foreach (self::$LIMIT_KEYS as $key => $value) {
+                    if (array_key_exists($key, $headers)) {
+                        $limit[$value] = $headers[$key];
+                    }
+                }
+                if (count($limit) > 0) {
+                    $body['limit'] = (object)$limit;
+                }
                 return (object)$body;
             }
             return $body;
