@@ -38,7 +38,7 @@ PS: 在下载的中的[example](https://github.com/jpush/jpush-api-php-client/tr
     }
 }
 ```
-2. 执行 `php composer.phar install` 或 `php composer.phar update`
+2. 执行 `php composer.phar install` 或 `php composer.phar update` 进行安装
 
 
 
