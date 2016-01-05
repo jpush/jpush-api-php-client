@@ -515,8 +515,7 @@ class PushPayload {
         if (count($this->message) > 0) {
             $payload['message'] = $this->message;
         }
-
-        if (is_null($payload['notification']) && is_null($payload['message'])) {
+        if (!array_key_exists('notification', $payload) && !array_key_exists('message', $payload)) {
             throw new InvalidArgumentException('notification and message can not all be null');
         }
 
