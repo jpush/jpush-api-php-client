@@ -132,7 +132,7 @@ class JPush {
                 if (!empty($line)) {
                     if ($i === 0) {
                         $headers['http_code'] = $line;
-                    } else {
+                    } else if (strpos($line, ": ")) {
                         list ($key, $value) = explode(': ', $line);
                         $headers[$key] = $value;
                     }
