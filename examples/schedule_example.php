@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * 该示例主要为JPush Schedule API的调用示例
+ * HTTP API文档:http://docs.jpush.io/server/rest_api_push_schedule/
+ * PHP API文档:https://github.com/jpush/jpush-api-php-client/blob/master/doc/api.md#schedule-api
+ */
+ini_set("display_errors", "On");
+error_reporting(E_ALL | E_STRICT);
 require_once("../src/JPush/JPush.php");
 
 $br = '<br/>';

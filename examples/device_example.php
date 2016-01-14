@@ -3,11 +3,14 @@
 /**
  * 此示例为JPush Device API示例
  * HTTP API文档:http://docs.jpush.io/server/rest_api_v3_device/
- * PHP API文档:(待补充)
+ * PHP API文档:https://github.com/jpush/jpush-api-php-client/blob/master/doc/api.md#device-api
  */
+ini_set("display_errors", "On");
+error_reporting(E_ALL | E_STRICT);
 require_once("../src/JPush/JPush.php");
 
 $br = '<br/>';
+$br = "\r\n";
 $app_key = 'dd1066407b044738b6479275';
 $master_secret = 'e8cc9a76d5b7a580859bcfa7';
 

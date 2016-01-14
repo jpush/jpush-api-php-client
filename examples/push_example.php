@@ -2,8 +2,10 @@
 /**
  * 该示例主要为JPush Push API的调用示例
  * HTTP API文档:http://docs.jpush.io/server/rest_api_v3_push/
- * PHP API文档:(待补充)
+ * PHP API文档:https://github.com/jpush/jpush-api-php-client/blob/master/doc/api.md#push-api--构建推送pushpayload
  */
+ini_set("display_errors", "On");
+error_reporting(E_ALL | E_STRICT);
 require_once("../src/JPush/JPush.php");
 
 $br = '<br/>';
