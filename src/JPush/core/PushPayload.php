@@ -446,27 +446,30 @@ class PushPayload {
         $payload["platform"] = $this->platform;
 
         // validate audience
-        if (is_null($this->audience)) {
-            $audience = array();
-            if (!is_null($this->tags)) {
-                $audience["tag"] = $this->tags;
-            }
-            if (!is_null($this->tagAnds)) {
-                $audience["tag_and"] = $this->tagAnds;
-            }
-            if (!is_null($this->alias)) {
-                $audience["alias"] = $this->alias;
-            }
-            if (!is_null($this->registrationIds)) {
-                $audience["registration_id"] = $this->registrationIds;
-            }
-            if (count($audience) <= 0) {
-                throw new InvalidArgumentException("audience must be set");
-            }
+        $audience = array();
+        if (!is_null($this->tags)) {
+            $audience["tag"] = $this->tags;
+        }
+        if (!is_null($this->tagAnds)) {
+            $audience["tag_and"] = $this->tagAnds;
+        }
+        if (!is_null($this->alias)) {
+            $audience["alias"] = $this->alias;
+        }
+        if (!is_null($this->registrationIds)) {
+            $audience["registration_id"] = $this->registrationIds;
+        }
+
+        if (is_null($this->audience) && count($audience) <= 0) {
+            throw new InvalidArgumentException("audience must be set");
+        } else if (!is_null($this->audience) && count($audience) > 0) {
+            throw new InvalidArgumentException("you can't add tags/alias/registration_id/tag_and when audience='all'");
+        } else if (is_null($this->audience)) {
             $payload["audience"] = $audience;
         } else {
             $payload["audience"] = $this->audience;
         }
+
 
         // validate notification
         $notification = array();
