@@ -163,6 +163,15 @@ class SchedulePayload {
         return $this->__processResp($response);
     }
 
+    public function deleteSchedule($schedule_id) {
+        if (!is_string($schedule_id)) {
+            throw new InvalidArgumentException('Invalid schedule id');
+        }
+        $url = SchedulePayload::SCHEDULES_URL . "/" . $schedule_id;
+        $response = $this->client->_request($url, JPush::HTTP_DELETE);
+        return $this->__processResp($response);
+    }
+
     private function __processResp($response) {
         if($response['http_code'] === 200) {
             $body = array();

@@ -439,6 +439,13 @@ $schedule->getSchedules($page=1);
 $schedule->getSchedule($schedule_id);
 ```
 
+#### 删除指定定时任务
+
+```php
+$schedule->deleteSchedule($schedule_id);
+```
+
+
 
 
 

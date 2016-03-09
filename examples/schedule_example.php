@@ -36,11 +36,21 @@ $response = $client->schedule()->createPeriodicalSchedule("每天14点发送的�
         ));
 echo 'Result=' . json_encode($response) . $br;
 
+$schedule_id = $response->data->schedule_id;
+
 // 更新指定的定时任务
-$response = $client->schedule()->updatePeriodicalSchedule('89c984f4-a880-11e5-b41a-0021f652c102', null, true);
-echo "Result=" . json_encode($response) . "\r\n";
+$response = $client->schedule()->updatePeriodicalSchedule($schedule_id, null, true);
+echo "Result=" . json_encode($response) . $br;
+
 
 // 获取定时任务列表
 $response = $client->schedule()->getSchedules();
-echo "Result=" . json_encode($response) . "\r\n";
+echo "Result=" . json_encode($response) . $br;
+
+
+// 删除定时任务
+$response = $client->schedule()->deleteSchedule($schedule_id);
+echo "Result=" . json_encode($response) . $br;
+
+
 
