@@ -81,8 +81,8 @@ class JPush {
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, self::CONNECT_TIMEOUT);
         // 请求最长耗时
         curl_setopt($ch, CURLOPT_TIMEOUT, self::READ_TIMEOUT);
-        // 设置SSL版本
-        curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
+        // 设置SSL版本 1=CURL_SSLVERSION_TLSv1, 不指定使用默认值,curl会自动获取需要使用的CURL版本
+        // curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         // 如果报证书相关失败,可以考虑取消注释掉该行,强制指定证书版本
         //curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'TLSv1');
