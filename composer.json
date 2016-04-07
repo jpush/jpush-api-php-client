@@ -12,6 +12,10 @@
             "role": "Developer"
         }
     ],
+    "require": {
+        "php": ">=5.1",
+        "ext-curl": "*"
+    },
     "autoload" : {
         "psr-0":{"jpush":"src/"},
         "files": [
