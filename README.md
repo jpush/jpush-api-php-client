@@ -29,12 +29,12 @@ PS: 在下载的中的[example](https://github.com/jpush/jpush-api-php-client/tr
 如果你的项目使用composer管理依赖, 亦可以通过以下方式使用JPush PHP Library.
 
 
-1. 在 `composer.json` 中添加 jpush依赖, 目前最新版本为 v3.3.8
+1. 在 `composer.json` 中添加 jpush依赖, 目前最新版本为 v3.3.9
 
 ```
 {
     "require":{
-        "jpush/jpush": "v3.3.8"
+        "jpush/jpush": "v3.3.9"
     }
 }
 ```
