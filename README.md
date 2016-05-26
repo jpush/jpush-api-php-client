@@ -4,10 +4,10 @@
 
 ### 简要概述
 
-* 本API提供简单的接口去调用[JPush Push API](http://docs.jpush.io/server/rest_api_v3_push/)
-* 本API提供简单的接口去调用[JPush Report API](http://docs.jpush.io/server/rest_api_v3_report/)
-* 本API提供简单的接口去调用[JPush Device API](http://docs.jpush.io/server/rest_api_v3_device/)
-* 本API提供简单的接口去调用[JPush Schedule API](http://docs.jpush.io/server/rest_api_push_schedule/)
+* 本API提供简单的接口去调用[JPush Push API](examples/push_example.php)
+* 本API提供简单的接口去调用[JPush Report API](examples/report_example.php)
+* 本API提供简单的接口去调用[JPush Device API](examples/device_example.php)
+* 本API提供简单的接口去调用[JPush Schedule API](examples/schedule_example.php)
 
 
 #### 快速安装
@@ -127,6 +127,3 @@ echo 'Result=' . json_encode($response) . $br;
 ### 版本更新
 
 [Release页面](https://github.com/jpush/jpush-api-php-client/releases/)有详细的版本发布记录与下载。
-
-
-
