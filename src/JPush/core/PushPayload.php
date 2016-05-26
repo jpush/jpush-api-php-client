@@ -59,6 +59,7 @@ class PushPayload {
     public function setAudience($all) {
         if (strtolower($all) === 'all') {
             $this->addAllAudience();
+            return $this;
         } else {
             throw new InvalidArgumentException('Invalid audience value');
         }
