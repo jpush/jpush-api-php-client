@@ -34,7 +34,7 @@ PS: 在下载的中的[example](https://github.com/jpush/jpush-api-php-client/tr
 ```
 {
     "require":{
-        "jpush/jpush": "v3.3.9"
+        "jpush/jpush": "v3.4.1"
     }
 }
 ```
