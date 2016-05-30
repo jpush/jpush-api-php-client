@@ -7,7 +7,9 @@
  */
 ini_set("display_errors", "On");
 error_reporting(E_ALL | E_STRICT);
-require_once("../src/JPush/JPush.php");
+include('../vendor/autoload.php');
+
+use JPush\JPush;
 
 $br = '<br/>';
 $br = "\r\n";

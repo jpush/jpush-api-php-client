@@ -1,20 +1,8 @@
 <?php
 
-/**
- * JPush Exception
- * User: xiezefan
- * Date: 15/12/18
- * Time: 下午3:14
- */
-class APIConnectionException extends Exception {
-    public $isResponseTimeout;
-    function __construct($message, $isResponseTimeout = false) {
-        parent::__construct($message);
-        $this->isResponseTimeout = $isResponseTimeout;
-    }
-}
+namespace JPush;
 
-class APIRequestException extends Exception {
+class APIRequestException extends \Exception {
     public $httpCode;
     public $code;
     public $message;
@@ -46,6 +34,7 @@ class APIRequestException extends Exception {
                 }
             }
         }
+
         $headers = $response['headers'];
         if (is_array($headers)) {
             $this->rateLimitLimit = $headers['X-Rate-Limit-Limit'];
@@ -53,7 +42,5 @@ class APIRequestException extends Exception {
             $this->rateLimitReset = $headers['X-Rate-Limit-Reset'];
         }
     }
-
-
-
 }
+

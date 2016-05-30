@@ -1,5 +1,9 @@
 <?php
 
+namespace JPush;
+
+use InvalidArgumentException;
+
 class DevicePayload {
     private static $LIMIT_KEYS = array('X-Rate-Limit-Limit'=>'rateLimitLimit', 'X-Rate-Limit-Remaining'=>'rateLimitRemaining', 'X-Rate-Limit-Reset'=>'rateLimitReset');
 
