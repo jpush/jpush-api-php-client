@@ -17,16 +17,9 @@
         "ext-curl": "*"
     },
     "autoload" : {
-        "psr-0":{"jpush":"src/"},
-        "files": [
-            "src/JPush/core/JPush.php",
-            "src/JPush/core/DevicePayload.php",
-            "src/JPush/core/JPushException.php",
-            "src/JPush/core/PushPayload.php",
-            "src/JPush/core/ReportPayload.php",
-            "src/JPush/core/SchedulePayload.php"
-        ]
-
+        "psr-4":{
+            "JiGuang\\JPush\\": "src/JPush/core"
+        }
     },
     "require-dev": {
         "phpunit/phpunit": "*"

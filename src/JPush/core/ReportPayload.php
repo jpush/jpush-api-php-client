@@ -1,5 +1,9 @@
 <?php
 
+namespace JiGuang\JPush;
+
+use InvalidArgumentException;
+
 class ReportPayload {
     private static $EFFECTIVE_TIME_UNIT = array('HOUR', 'DAY', 'MONTH');
     private static $LIMIT_KEYS = array('X-Rate-Limit-Limit'=>'rateLimitLimit', 'X-Rate-Limit-Remaining'=>'rateLimitRemaining', 'X-Rate-Limit-Reset'=>'rateLimitReset');

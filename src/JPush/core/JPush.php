@@ -1,5 +1,8 @@
 <?php
 
+namespace JiGuang\JPush;
+
+use InvalidArgumentException;
 
 class JPush {
     const DISABLE_SOUND = "_disable_Sound";
@@ -146,8 +149,4 @@ class JPush {
             error_log($content . "\r\n", 3, $this->logFile);
         }
     }
-
-
-
 }
-

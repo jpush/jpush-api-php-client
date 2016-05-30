@@ -1,5 +1,9 @@
 <?php
 
+namespace JiGuang\JPush;
+
+use InvalidArgumentException;
+
 class PushPayload {
     private static $EFFECTIVE_DEVICE_TYPES = array('ios', 'android', 'winphone');
     private static $LIMIT_KEYS = array('X-Rate-Limit-Limit'=>'rateLimitLimit', 'X-Rate-Limit-Remaining'=>'rateLimitRemaining', 'X-Rate-Limit-Reset'=>'rateLimitReset');
@@ -581,5 +585,4 @@ class PushPayload {
     private function generateSendno() {
         return rand(100000, 4294967294);
     }
-
 }

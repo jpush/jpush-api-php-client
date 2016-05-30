@@ -6,7 +6,9 @@
  */
 ini_set("display_errors", "On");
 error_reporting(E_ALL | E_STRICT);
-require_once("../src/JPush/JPush.php");
+include('../vendor/autoload.php');
+
+use JiGuang\JPush\JPush;
 
 $br = '<br/>';
 $app_key = 'dd1066407b044738b6479275';
