@@ -1,6 +1,6 @@
 <?php
 
-namespace JiGuang\JPush;
+namespace JPush;
 
 class APIRequestException extends \Exception {
     public $httpCode;

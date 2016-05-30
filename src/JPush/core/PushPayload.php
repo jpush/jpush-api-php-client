@@ -1,6 +1,6 @@
 <?php
 
-namespace JiGuang\JPush;
+namespace JPush;
 
 use InvalidArgumentException;
 

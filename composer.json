@@ -18,7 +18,7 @@
     },
     "autoload" : {
         "psr-4":{
-            "JiGuang\\JPush\\": "src/JPush/core"
+            "JPush\\": "src/JPush/core"
         }
     },
     "require-dev": {
