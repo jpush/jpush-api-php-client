@@ -100,10 +100,16 @@ class JPush {
         }
 
         // 设置headers
+        /*
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
             'Connection: Keep-Alive'
         ));
+        */
+        
+        $base64=base64_encode("1bb81d808d69edc8a334dab8:ab980b3461bcde3e5fac1f85");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization:Basic $base64","Content-Type:application/json","Connection: Keep-Alive"));
+
 
         // 执行请求
         $output = curl_exec($ch);
