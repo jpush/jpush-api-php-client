@@ -31,7 +31,7 @@ class SchedulePayload {
         $payload['enabled'] = true;
         $payload['trigger'] = array("single"=>$trigger);
         $payload['push'] = $push_payload;
-        $response = $this->client->_request(SchedulePayload::SCHEDULES_URL, JPush::HTTP_POST, json_encode($payload));
+        $response = $this->client->_request(SchedulePayload::SCHEDULES_URL, Config::HTTP_POST, json_encode($payload));
         return $this->__processResp($response);
     }
 
@@ -50,7 +50,7 @@ class SchedulePayload {
         $payload['enabled'] = true;
         $payload['trigger'] = array("periodical"=>$trigger);
         $payload['push'] = $push_payload;
-        $response = $this->client->_request(SchedulePayload::SCHEDULES_URL, JPush::HTTP_POST, json_encode($payload));
+        $response = $this->client->_request(SchedulePayload::SCHEDULES_URL, Config::HTTP_POST, json_encode($payload));
         return $this->__processResp($response);
     }
 
@@ -96,7 +96,7 @@ class SchedulePayload {
         }
 
         $url = SchedulePayload::SCHEDULES_URL . "/" . $schedule_id;
-        $response = $this->client->_request($url, JPush::HTTP_PUT, json_encode($payload));
+        $response = $this->client->_request($url, Config::HTTP_PUT, json_encode($payload));
         return $this->__processResp($response);
     }
 
@@ -142,7 +142,7 @@ class SchedulePayload {
         }
 
         $url = SchedulePayload::SCHEDULES_URL . "/" . $schedule_id;
-        $response = $this->client->_request($url, JPush::HTTP_PUT, json_encode($payload));
+        $response = $this->client->_request($url, Config::HTTP_PUT, json_encode($payload));
         return $this->__processResp($response);
     }
 
@@ -151,7 +151,7 @@ class SchedulePayload {
             throw new InvalidArgumentException('Invalid pages');
         }
         $url = SchedulePayload::SCHEDULES_URL . "?page=" . $page;
-        $response = $this->client->_request($url, JPush::HTTP_GET);
+        $response = $this->client->_request($url, Config::HTTP_GET);
         return $this->__processResp($response);
     }
 
@@ -160,7 +160,7 @@ class SchedulePayload {
             throw new InvalidArgumentException('Invalid schedule id');
         }
         $url = SchedulePayload::SCHEDULES_URL . "/" . $schedule_id;
-        $response = $this->client->_request($url, JPush::HTTP_GET);
+        $response = $this->client->_request($url, Config::HTTP_GET);
         return $this->__processResp($response);
     }
 
@@ -169,7 +169,7 @@ class SchedulePayload {
             throw new InvalidArgumentException('Invalid schedule id');
         }
         $url = SchedulePayload::SCHEDULES_URL . "/" . $schedule_id;
-        $response = $this->client->_request($url, JPush::HTTP_DELETE);
+        $response = $this->client->_request($url, Config::HTTP_DELETE);
         return $this->__processResp($response);
     }
 

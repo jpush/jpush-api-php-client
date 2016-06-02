@@ -1,32 +1,14 @@
 <?php
 namespace JPush;
 
-use JPush\DevicePayload;
-use JPush\JPushException;
-use JPush\PushPayload;
-use JPush\ReportPayload;
-use JPush\SchedulePayload;
-
 class Client {
-    const DISABLE_SOUND = "_disable_Sound";
-    const DISABLE_BADGE = 0x10000;
-    const USER_AGENT = 'JPush-API-PHP-Client';
-    const CONNECT_TIMEOUT = 5;
-    const READ_TIMEOUT = 30;
-    const DEFAULT_MAX_RETRY_TIMES = 3;
-    const DEFAULT_LOG_FILE = "./jpush.log";
-    const HTTP_GET = 'GET';
-    const HTTP_POST = 'POST';
-    const HTTP_DELETE = 'DELETE';
-    const HTTP_PUT = 'PUT';
 
     private $appKey;
     private $masterSecret;
     private $retryTimes;
     private $logFile;
 
-
-    public function __construct($appKey, $masterSecret, $logFile=self::DEFAULT_LOG_FILE, $retryTimes=self::DEFAULT_MAX_RETRY_TIMES) {
+    public function __construct($appKey, $masterSecret, $logFile=Config::DEFAULT_LOG_FILE, $retryTimes=Config::DEFAULT_MAX_RETRY_TIMES) {
         if (is_null($appKey) || is_null($masterSecret)) {
             throw new InvalidArgumentException("appKey and masterSecret must be set.");
         }
@@ -77,11 +59,11 @@ class Client {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, true);
         // 设置User-Agent
-        curl_setopt($ch, CURLOPT_USERAGENT, self::USER_AGENT);
+        curl_setopt($ch, CURLOPT_USERAGENT, Config::USER_AGENT);
         // 连接建立最长耗时
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, self::CONNECT_TIMEOUT);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, Config::CONNECT_TIMEOUT);
         // 请求最长耗时
-        curl_setopt($ch, CURLOPT_TIMEOUT, self::READ_TIMEOUT);
+        curl_setopt($ch, CURLOPT_TIMEOUT, Config::READ_TIMEOUT);
         // 设置SSL版本 1=CURL_SSLVERSION_TLSv1, 不指定使用默认值,curl会自动获取需要使用的CURL版本
         // curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -91,9 +73,9 @@ class Client {
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($ch, CURLOPT_USERPWD, $this->appKey . ":" . $this->masterSecret);
         // 设置Post参数
-        if ($method === self::HTTP_POST) {
+        if ($method === Config::HTTP_POST) {
             curl_setopt($ch, CURLOPT_POST, true);
-        } else if ($method === self::HTTP_DELETE || $method === self::HTTP_PUT) {
+        } else if ($method === Config::HTTP_DELETE || $method === Config::HTTP_PUT) {
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         }
         if (!is_null($body)) {

@@ -25,7 +25,7 @@ class DevicePayload {
 
     public function getDevices($registrationId) {
         $url = DevicePayload::DEVICE_URL . $registrationId;
-        $response = $this->client->_request($url, JPush::HTTP_GET);
+        $response = $this->client->_request($url, Config::HTTP_GET);
         return $this->__processResp($response);
     }
 
@@ -84,12 +84,12 @@ class DevicePayload {
         }
 
         $url = DevicePayload::DEVICE_URL . $registrationId;
-        $response = $this->client->_request($url, JPush::HTTP_POST, json_encode($payload));
+        $response = $this->client->_request($url, Config::HTTP_POST, json_encode($payload));
         return $this->__processResp($response);
     }
 
     public function getTags() {
-        $response = $this->client->_request(DevicePayload::TAG_URL, JPush::HTTP_GET);
+        $response = $this->client->_request(DevicePayload::TAG_URL, Config::HTTP_GET);
         return $this->__processResp($response);
     }
 
@@ -105,7 +105,7 @@ class DevicePayload {
         $url = str_replace('{tag}', $tag, self::IS_IN_TAG_URL);
         $url = str_replace('{registration_id}', $registrationId, $url);
 
-        $response = $this->client->_request($url, JPush::HTTP_GET);
+        $response = $this->client->_request($url, Config::HTTP_GET);
         return $this->__processResp($response);
     }
 
@@ -142,7 +142,7 @@ class DevicePayload {
         $url = DevicePayload::TAG_URL . $tag;
         $payload = array('registration_ids'=>$registrationId);
 
-        $response = $this->client->_request($url, JPush::HTTP_POST, json_encode($payload));
+        $response = $this->client->_request($url, Config::HTTP_POST, json_encode($payload));
         return $this->__processResp($response);
     }
 
@@ -151,7 +151,7 @@ class DevicePayload {
             throw new InvalidArgumentException("Invalid tag");
         }
         $url = DevicePayload::TAG_URL . $tag;
-        $response = $this->client->_request($url, JPush::HTTP_DELETE);
+        $response = $this->client->_request($url, Config::HTTP_DELETE);
         return $this->__processResp($response);
     }
 
@@ -180,7 +180,7 @@ class DevicePayload {
             }
         }
 
-        $response = $this->client->_request($url, JPush::HTTP_GET);
+        $response = $this->client->_request($url, Config::HTTP_GET);
         return $this->__processResp($response);
     }
 
@@ -189,7 +189,7 @@ class DevicePayload {
             throw new InvalidArgumentException("Invalid alias");
         }
         $url = self::ALIAS_URL . $alias;
-        $response = $this->client->_request($url, JPush::HTTP_DELETE);
+        $response = $this->client->_request($url, Config::HTTP_DELETE);
         return $this->__processResp($response);
     }
 
@@ -209,7 +209,7 @@ class DevicePayload {
         $payload['registration_ids'] = $registrationId;
 
 
-        $response = $this->client->_request(DevicePayload::DEVICE_STATUS_URL, JPush::HTTP_POST, json_encode($payload));
+        $response = $this->client->_request(DevicePayload::DEVICE_STATUS_URL, Config::HTTP_POST, json_encode($payload));
         if($response['http_code'] === 200) {
             $body = array();
             $body['data'] = (array)json_decode($response['body']);

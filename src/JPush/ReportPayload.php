@@ -77,7 +77,7 @@ class ReportPayload {
     }
 
     private function __request($url) {
-        $response = $this->client->_request($url, JPush::HTTP_GET);
+        $response = $this->client->_request($url, Config::HTTP_GET);
         if($response['http_code'] === 200) {
             $body = array();
             $body['data'] = (array)json_decode($response['body']);

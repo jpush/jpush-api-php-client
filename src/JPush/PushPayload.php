@@ -194,7 +194,7 @@ class PushPayload {
             if (!is_string($sound)) {
                 throw new InvalidArgumentException("Invalid ios sound value");
             }
-            if ($sound !== JPush::DISABLE_SOUND) {
+            if ($sound !== Config::DISABLE_SOUND) {
                 $ios['sound'] = $sound;
             }
         } else {
@@ -208,7 +208,7 @@ class PushPayload {
                     throw new InvalidArgumentException("Invalid ios badge value");
                 }
             }
-            if ($badge != JPush::DISABLE_BADGE) {
+            if ($badge != Config::DISABLE_BADGE) {
                 $ios['badge'] = $badge;
             }
         } else {
@@ -548,12 +548,12 @@ class PushPayload {
     }
 
     public function send() {
-        $response = $this->client->_request(PushPayload::PUSH_URL, JPush::HTTP_POST, $this->toJSON());
+        $response = $this->client->_request(PushPayload::PUSH_URL, Config::HTTP_POST, $this->toJSON());
         return $this->__processResp($response);
     }
 
     public function validate() {
-        $response = $this->client->_request(PushPayload::PUSH_VALIDATE_URL, JPush::HTTP_POST, $this->toJSON());
+        $response = $this->client->_request(PushPayload::PUSH_VALIDATE_URL, Config::HTTP_POST, $this->toJSON());
         return $this->__processResp($response);
     }
 
