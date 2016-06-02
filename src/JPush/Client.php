@@ -1,12 +1,13 @@
 <?php
+namespace JPush;
 
-require_once("core/PushPayload.php");
-require_once("core/ReportPayload.php");
-require_once("core/DevicePayload.php");
-require_once("core/SchedulePayload.php");
-require_once("core/JPushException.php");
+use JPush\DevicePayload;
+use JPush\JPushException;
+use JPush\PushPayload;
+use JPush\ReportPayload;
+use JPush\SchedulePayload;
 
-class JPush {
+class Client {
     const DISABLE_SOUND = "_disable_Sound";
     const DISABLE_BADGE = 0x10000;
     const USER_AGENT = 'JPush-API-PHP-Client';
@@ -151,8 +152,4 @@ class JPush {
             error_log($content . "\r\n", 3, $this->logFile);
         }
     }
-
-
-
 }
-

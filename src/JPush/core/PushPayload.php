@@ -1,4 +1,5 @@
 <?php
+namespace JPush;
 
 class PushPayload {
     private static $EFFECTIVE_DEVICE_TYPES = array('ios', 'android', 'winphone');

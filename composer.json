@@ -13,15 +13,11 @@
         }
     ],
     "require": {
-        "php": ">=5.1",
+        "php": ">=5.3.3",
         "ext-curl": "*"
     },
     "autoload" : {
-        "psr-0":{"jpush":"src/"},
-        "files": [
-            "src/JPush/JPush.php"
-        ]
-
+        "psr-4": {"JPush\\": "src/JPush"}
     },
     "require-dev": {
         "phpunit/phpunit": "*"

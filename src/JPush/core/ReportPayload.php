@@ -1,4 +1,5 @@
 <?php
+namespace JPush;
 
 class ReportPayload {
     private static $EFFECTIVE_TIME_UNIT = array('HOUR', 'DAY', 'MONTH');
