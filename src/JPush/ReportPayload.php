@@ -36,7 +36,7 @@ class ReportPayload {
         } else if (is_string($msgIds)) {
             $queryParams .= $msgIds;
         } else {
-            throw new InvalidArgumentException("Invalid msg_ids");
+            throw new \InvalidArgumentException("Invalid msg_ids");
         }
 
         $url = ReportPayload::REPORT_URL . $queryParams;
@@ -59,7 +59,7 @@ class ReportPayload {
         } else if (is_string($msgIds)) {
             $queryParams .= $msgIds;
         } else {
-            throw new InvalidArgumentException("Invalid msg_ids");
+            throw new \InvalidArgumentException("Invalid msg_ids");
         }
 
         $url = ReportPayload::MESSAGES_URL . $queryParams;
@@ -69,7 +69,7 @@ class ReportPayload {
     public function getUsers($time_unit, $start, $duration) {
         $time_unit = strtoupper($time_unit);
         if (!in_array($time_unit, self::$EFFECTIVE_TIME_UNIT)) {
-            throw new InvalidArgumentException('Invalid time unit');
+            throw new \InvalidArgumentException('Invalid time unit');
         }
 
         $url = ReportPayload::USERS_URL . '?time_unit=' . $time_unit . '&start=' . $start . '&duration=' . $duration;

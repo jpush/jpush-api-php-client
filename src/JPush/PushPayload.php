@@ -38,7 +38,7 @@ class PushPayload {
             if (!is_array($platform)) {
                 $platform = func_get_args();
                 if (count($platform) <= 0) {
-                    throw new InvalidArgumentException("Missing argument for PushPayload::setPlatform()");
+                    throw new \InvalidArgumentException("Missing argument for PushPayload::setPlatform()");
                 }
             }
 
@@ -46,7 +46,7 @@ class PushPayload {
             foreach($platform as $type) {
                 $type = strtolower($type);
                 if (!in_array($type, self::$EFFECTIVE_DEVICE_TYPES)) {
-                    throw new InvalidArgumentException("Invalid device type: " . $type);
+                    throw new \InvalidArgumentException("Invalid device type: " . $type);
                 }
                 if (!in_array($type, $_platform)) {
                     array_push($_platform, $type);
@@ -62,7 +62,7 @@ class PushPayload {
             $this->addAllAudience();
             return $this;
         } else {
-            throw new InvalidArgumentException('Invalid audience value');
+            throw new \InvalidArgumentException('Invalid audience value');
         }
     }
 
@@ -79,7 +79,7 @@ class PushPayload {
         if (is_array($tag)) {
             foreach($tag as $_tag) {
                 if (!is_string($_tag)) {
-                    throw new InvalidArgumentException("Invalid tag value");
+                    throw new \InvalidArgumentException("Invalid tag value");
                 }
                 if (!in_array($_tag, $this->tags)) {
                     array_push($this->tags, $_tag);
@@ -90,7 +90,7 @@ class PushPayload {
                 array_push($this->tags, $tag);
             }
         } else {
-            throw new InvalidArgumentException("Invalid tag value");
+            throw new \InvalidArgumentException("Invalid tag value");
         }
 
         return $this;
@@ -105,7 +105,7 @@ class PushPayload {
         if (is_array($tag)) {
             foreach($tag as $_tag) {
                 if (!is_string($_tag)) {
-                    throw new InvalidArgumentException("Invalid tag_and value");
+                    throw new \InvalidArgumentException("Invalid tag_and value");
                 }
                 if (!in_array($_tag, $this->tagAnds)) {
                     array_push($this->tagAnds, $_tag);
@@ -116,7 +116,7 @@ class PushPayload {
                 array_push($this->tagAnds, $tag);
             }
         } else {
-            throw new InvalidArgumentException("Invalid tag_and value");
+            throw new \InvalidArgumentException("Invalid tag_and value");
         }
 
         return $this;
@@ -130,7 +130,7 @@ class PushPayload {
         if (is_array($alias)) {
             foreach($alias as $_alias) {
                 if (!is_string($_alias)) {
-                    throw new InvalidArgumentException("Invalid alias value");
+                    throw new \InvalidArgumentException("Invalid alias value");
                 }
                 if (!in_array($_alias, $this->alias)) {
                     array_push($this->alias, $_alias);
@@ -141,7 +141,7 @@ class PushPayload {
                 array_push($this->alias, $alias);
             }
         } else {
-            throw new InvalidArgumentException("Invalid alias value");
+            throw new \InvalidArgumentException("Invalid alias value");
         }
 
         return $this;
@@ -155,7 +155,7 @@ class PushPayload {
         if (is_array($registrationId)) {
             foreach($registrationId as $_registrationId) {
                 if (!is_string($_registrationId)) {
-                    throw new InvalidArgumentException("Invalid registration_id value");
+                    throw new \InvalidArgumentException("Invalid registration_id value");
                 }
                 if (!in_array($_registrationId, $this->registrationIds)) {
                     array_push($this->registrationIds, $_registrationId);
@@ -166,7 +166,7 @@ class PushPayload {
                 array_push($this->registrationIds, $registrationId);
             }
         } else {
-            throw new InvalidArgumentException("Invalid registration_id value");
+            throw new \InvalidArgumentException("Invalid registration_id value");
         }
 
         return $this;
@@ -174,7 +174,7 @@ class PushPayload {
 
     public function setNotificationAlert($alert) {
         if (!is_string($alert)) {
-            throw new InvalidArgumentException("Invalid alert value");
+            throw new \InvalidArgumentException("Invalid alert value");
         }
         $this->notificationAlert = $alert;
         return $this;
@@ -185,14 +185,14 @@ class PushPayload {
 
         if (!is_null($alert)) {
             if (!is_string($alert) && !is_array($alert)) {
-                throw new InvalidArgumentException("Invalid ios alert value");
+                throw new \InvalidArgumentException("Invalid ios alert value");
             }
             $ios['alert'] = $alert;
         }
 
         if (!is_null($sound)) {
             if (!is_string($sound)) {
-                throw new InvalidArgumentException("Invalid ios sound value");
+                throw new \InvalidArgumentException("Invalid ios sound value");
             }
             if ($sound !== Config::DISABLE_SOUND) {
                 $ios['sound'] = $sound;
@@ -205,7 +205,7 @@ class PushPayload {
         if (!is_null($badge)) {
             if (is_string($badge) && !preg_match("/^[+-]{1}[0-9]{1,3}$/", $badge)) {
                 if (!is_int($badge)) {
-                    throw new InvalidArgumentException("Invalid ios badge value");
+                    throw new \InvalidArgumentException("Invalid ios badge value");
                 }
             }
             if ($badge != Config::DISABLE_BADGE) {
@@ -218,14 +218,14 @@ class PushPayload {
 
         if (!is_null($content_available)) {
             if (!is_bool($content_available)) {
-                throw new InvalidArgumentException("Invalid ios content-available value");
+                throw new \InvalidArgumentException("Invalid ios content-available value");
             }
             $ios['content-available'] = $content_available;
         }
 
         if (!is_null($category)) {
             if (!is_string($category)) {
-                throw new InvalidArgumentException("Invalid ios category value");
+                throw new \InvalidArgumentException("Invalid ios category value");
             }
             if (strlen($category)) {
                 $ios['category'] = $category;
@@ -234,7 +234,7 @@ class PushPayload {
 
         if (!is_null($extras)) {
             if (!is_array($extras)) {
-                throw new InvalidArgumentException("Invalid ios extras value");
+                throw new \InvalidArgumentException("Invalid ios extras value");
             }
             if (count($extras) > 0) {
                 $ios['extras'] = $extras;
@@ -242,7 +242,7 @@ class PushPayload {
         }
 
         if (count($ios) <= 0) {
-            throw new InvalidArgumentException("Invalid iOS notification");
+            throw new \InvalidArgumentException("Invalid iOS notification");
         }
 
         $this->iosNotification = $ios;
@@ -254,14 +254,14 @@ class PushPayload {
 
         if (!is_null($alert)) {
             if (!is_string($alert)) {
-                throw new InvalidArgumentException("Invalid android alert value");
+                throw new \InvalidArgumentException("Invalid android alert value");
             }
             $android['alert'] = $alert;
         }
 
         if (!is_null($title)) {
             if(!is_string($title)) {
-                throw new InvalidArgumentException("Invalid android title value");
+                throw new \InvalidArgumentException("Invalid android title value");
             }
             if(strlen($title) > 0) {
                 $android['title'] = $title;
@@ -270,14 +270,14 @@ class PushPayload {
 
         if (!is_null($builderId)) {
             if (!is_int($builderId)) {
-                throw new InvalidArgumentException("Invalid android builder_id value");
+                throw new \InvalidArgumentException("Invalid android builder_id value");
             }
             $android['builder_id'] = $builderId;
         }
 
         if (!is_null($extras)) {
             if (!is_array($extras)) {
-                throw new InvalidArgumentException("Invalid android extras value");
+                throw new \InvalidArgumentException("Invalid android extras value");
             }
             if (count($extras) > 0) {
                 $android['extras'] = $extras;
@@ -285,7 +285,7 @@ class PushPayload {
         }
 
         if (count($android) <= 0) {
-            throw new InvalidArgumentException("Invalid android notification");
+            throw new \InvalidArgumentException("Invalid android notification");
         }
 
         $this->androidNotification = $android;
@@ -297,14 +297,14 @@ class PushPayload {
 
         if (!is_null($alert)) {
             if (!is_string($alert)) {
-                throw new InvalidArgumentException("Invalid winphone notification");
+                throw new \InvalidArgumentException("Invalid winphone notification");
             }
             $winPhone['alert'] = $alert;
         }
 
         if (!is_null($title)) {
             if (!is_string($title)) {
-                throw new InvalidArgumentException("Invalid winphone title notification");
+                throw new \InvalidArgumentException("Invalid winphone title notification");
             }
             if(strlen($title) > 0) {
                 $winPhone['title'] = $title;
@@ -313,7 +313,7 @@ class PushPayload {
 
         if (!is_null($_open_page)) {
             if (!is_string($_open_page)) {
-                throw new InvalidArgumentException("Invalid winphone _open_page notification");
+                throw new \InvalidArgumentException("Invalid winphone _open_page notification");
             }
             if (strlen($_open_page) > 0) {
                 $winPhone['_open_page'] = $_open_page;
@@ -322,7 +322,7 @@ class PushPayload {
 
         if (!is_null($extras)) {
             if (!is_array($extras)) {
-                throw new InvalidArgumentException("Invalid winphone extras notification");
+                throw new \InvalidArgumentException("Invalid winphone extras notification");
             }
             if (count($extras) > 0) {
                 $winPhone['extras'] = $extras;
@@ -330,7 +330,7 @@ class PushPayload {
         }
 
         if (count($winPhone) <= 0) {
-            throw new InvalidArgumentException("Invalid winphone notification");
+            throw new \InvalidArgumentException("Invalid winphone notification");
         }
 
         $this->winPhoneNotification = $winPhone;
@@ -340,13 +340,13 @@ class PushPayload {
     public function setSmsMessage($content, $delay_time) {
         $sms = array();
         if (is_null($content) || !is_string($content) || strlen($content) < 0 || strlen($content) > 480) {
-            throw new InvalidArgumentException('Invalid sms content, sms content\'s length must in [0, 480]');
+            throw new \InvalidArgumentException('Invalid sms content, sms content\'s length must in [0, 480]');
         } else {
             $sms['content'] = $content;
         }
 
         if (is_null($delay_time) || !is_int($delay_time) || $delay_time < 0 || $delay_time > 86400) {
-            throw new InvalidArgumentException('Invalid sms delay time, delay time must in [0, 86400]');
+            throw new \InvalidArgumentException('Invalid sms delay time, delay time must in [0, 86400]');
         } else {
             $sms['delay_time'] = $delay_time;
         }
@@ -360,28 +360,28 @@ class PushPayload {
         $message = array();
 
         if (is_null($msg_content) || !is_string($msg_content)) {
-            throw new InvalidArgumentException("Invalid message content");
+            throw new \InvalidArgumentException("Invalid message content");
         } else {
             $message['msg_content'] = $msg_content;
         }
 
         if (!is_null($title)) {
             if (!is_string($title)) {
-                throw new InvalidArgumentException("Invalid message title");
+                throw new \InvalidArgumentException("Invalid message title");
             }
             $message['title'] = $title;
         }
 
         if (!is_null($content_type)) {
             if (!is_string($content_type)) {
-                throw new InvalidArgumentException("Invalid message content type");
+                throw new \InvalidArgumentException("Invalid message content type");
             }
             $message["content_type"] = $content_type;
         }
 
         if (!is_null($extras)) {
             if (!is_array($extras)) {
-                throw new InvalidArgumentException("Invalid message extras");
+                throw new \InvalidArgumentException("Invalid message extras");
             }
             if (count($extras) > 0) {
                 $message['extras'] = $extras;
@@ -397,7 +397,7 @@ class PushPayload {
 
         if (!is_null($sendno)) {
             if (!is_int($sendno)) {
-                throw new InvalidArgumentException('Invalid option sendno');
+                throw new \InvalidArgumentException('Invalid option sendno');
             }
             $options['sendno'] = $sendno;
         } else {
@@ -406,21 +406,21 @@ class PushPayload {
 
         if (!is_null($time_to_live)) {
             if (!is_int($time_to_live) || $time_to_live < 0 || $time_to_live > 864000) {
-                throw new InvalidArgumentException('Invalid option time to live, it must be a int and in [0, 864000]');
+                throw new \InvalidArgumentException('Invalid option time to live, it must be a int and in [0, 864000]');
             }
             $options['time_to_live'] = $time_to_live;
         }
 
         if (!is_null($override_msg_id)) {
             if (!is_long($override_msg_id)) {
-                throw new InvalidArgumentException('Invalid option override msg id');
+                throw new \InvalidArgumentException('Invalid option override msg id');
             }
             $options['override_msg_id'] = $override_msg_id;
         }
 
         if (!is_null($apns_production)) {
             if (!is_bool($apns_production)) {
-                throw new InvalidArgumentException('Invalid option apns production');
+                throw new \InvalidArgumentException('Invalid option apns production');
             }
             $options['apns_production'] = $apns_production;
         } else {
@@ -429,7 +429,7 @@ class PushPayload {
 
         if (!is_null($big_push_duration)) {
             if (!is_int($big_push_duration) || $big_push_duration < 0 || $big_push_duration > 1440) {
-                throw new InvalidArgumentException('Invalid option big push duration, it must be a int and in [0, 1440]');
+                throw new \InvalidArgumentException('Invalid option big push duration, it must be a int and in [0, 1440]');
             }
             $options['big_push_duration'] = $big_push_duration;
         }
@@ -443,7 +443,7 @@ class PushPayload {
 
         // validate platform
         if (is_null($this->platform)) {
-            throw new InvalidArgumentException("platform must be set");
+            throw new \InvalidArgumentException("platform must be set");
         }
         $payload["platform"] = $this->platform;
 
@@ -463,9 +463,9 @@ class PushPayload {
         }
 
         if (is_null($this->audience) && count($audience) <= 0) {
-            throw new InvalidArgumentException("audience must be set");
+            throw new \InvalidArgumentException("audience must be set");
         } else if (!is_null($this->audience) && count($audience) > 0) {
-            throw new InvalidArgumentException("you can't add tags/alias/registration_id/tag_and when audience='all'");
+            throw new \InvalidArgumentException("you can't add tags/alias/registration_id/tag_and when audience='all'");
         } else if (is_null($this->audience)) {
             $payload["audience"] = $audience;
         } else {
@@ -484,7 +484,7 @@ class PushPayload {
             $notification['android'] = $this->androidNotification;
             if (is_null($this->androidNotification['alert'])) {
                 if (is_null($this->notificationAlert)) {
-                    throw new InvalidArgumentException("Android alert can not be null");
+                    throw new \InvalidArgumentException("Android alert can not be null");
                 } else {
                     $notification['android']['alert'] = $this->notificationAlert;
                 }
@@ -495,7 +495,7 @@ class PushPayload {
             $notification['ios'] = $this->iosNotification;
             if (is_null($this->iosNotification['alert'])) {
                 if (is_null($this->notificationAlert)) {
-                    throw new InvalidArgumentException("iOS alert can not be null");
+                    throw new \InvalidArgumentException("iOS alert can not be null");
                 } else {
                     $notification['ios']['alert'] = $this->notificationAlert;
                 }
@@ -506,7 +506,7 @@ class PushPayload {
             $notification['winphone'] = $this->winPhoneNotification;
             if (is_null($this->winPhoneNotification['alert'])) {
                 if (is_null($this->winPhoneNotification)) {
-                    throw new InvalidArgumentException("WinPhone alert can not be null");
+                    throw new \InvalidArgumentException("WinPhone alert can not be null");
                 } else {
                     $notification['winphone']['alert'] = $this->notificationAlert;
                 }
@@ -521,7 +521,7 @@ class PushPayload {
             $payload['message'] = $this->message;
         }
         if (!array_key_exists('notification', $payload) && !array_key_exists('message', $payload)) {
-            throw new InvalidArgumentException('notification and message can not all be null');
+            throw new \InvalidArgumentException('notification and message can not all be null');
         }
 
         if (count($this->smsMessage)) {

@@ -10,11 +10,11 @@ class Client {
 
     public function __construct($appKey, $masterSecret, $logFile=Config::DEFAULT_LOG_FILE, $retryTimes=Config::DEFAULT_MAX_RETRY_TIMES) {
         if (is_null($appKey) || is_null($masterSecret)) {
-            throw new InvalidArgumentException("appKey and masterSecret must be set.");
+            throw new \InvalidArgumentException("appKey and masterSecret must be set.");
         }
 
         if (!is_string($appKey) || !is_string($masterSecret)) {
-            throw new InvalidArgumentException("Invalid appKey or masterSecret");
+            throw new \InvalidArgumentException("Invalid appKey or masterSecret");
         }
         $this->appKey = $appKey;
         $this->masterSecret = $masterSecret;

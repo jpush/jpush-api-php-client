@@ -18,13 +18,13 @@ class SchedulePayload {
 
     public function createSingleSchedule($name, $push_payload, $trigger) {
         if (!is_string($name)) {
-            throw new InvalidArgumentException('Invalid schedule name');
+            throw new \InvalidArgumentException('Invalid schedule name');
         }
         if (!is_array($push_payload)) {
-            throw new InvalidArgumentException('Invalid schedule push payload');
+            throw new \InvalidArgumentException('Invalid schedule push payload');
         }
         if (!is_array($trigger)) {
-            throw new InvalidArgumentException('Invalid schedule trigger');
+            throw new \InvalidArgumentException('Invalid schedule trigger');
         }
         $payload = array();
         $payload['name'] = $name;
@@ -37,13 +37,13 @@ class SchedulePayload {
 
     public function createPeriodicalSchedule($name, $push_payload, $trigger) {
         if (!is_string($name)) {
-            throw new InvalidArgumentException('Invalid schedule name');
+            throw new \InvalidArgumentException('Invalid schedule name');
         }
         if (!is_array($push_payload)) {
-            throw new InvalidArgumentException('Invalid schedule push payload');
+            throw new \InvalidArgumentException('Invalid schedule push payload');
         }
         if (!is_array($trigger)) {
-            throw new InvalidArgumentException('Invalid schedule trigger');
+            throw new \InvalidArgumentException('Invalid schedule trigger');
         }
         $payload = array();
         $payload['name'] = $name;
@@ -56,12 +56,12 @@ class SchedulePayload {
 
     public function updateSingleSchedule($schedule_id, $name=null, $enabled=null, $push_payload=null, $trigger=null) {
         if (!is_string($schedule_id)) {
-            throw new InvalidArgumentException('Invalid schedule id');
+            throw new \InvalidArgumentException('Invalid schedule id');
         }
         $payload = array();
         if (!is_null($name)) {
             if (!is_string($name)) {
-                throw new InvalidArgumentException('Invalid schedule name');
+                throw new \InvalidArgumentException('Invalid schedule name');
             } else {
                 $payload['name'] = $name;
             }
@@ -69,7 +69,7 @@ class SchedulePayload {
 
         if (!is_null($enabled)) {
             if (!is_bool($enabled)) {
-                throw new InvalidArgumentException('Invalid schedule enable');
+                throw new \InvalidArgumentException('Invalid schedule enable');
             } else {
                 $payload['enabled'] = $enabled;
             }
@@ -77,7 +77,7 @@ class SchedulePayload {
 
         if (!is_null($push_payload)) {
             if (!is_array($push_payload)) {
-                throw new InvalidArgumentException('Invalid schedule push payload');
+                throw new \InvalidArgumentException('Invalid schedule push payload');
             } else {
                 $payload['push'] = $push_payload;
             }
@@ -85,14 +85,14 @@ class SchedulePayload {
 
         if (!is_null($trigger)) {
             if (!is_array($trigger)) {
-                throw new InvalidArgumentException('Invalid schedule trigger');
+                throw new \InvalidArgumentException('Invalid schedule trigger');
             } else {
                 $payload['trigger'] = array("single"=>$trigger);
             }
         }
 
         if (count($payload) <= 0) {
-            throw new InvalidArgumentException('Invalid schedule, name, enabled, trigger, push can not all be null');
+            throw new \InvalidArgumentException('Invalid schedule, name, enabled, trigger, push can not all be null');
         }
 
         $url = SchedulePayload::SCHEDULES_URL . "/" . $schedule_id;
@@ -102,12 +102,12 @@ class SchedulePayload {
 
     public function updatePeriodicalSchedule($schedule_id, $name=null, $enabled=null, $push_payload=null, $trigger=null) {
         if (!is_string($schedule_id)) {
-            throw new InvalidArgumentException('Invalid schedule id');
+            throw new \InvalidArgumentException('Invalid schedule id');
         }
         $payload = array();
         if (!is_null($name)) {
             if (!is_string($name)) {
-                throw new InvalidArgumentException('Invalid schedule name');
+                throw new \InvalidArgumentException('Invalid schedule name');
             } else {
                 $payload['name'] = $name;
             }
@@ -115,7 +115,7 @@ class SchedulePayload {
 
         if (!is_null($enabled)) {
             if (!is_bool($enabled)) {
-                throw new InvalidArgumentException('Invalid schedule enable');
+                throw new \InvalidArgumentException('Invalid schedule enable');
             } else {
                 $payload['enabled'] = $enabled;
             }
@@ -123,7 +123,7 @@ class SchedulePayload {
 
         if (!is_null($push_payload)) {
             if (!is_array($push_payload)) {
-                throw new InvalidArgumentException('Invalid schedule push payload');
+                throw new \InvalidArgumentException('Invalid schedule push payload');
             } else {
                 $payload['push'] = $push_payload;
             }
@@ -131,14 +131,14 @@ class SchedulePayload {
 
         if (!is_null($trigger)) {
             if (!is_array($trigger)) {
-                throw new InvalidArgumentException('Invalid schedule trigger');
+                throw new \InvalidArgumentException('Invalid schedule trigger');
             } else {
                 $payload['trigger'] = array("periodical"=>$trigger);
             }
         }
 
         if (count($payload) <= 0) {
-            throw new InvalidArgumentException('Invalid schedule, name, enabled, trigger, push can not all be null');
+            throw new \InvalidArgumentException('Invalid schedule, name, enabled, trigger, push can not all be null');
         }
 
         $url = SchedulePayload::SCHEDULES_URL . "/" . $schedule_id;
@@ -148,7 +148,7 @@ class SchedulePayload {
 
     public function getSchedules($page=1) {
         if (!is_int($page)) {
-            throw new InvalidArgumentException('Invalid pages');
+            throw new \InvalidArgumentException('Invalid pages');
         }
         $url = SchedulePayload::SCHEDULES_URL . "?page=" . $page;
         $response = $this->client->_request($url, Config::HTTP_GET);
@@ -157,7 +157,7 @@ class SchedulePayload {
 
     public function getSchedule($schedule_id) {
         if (!is_string($schedule_id)) {
-            throw new InvalidArgumentException('Invalid schedule id');
+            throw new \InvalidArgumentException('Invalid schedule id');
         }
         $url = SchedulePayload::SCHEDULES_URL . "/" . $schedule_id;
         $response = $this->client->_request($url, Config::HTTP_GET);
@@ -166,7 +166,7 @@ class SchedulePayload {
 
     public function deleteSchedule($schedule_id) {
         if (!is_string($schedule_id)) {
-            throw new InvalidArgumentException('Invalid schedule id');
+            throw new \InvalidArgumentException('Invalid schedule id');
         }
         $url = SchedulePayload::SCHEDULES_URL . "/" . $schedule_id;
         $response = $this->client->_request($url, Config::HTTP_DELETE);
