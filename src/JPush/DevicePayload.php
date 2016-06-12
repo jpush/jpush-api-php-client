@@ -29,7 +29,20 @@ class DevicePayload {
         return $this->__processResp($response);
     }
 
-    public function updateDevice($registrationId, $alias = null, $mobile=null, $addTags = null, $removeTags = null) {
+    public function updateAlias($registration_id, $alias) {
+        return $this->updateDevice($registration_id, $alias);
+    }
+    public function addTags($registration_id, $tags) {
+        return $this->updateDevice($registration_id, null, null, $tags);
+    }
+    public function removeTags($registration_id, $tags) {
+        return $this->updateDevice($registration_id, null, null, null, $tags);
+    }
+    public function updateMoblie($registration_id, $mobile) {
+        return $this->updateDevice($registration_id, null, $mobile);
+    }
+
+    public function updateDevice($registrationId, $alias = null, $mobile = null, $addTags = null, $removeTags = null) {
         $payload = array();
         if (!is_string($registrationId)) {
             throw new \InvalidArgumentException('Invalid registration_id');

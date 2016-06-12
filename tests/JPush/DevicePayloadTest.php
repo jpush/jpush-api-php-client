@@ -34,10 +34,10 @@ class DevicePayloadTest extends \PHPUnit_Framework_TestCase {
         if ($old_alias == $new_alias) {
             $new_alias = $new_alias . time();
         }
-        $response = $this->device->updateDevice($registration_id, $alias = $new_alias);
+        $response = $this->device->updateAlias($registration_id, $new_alias);
         $this->assertEquals('200', $response['http_code']);
 
-        $response = $this->device->updateDevice($registration_id, $alias = $old_alias);
+        $response = $this->device->updateAlias($registration_id, $old_alias);
         $this->assertEquals('200', $response['http_code']);
     }
 
@@ -48,10 +48,11 @@ class DevicePayloadTest extends \PHPUnit_Framework_TestCase {
         if(in_array($new_tag, $tags_array)) {
             $new_tag = $new_tag . time();
         }
-        $response = $this->device->updateDevice($registration_id, $addTags = $new_tag);
+
+        $response = $this->device->addTags($registration_id, array($new_tag));
         $this->assertEquals('200', $response['http_code']);
 
-        $response = $this->device->updateDevice($registration_id, $removeTags = $new_tag);
+        $response = $this->device->removeTags($registration_id, array($new_tag));
         $this->assertEquals('200', $response['http_code']);
     }
 
@@ -74,14 +75,14 @@ class DevicePayloadTest extends \PHPUnit_Framework_TestCase {
             $test_tag = $test_tag . time();
         }
 
-        $this->device->updateDevice($registration_id, $addTags = $test_tag);
+        $this->device->addTags($registration_id, array($test_tag));
         $response = $this->device->isDeviceInTag($registration_id, $test_tag);
         $this->assertEquals('200', $response['http_code']);
         $body = $response['body'];
         $this->assertTrue(is_array($body));
         $this->assertTrue($body['result']);
 
-        $this->device->updateDevice($registration_id, $removeTags = $test_tag);
+        $this->device->removeTags($registration_id, array($test_tag));
         $response = $this->device->isDeviceInTag($registration_id, $test_tag);
         $this->assertEquals('200', $response['http_code']);
         $body = $response['body'];
