@@ -10,11 +10,6 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testPushToAll() {
-        $result = $this->client->push()
-            ->setPlatform('all')
-            ->addAllAudience()
-            ->setNotificationAlert('Hi, JPush')
-            ->send();
-        echo 'Result=' . json_encode($result);
+
     }
 }
