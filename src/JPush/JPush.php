@@ -120,7 +120,7 @@ class JPush {
                 throw new APIConnectionException("Connect timeout. Please retry later. Error:" . $errorCode . " " . curl_error($ch));
             } else {
                 $this->log("Send " . $method . " " . $url . " fail, curl_code:" . $errorCode . ", body:" . $body . ", times:" . $times);
-                $this->_request($url, $method, $body, ++$times);
+                return $this->_request($url, $method, $body, ++$times);
             }
         } else {
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);

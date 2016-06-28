@@ -211,7 +211,6 @@ class DevicePayload {
         $response = $this->client->_request(DevicePayload::DEVICE_STATUS_URL, JPush::HTTP_POST, json_encode($payload));
         if($response['http_code'] === 200) {
             $body = array();
-            echo $response['body'];
             $body['data'] = (array)json_decode($response['body']);
             $headers = $response['headers'];
             if (is_array($headers)) {
