@@ -121,6 +121,12 @@ class DevicePayload {
         return $this->__processResp($response);
     }
 
+    public function addDevicesToTag($tag, $addDevices) {
+        return $this->updateTag($tag, $addDevices, null);
+    }
+    public function removeDevicesFromTag($tag, $removeDevices) {
+        return $this->updateTag($tag, null, $removeDevices);
+    }
     public function updateTag($tag, $addDevices = null, $removeDevices = null) {
         if (!is_string($tag)) {
             throw new \InvalidArgumentException("Invalid tag");
@@ -220,24 +226,24 @@ class DevicePayload {
         }
         $payload['registration_ids'] = $registrationId;
 
-
         $response = $this->client->_request(DevicePayload::DEVICE_STATUS_URL, Config::HTTP_POST, json_encode($payload));
-        if($response['http_code'] === 200) {
-            $body = array();
-            $body['data'] = (array)json_decode($response['body']);
-            $headers = $response['headers'];
-            if (is_array($headers)) {
-                $limit = array();
-                $limit['rateLimitLimit'] = $headers['X-Rate-Limit-Limit'];
-                $limit['rateLimitRemaining'] = $headers['X-Rate-Limit-Remaining'];
-                $limit['rateLimitReset'] = $headers['X-Rate-Limit-Reset'];
-                $body['limit'] = (object)$limit;
-                return (object)$body;
-            }
-            return $body;
-        } else {
-            throw new APIRequestException($response);
-        }
+        return $this->__processResp($response);
+        // if($response['http_code'] === 200) {
+        //     $body = array();
+        //     $body['data'] = (array)json_decode($response['body']);
+        //     $headers = $response['headers'];
+        //     if (is_array($headers)) {
+        //         $limit = array();
+        //         $limit['rateLimitLimit'] = $headers['X-Rate-Limit-Limit'];
+        //         $limit['rateLimitRemaining'] = $headers['X-Rate-Limit-Remaining'];
+        //         $limit['rateLimitReset'] = $headers['X-Rate-Limit-Reset'];
+        //         $body['limit'] = (object)$limit;
+        //         return (object)$body;
+        //     }
+        //     return $body;
+        // } else {
+        //     throw new APIRequestException($response);
+        // }
     }
 
     private function __processResp($response) {

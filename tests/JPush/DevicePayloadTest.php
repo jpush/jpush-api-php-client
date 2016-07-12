@@ -11,6 +11,7 @@ class DevicePayloadTest extends \PHPUnit_Framework_TestCase {
         global $client;
         $this->client = $client;
         $this->device = $client->device();
+        $this->test_tag = 'jpush_tag';
     }
 
     function testGetDevices() {
@@ -30,6 +31,9 @@ class DevicePayloadTest extends \PHPUnit_Framework_TestCase {
     function testUpdateDevicesAlias() {
         global $registration_id;
         $old_alias = $this->device->getDevices($registration_id)['body']['alias'];
+        if ($old_alias == null) {
+            $old_alias = '';
+        }
         $new_alias = 'jpush_alias';
         if ($old_alias == $new_alias) {
             $new_alias = $new_alias . time();
@@ -43,11 +47,7 @@ class DevicePayloadTest extends \PHPUnit_Framework_TestCase {
 
     function testUpdateDevicesTags() {
         global $registration_id;
-        $tags_array = $this->device->getTags()['body']['tags'];
-        $new_tag = 'jpush_tag';
-        if(in_array($new_tag, $tags_array)) {
-            $new_tag = $new_tag . time();
-        }
+        $new_tag = $this->test_tag;
 
         $response = $this->device->addTags($registration_id, array($new_tag));
         $this->assertEquals('200', $response['http_code']);
@@ -68,12 +68,7 @@ class DevicePayloadTest extends \PHPUnit_Framework_TestCase {
 
     function testIsDeviceInTag() {
         global $registration_id;
-        $test_tag = 'jpush_test_tag';
-        $tags_array = $this->device->getTags()['body']['tags'];
-
-        if(in_array($test_tag, $tags_array)) {
-            $test_tag = $test_tag . time();
-        }
+        $test_tag = $this->test_tag;
 
         $this->device->addTags($registration_id, array($test_tag));
         $response = $this->device->isDeviceInTag($registration_id, $test_tag);
@@ -88,6 +83,41 @@ class DevicePayloadTest extends \PHPUnit_Framework_TestCase {
         $body = $response['body'];
         $this->assertTrue(is_array($body));
         $this->assertFalse($body['result']);
+    }
+
+    function testUpdateTag() {
+        global $registration_id;
+        $test_tag = $this->test_tag;
+
+        $response = $this->device->addDevicesToTag($test_tag, array($registration_id));
+        $this->assertEquals('200', $response['http_code']);
+
+        $response = $this->device->removeDevicesFromTag($test_tag, array($registration_id));
+        $this->assertEquals('200', $response['http_code']);
+    }
+
+    function testDeleteTag() {}
+
+    function testGetAliasDevices() {
+        $test_tag = $this->test_tag;
+
+        $response = $this->device->getAliasDevices($test_tag);
+        $this->assertEquals('200', $response['http_code']);
+        $body = $response['body'];
+        $this->assertTrue(is_array($body));
+        $this->assertEquals(1, count($body));
+        $this->assertArrayHasKey('registration_ids', $body);
+    }
+
+    function testDeleteAlias() {}
+
+    function testGetDevicesStatus() {
+        global $registration_id;
+        $response = $this->device->getDevicesStatus($registration_id);
+        $this->assertEquals('200', $response['http_code']);
+        $body = $response['body'];
+        $this->assertTrue(is_array($body));
+        $this->assertEquals(1, count($body));
     }
 
 }
