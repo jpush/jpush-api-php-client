@@ -230,22 +230,6 @@ class DevicePayload {
 
         $response = $this->client->_request(DevicePayload::DEVICE_STATUS_URL, Config::HTTP_POST, json_encode($payload));
         return $this->__processResp($response);
-        // if($response['http_code'] === 200) {
-        //     $body = array();
-        //     $body['data'] = (array)json_decode($response['body']);
-        //     $headers = $response['headers'];
-        //     if (is_array($headers)) {
-        //         $limit = array();
-        //         $limit['rateLimitLimit'] = $headers['X-Rate-Limit-Limit'];
-        //         $limit['rateLimitRemaining'] = $headers['X-Rate-Limit-Remaining'];
-        //         $limit['rateLimitReset'] = $headers['X-Rate-Limit-Reset'];
-        //         $body['limit'] = (object)$limit;
-        //         return (object)$body;
-        //     }
-        //     return $body;
-        // } else {
-        //     throw new APIRequestException($response);
-        // }
     }
 
     private function __processResp($response) {
@@ -253,7 +237,7 @@ class DevicePayload {
             $result = array();
             $data = json_decode($response['body'], true);
             if (!is_null($data)) {
-                $result['body'] = json_decode($response['body'], true);
+                $result['body'] = $data;
             }
             $result['http_code'] = $response['http_code'];
             $headers = $response['headers'];

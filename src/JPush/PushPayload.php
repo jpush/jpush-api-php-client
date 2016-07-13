@@ -561,8 +561,12 @@ class PushPayload {
 
     private function __processResp($response) {
         if($response['http_code'] === 200) {
-            $body = array();
-            $body['data'] = json_decode($response['body']);
+            $result = array();
+            $data = json_decode($response['body'], true);
+            if (!is_null($data)) {
+                $result['body'] = $data;
+            }
+            $result['http_code'] = $response['http_code'];
             $headers = $response['headers'];
             if (is_array($headers)) {
                 $limit = array();
@@ -572,11 +576,11 @@ class PushPayload {
                     }
                 }
                 if (count($limit) > 0) {
-                    $body['limit'] = (object)$limit;
+                    $result['headers'] = $limit;
                 }
-                return (object)$body;
+                return $result;
             }
-            return $body;
+            return $result;
         } else {
             throw new APIRequestException($response);
         }
