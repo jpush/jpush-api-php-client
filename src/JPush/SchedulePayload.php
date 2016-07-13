@@ -1,6 +1,8 @@
 <?php
 namespace JPush;
 
+use JPush\Exceptions\APIConnectionException;
+
 class SchedulePayload {
     private static $LIMIT_KEYS = array('X-Rate-Limit-Limit'=>'rateLimitLimit', 'X-Rate-Limit-Remaining'=>'rateLimitRemaining', 'X-Rate-Limit-Reset'=>'rateLimitReset');
 

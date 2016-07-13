@@ -17,7 +17,7 @@
         "ext-curl": "*"
     },
     "autoload" : {
-        "psr-4": {"JPush\\": "src/JPush"}
+        "psr-4": {"JPush\\": "src/JPush/"}
     },
     "require-dev": {
         "phpunit/phpunit": "*"

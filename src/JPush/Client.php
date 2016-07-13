@@ -1,6 +1,8 @@
 <?php
 namespace JPush;
 
+use JPush\Exceptions\APIConnectionException;
+
 class Client {
 
     private $appKey;
