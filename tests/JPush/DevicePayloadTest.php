@@ -5,7 +5,6 @@ class DevicePayloadTest extends \PHPUnit_Framework_TestCase {
 
     protected function setUp() {
         global $client;
-        $this->client = $client;
         $this->device = $client->device();
         $this->test_tag = 'jpush_tag';
     }

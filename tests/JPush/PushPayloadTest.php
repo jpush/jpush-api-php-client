@@ -5,11 +5,14 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
 
     protected function setUp() {
         global $client;
-        $this->client = $client;
-        $this->pusher = $client->push();
-        $this->payload = $this->pusher
-                              ->setPlatform('all')
-                              ->setNotificationAlert('Hello JPush');
+        $this->payload = $client->push()
+                                ->setPlatform('all')
+                                ->addAllAudience()
+                                ->setNotificationAlert('Hello JPush');
+
+        $this->payload_without_audience = $client->push()
+                                                 ->setPlatform('all')
+                                                 ->setNotificationAlert('Hello JPush');
     }
 
     public function testSimplePushToAll() {
@@ -33,7 +36,7 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testSetPlatform() {
-        $payload = $this->payload->addAllAudience();
+        $payload = $this->payload;
 
         $result1 = $payload->build();
         $this->assertEquals('all', $result1['platform']);
@@ -43,12 +46,12 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testSetAudience() {
-        $result = $this->payload->addAllAudience()->build();
+        $result = $this->payload->build();
         $this->assertEquals('all', $result['audience']);
     }
 
     public function testAddTag() {
-        $payload = $this->payload;
+        $payload = $this->payload_without_audience;
         $result = $payload->addTag('hello')->build();
         $audience = $result['audience'];
         $this->assertTrue(is_array($audience['tag']));
@@ -58,7 +61,7 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(3, count($result['audience']['tag']));
     }
     public function testAddTag2() {
-        $payload = $this->payload;
+        $payload = $this->payload_without_audience;
         $result = $payload->addTagAnd(array('jpush', 'jiguang'))->build();
         $audience = $result['audience'];
         $this->assertTrue(is_array($audience['tag_and']));
@@ -69,7 +72,7 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testAddTagAnd1() {
-        $payload = $this->payload;
+        $payload = $this->payload_without_audience;
         $result = $payload->addTagAnd('hello')->build();
         $audience = $result['audience'];
         $this->assertTrue(is_array($audience['tag_and']));
@@ -79,7 +82,7 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(3, count($result['audience']['tag_and']));
     }
     public function testAddTagAnd2() {
-        $payload = $this->payload;
+        $payload = $this->payload_without_audience;
         $result = $payload->addTagAnd(array('jpush', 'jiguang'))->build();
         $audience = $result['audience'];
         $this->assertTrue(is_array($audience['tag_and']));
@@ -90,7 +93,7 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testAddRegistrationId1() {
-        $payload = $this->payload;
+        $payload = $this->payload_without_audience;
         $result = $payload->addRegistrationId('hello')->build();
         $audience = $result['audience'];
         $this->assertTrue(is_array($audience['registration_id']));
@@ -100,7 +103,7 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(3, count($result['audience']['registration_id']));
     }
     public function testAddRegistrationId2() {
-        $payload = $this->payload;
+        $payload = $this->payload_without_audience;
         $result = $payload->addRegistrationId(array('jpush', 'jiguang'))->build();
         $audience = $result['audience'];
         $this->assertTrue(is_array($audience['registration_id']));
@@ -111,9 +114,8 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testSetNotificationAlert() {
-        $result = $this->payload->addAllAudience()->build();
+        $result = $this->payload->build();
         $notification = $result['notification'];
-
         $this->assertTrue(is_array($notification));
         $this->assertEquals(1, count($notification));
         $this->assertEquals('Hello JPush', $result['notification']['alert']);
