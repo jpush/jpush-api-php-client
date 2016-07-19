@@ -20,11 +20,10 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
         $result = $payload->build();
 
         $this->assertTrue(is_array($result));
-        $this->assertEquals(4, count($result));
+        $this->assertEquals(3, count($result));
         $this->assertArrayHasKey('platform', $result);
         $this->assertArrayHasKey('audience', $result);
         $this->assertArrayHasKey('notification', $result);
-        $this->assertArrayHasKey('options', $result);
 
         $response = $payload->send();
         $this->assertEquals('200', $response['http_code']);
@@ -221,6 +220,24 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
             'invalid_key' => 'invalid_value'
         );
         $result = $payload->message('Hello JPush', $array)->build();
+    }
+
+    public function testOptions() {
+        $payload = $this->payload;
+        $result = $payload->options()->build();
+        $this->assertFalse(array_key_exists('options', $result));
+
+        $array = array(
+            'sendno' => 100,
+            'time_to_live' => 100,
+            'override_msg_id' => 100,
+            'big_push_duration' => 100
+        );
+        $result = $payload->options($array)->build();
+        $options = $result['options'];
+        $this->assertEquals(5, count($options));
+        $this->assertArrayHasKey('apns_production', $options);
+        $this->assertEquals(false, $options['apns_production']);
 
     }
 }

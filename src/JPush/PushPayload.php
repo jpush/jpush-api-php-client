@@ -347,7 +347,7 @@ class PushPayload {
             throw new \InvalidArgumentException('Invalid sms content, sms content\'s length must in [0, 480]');
         }
 
-        $sms['delay_time'] = ($delay_time === 0 || (is_int($delay_time) && $delay_time > 0 && $delay_time < 86400)) ? $delay_time : 0;
+        $sms['delay_time'] = ($delay_time === 0 || (is_int($delay_time) && $delay_time > 0 && $delay_time <= 86400)) ? $delay_time : 0;
 
         $this->smsMessage = $sms;
         return $this;
@@ -528,9 +528,6 @@ class PushPayload {
 
         if (count($this->options) > 0) {
             $payload['options'] = $this->options;
-        } else {
-            $this->setOptions();
-            $payload['options'] = $this->options;
         }
         return $payload;
     }
@@ -653,6 +650,32 @@ class PushPayload {
                 }
             }
             $this->message = $message;
+        }
+        return $this;
+    }
+
+    public function options(array $opts = array()) {
+        # $required_keys = arrayt('sendno', 'time_to_live', 'override_msg_id', 'apns_production', 'big_push_duration')
+        if (!empty($opts)) {
+            $options = array();
+            if (isset($opts['sendno']) && is_int($opts['sendno'])) {
+                $options['sendno'] = $opts['sendno'];
+            }
+            if (isset($opts['time_to_live']) && is_int($opts['time_to_live']) && $opts['time_to_live'] <= 864000 && $opts['time_to_live'] >= 0) {
+                $options['time_to_live'] = $opts['time_to_live'];
+            }
+            if (isset($opts['override_msg_id']) && is_long($opts['override_msg_id'])) {
+                $options['override_msg_id'] = $opts['override_msg_id'];
+            }
+            if (isset($opts['apns_production']) && is_bool($opts['apns_production'])) {
+                $options['apns_production'] = $opts['apns_production'];
+            } else {
+                $options['apns_production'] = false;
+            }
+            if (isset($opts['big_push_duration']) && is_int($opts['big_push_duration']) && $opts['big_push_duration'] <= 1400 && $opts['big_push_duration'] >= 0) {
+                $options['big_push_duration'] = $opts['big_push_duration'];
+            }
+            $this->options = $options;
         }
         return $this;
     }
