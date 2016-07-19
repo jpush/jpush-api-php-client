@@ -42,6 +42,8 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
 
         $result = $payload->setPlatform('ios')->build();
         $this->assertTrue(is_array($result['platform']));
+        $this->assertEquals(1, count($result['platform']));
+        $this->assertTrue(in_array('ios', $result['platform']));
     }
 
     public function testSetAudience() {

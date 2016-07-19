@@ -34,27 +34,17 @@ class PushPayload {
     }
 
     public function setPlatform($platform) {
-        if (is_string($platform) && strcasecmp("all", $platform) === 0) {
-            $this->platform = "all";
-        } else {
-            if (!is_array($platform)) {
-                $platform = func_get_args();
-                if (count($platform) <= 0) {
-                    throw new \InvalidArgumentException("Missing argument for PushPayload::setPlatform()");
-                }
+        # $required_keys = array('all', 'android', 'ios', 'winphone');
+        if (is_string($platform)) {
+            $ptf = strtolower($platform);
+            if ('all' === $ptf) {
+                $this->platform = 'all';
+            } elseif (in_array($ptf, self::$EFFECTIVE_DEVICE_TYPES)) {
+                $this->platform = array($ptf);
             }
-
-            $_platform = array();
-            foreach($platform as $type) {
-                $type = strtolower($type);
-                if (!in_array($type, self::$EFFECTIVE_DEVICE_TYPES)) {
-                    throw new \InvalidArgumentException("Invalid device type: " . $type);
-                }
-                if (!in_array($type, $_platform)) {
-                    array_push($_platform, $type);
-                }
-            }
-            $this->platform = $_platform;
+        } elseif (is_array($platform)) {
+            $ptf = array_map('strtolower', $platform);
+            $this->platform = array_intersect($ptf, self::$EFFECTIVE_DEVICE_TYPES);
         }
         return $this;
     }
@@ -655,7 +645,7 @@ class PushPayload {
     }
 
     public function options(array $opts = array()) {
-        # $required_keys = arrayt('sendno', 'time_to_live', 'override_msg_id', 'apns_production', 'big_push_duration')
+        # $required_keys = array('sendno', 'time_to_live', 'override_msg_id', 'apns_production', 'big_push_duration');
         if (!empty($opts)) {
             $options = array();
             if (isset($opts['sendno']) && is_int($opts['sendno'])) {
