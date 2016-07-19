@@ -339,19 +339,15 @@ class PushPayload {
         return $this;
     }
 
-    public function setSmsMessage($content, $delay_time) {
+    public function setSmsMessage($content, $delay_time = 0) {
         $sms = array();
-        if (is_null($content) || !is_string($content) || strlen($content) < 0 || strlen($content) > 480) {
-            throw new \InvalidArgumentException('Invalid sms content, sms content\'s length must in [0, 480]');
-        } else {
+        if (is_string($content) && mb_strlen($content) < 480) {
             $sms['content'] = $content;
+        } else {
+            throw new \InvalidArgumentException('Invalid sms content, sms content\'s length must in [0, 480]');
         }
 
-        if (is_null($delay_time) || !is_int($delay_time) || $delay_time < 0 || $delay_time > 86400) {
-            throw new \InvalidArgumentException('Invalid sms delay time, delay time must in [0, 86400]');
-        } else {
-            $sms['delay_time'] = $delay_time;
-        }
+        $sms['delay_time'] = ($delay_time === 0 || (is_int($delay_time) && $delay_time > 0 && $delay_time < 86400)) ? $delay_time : 0;
 
         $this->smsMessage = $sms;
         return $this;
@@ -589,4 +585,75 @@ class PushPayload {
         return rand(100000, 4294967294);
     }
 
+    # new methods
+    public function iosNotification($alert = '', array $notification = array()) {
+        # $required_keys = array('sound', 'badge', 'content-available', 'category', 'extras');
+        $ios = array();
+        $ios['alert'] = is_string($alert) ? $alert : '';
+        if (!empty($notification)) {
+            if (isset($notification['sound']) && is_string($notification['sound'])) {
+                $ios['sound'] = $notification['sound'];
+            }
+            if (isset($notification['badge']) && (int)$notification['badge']) {
+                $ios['badge'] = $notification['badge'];
+            }
+            if (isset($notification['content-available']) && is_bool($notification['content-available']) && $notification['content-available']) {
+                $ios['content-available'] = $notification['content-available'];
+            }
+            if (isset($notification['category']) && is_string($notification['category'])) {
+                $ios['category'] = $notification['category'];
+            }
+            if (isset($notification['extras']) && is_array($notification['extras']) && !empty($notification['extras'])) {
+                $ios['extras'] = $notification['extras'];
+            }
+        }
+        if (!isset($ios['sound'])) {
+            $ios['sound'] = '';
+        }
+        if (!isset($ios['badge'])) {
+            $ios['badge'] = '+1';
+        }
+        $this->iosNotification = $ios;
+        return $this;
+    }
+
+    public function androidNotification($alert = '', array $notification = array()) {
+        # $required_keys = array('title', 'build_id', 'extras');
+        $android = array();
+        $android['alert'] = is_string($alert) ? $alert : '';
+        if (!empty($notification)) {
+            if (isset($notification['title']) && is_string($notification['title'])) {
+                $android['title'] = $notification['title'];
+            }
+            if (isset($notification['build_id']) && is_int($notification['build_id'])) {
+                $android['build_id'] = $notification['build_id'];
+            }
+            if (isset($notification['extras']) && is_array($notification['extras']) && !empty($notification['extras'])) {
+                $android['extras'] = $notification['extras'];
+            }
+        }
+        $this->androidNotification = $android;
+        return $this;
+    }
+
+    public function message($msg_content, array $msg = array()) {
+        # $required_keys = array('title', 'content_type', 'extras');
+        if (is_string($msg_content)) {
+            $message = array();
+            $message['msg_content'] = $msg_content;
+            if (!empty($msg)) {
+                if (isset($msg['title']) && is_string($msg['title'])) {
+                    $message['title'] = $msg['title'];
+                }
+                if (isset($msg['content_type']) && is_string($msg['content_type'])) {
+                    $message['content_type'] = $msg['content_type'];
+                }
+                if (isset($msg['extras']) && is_array($msg['extras']) && !empty($msg['extras'])) {
+                    $message['extras'] = $msg['extras'];
+                }
+            }
+            $this->message = $message;
+        }
+        return $this;
+    }
 }

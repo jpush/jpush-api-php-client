@@ -38,11 +38,11 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
     public function testSetPlatform() {
         $payload = $this->payload;
 
-        $result1 = $payload->build();
-        $this->assertEquals('all', $result1['platform']);
+        $result = $payload->build();
+        $this->assertEquals('all', $result['platform']);
 
-        $result2 = $payload->setPlatform('ios')->build();
-        $this->assertTrue(is_array($result2['platform']));
+        $result = $payload->setPlatform('ios')->build();
+        $this->assertTrue(is_array($result['platform']));
     }
 
     public function testSetAudience() {
@@ -119,5 +119,108 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue(is_array($notification));
         $this->assertEquals(1, count($notification));
         $this->assertEquals('Hello JPush', $result['notification']['alert']);
+    }
+
+    public function testIosNotification() {
+        $payload = $this->payload;
+        $result = $payload->iosNotification()->build();
+        $ios = $result['notification']['ios'];
+        $this->assertTrue(is_array($ios));
+        $this->assertEquals(3, count($ios));
+        $this->assertArrayHasKey('alert', $ios);
+        $this->assertArrayHasKey('sound', $ios);
+        $this->assertArrayHasKey('badge', $ios);
+        $this->assertEquals('', $ios['alert']);
+        $this->assertEquals('', $ios['sound']);
+        $this->assertEquals('+1', $ios['badge']);
+
+        $result = $payload->iosNotification('hello')->build();
+        $ios = $result['notification']['ios'];
+        $this->assertEquals('hello', $result['notification']['ios']['alert']);
+    }
+    public function testIosNotificationWithArray() {
+        $payload = $this->payload;
+        $array = array(
+            'sound' => 'hello jpush',
+            'badge' => 2,
+            'content-available' => true,
+            'category' => 'jiguang',
+            'extras' => array(
+                'key' => 'value',
+                'jiguang'
+            ),
+            'invalid_key' => 'invalid_value'
+        );
+        $result = $payload->iosNotification('', $array)->build();
+        $ios = $result['notification']['ios'];
+        $this->assertEquals(6, count($ios));
+        $this->assertFalse(array_key_exists('invalid_key', $ios));
+    }
+
+    public function testAndroidNotification() {
+        $payload = $this->payload;
+        $result = $payload->androidNotification()->build();
+        $android = $result['notification']['android'];
+        $this->assertTrue(is_array($android));
+        $this->assertEquals(1, count($android));
+        $this->assertArrayHasKey('alert', $android);
+        $this->assertEquals('', $android['alert']);
+
+        $result = $payload->androidNotification('hello')->build();
+        $android = $result['notification']['android'];
+        $this->assertEquals('hello', $result['notification']['android']['alert']);
+    }
+    public function testAndroidNotificationWithArray() {
+        $payload = $this->payload;
+        $array = array(
+            'title' => 'hello jpush',
+            'build_id' => 2,
+            'extras' => array(
+                'key' => 'value',
+                'jiguang'
+            ),
+            'invalid_key' => 'invalid_value'
+        );
+        $result = $payload->androidNotification('', $array)->build();
+        $android = $result['notification']['android'];
+        $this->assertEquals(4, count($android));
+        $this->assertFalse(array_key_exists('invalid_key', $android));
+    }
+
+    public function testSetSmsMessage() {
+        $payload = $this->payload;
+        $result = $payload->setSmsMessage('Hello JPush')->build();
+        $sms = $result['sms_message'];
+        $this->assertTrue(is_array($sms));
+        $this->assertEquals(2, count($sms));
+        $this->assertEquals('Hello JPush', $sms['content']);
+        $this->assertEquals(0, $sms['delay_time']);
+
+        $result = $payload->setSmsMessage('Hello JPush', 666)->build();
+        $this->assertEquals(666, $result['sms_message']['delay_time']);
+
+        $result = $payload->setSmsMessage('Hello JPush', 86500)->build();
+        $this->assertEquals(0, $result['sms_message']['delay_time']);
+    }
+
+    public function testMessage() {
+        $payload = $this->payload;
+        $result = $payload->message('Hello JPush')->build();
+        $message = $result['message'];
+        $this->assertTrue(is_array($message));
+        $this->assertEquals(1, count($message));
+        $this->assertEquals('Hello JPush', $message['msg_content']);
+
+        $array = array(
+            'title' => 'hello jpush',
+            'content_type' => '',
+            'extras' => array(
+                'key' => 'value',
+                'jiguang'
+            ),
+            'invalid_key' => 'invalid_value'
+        );
+        $result = $payload->message('Hello JPush', $array)->build();
+
     }
 }
