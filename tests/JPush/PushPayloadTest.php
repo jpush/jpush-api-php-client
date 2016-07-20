@@ -24,14 +24,6 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
         $this->assertArrayHasKey('platform', $result);
         $this->assertArrayHasKey('audience', $result);
         $this->assertArrayHasKey('notification', $result);
-
-        $response = $payload->send();
-        $this->assertEquals('200', $response['http_code']);
-        $body = $response['body'];
-        $this->assertTrue(is_array($body));
-        $this->assertEquals(2, count($body));
-        $this->assertArrayHasKey('sendno', $body);
-        $this->assertArrayHasKey('msg_id', $body);
     }
 
     public function testSetPlatform() {
@@ -292,5 +284,7 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
         $body = $response['body'];
         $this->assertTrue(is_array($body));
         $this->assertEquals(2, count($body));
+        $this->assertArrayHasKey('sendno', $body);
+        $this->assertArrayHasKey('msg_id', $body);
     }
 }

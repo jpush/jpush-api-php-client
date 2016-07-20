@@ -24,18 +24,10 @@ class ReportPayload {
 
     public function getReceived($msgIds) {
         $queryParams = '?msg_ids=';
-        if (is_array($msgIds) && count($msgIds) > 0) {
-            $isFirst = true;
-            foreach ($msgIds as $msgId) {
-                if ($isFirst) {
-                    $queryParams .= $msgId;
-                    $isFirst = false;
-                } else {
-                    $queryParams .= ',';
-                    $queryParams .= $msgId;
-                }
-            }
-        } else if (is_string($msgIds)) {
+        if (is_array($msgIds) && !empty($msgIds)) {
+            $msgIdsStr = implode(',', $msgIds);
+            $queryParams .= $msgIdsStr;
+        } elseif (is_string($msgIds)) {
             $queryParams .= $msgIds;
         } else {
             throw new \InvalidArgumentException("Invalid msg_ids");
@@ -47,18 +39,10 @@ class ReportPayload {
 
     public function getMessages($msgIds) {
         $queryParams = '?msg_ids=';
-        if (is_array($msgIds) && count($msgIds) > 0) {
-            $isFirst = true;
-            foreach ($msgIds as $msgId) {
-                if ($isFirst) {
-                    $queryParams .= $msgId;
-                    $isFirst = false;
-                } else {
-                    $queryParams .= ',';
-                    $queryParams .= $msgId;
-                }
-            }
-        } else if (is_string($msgIds)) {
+        if (is_array($msgIds) && !empty($msgIds)) {
+            $msgIdsStr = implode(',', $msgIds);
+            $queryParams .= $msgIdsStr;
+        } elseif (is_string($msgIds)) {
             $queryParams .= $msgIds;
         } else {
             throw new \InvalidArgumentException("Invalid msg_ids");
@@ -81,10 +65,13 @@ class ReportPayload {
     private function __request($url) {
         $response = $this->client->_request($url, Config::HTTP_GET);
         if($response['http_code'] === 200) {
-            $body = array();
-            $body['data'] = (array)json_decode($response['body']);
+            $result = array();
+            $data = json_decode($response['body'], true);
+            if (!is_null($data)) {
+                $result['body'] = $data;
+            }
+            $result['http_code'] = $response['http_code'];
             $headers = $response['headers'];
-
             if (is_array($headers)) {
                 $limit = array();
                 foreach (self::$LIMIT_KEYS as $key => $value) {
@@ -93,11 +80,11 @@ class ReportPayload {
                     }
                 }
                 if (count($limit) > 0) {
-                    $body['limit'] = (object)$limit;
+                    $result['headers'] = $limit;
                 }
-                return (object)$body;
+                return $result;
             }
-            return $body;
+            return $result;
         } else {
             throw new APIRequestException($response);
         }
