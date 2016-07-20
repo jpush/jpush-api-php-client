@@ -1,7 +1,7 @@
 <?php
 namespace JPush;
 
-use JPush\Exceptions\APIConnectionException;
+use JPush\Exceptions\APIRequestException;
 
 class PushPayload {
     private static $EFFECTIVE_DEVICE_TYPES = array('ios', 'android', 'winphone');

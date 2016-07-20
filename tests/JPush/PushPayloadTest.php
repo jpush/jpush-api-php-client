@@ -44,6 +44,11 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue(is_array($result['platform']));
         $this->assertEquals(1, count($result['platform']));
         $this->assertTrue(in_array('ios', $result['platform']));
+
+        $result = $payload->setPlatform(array('ios', 'android', 'blackberry'))->build();
+        $this->assertTrue(is_array($result['platform']));
+        $this->assertEquals(2, count($result['platform']));
+        $this->assertFalse(in_array('blackberry', $result['platform']));
     }
 
     public function testSetAudience() {
@@ -240,6 +245,52 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(5, count($options));
         $this->assertArrayHasKey('apns_production', $options);
         $this->assertEquals(false, $options['apns_production']);
+    }
 
+    public function testPushToAll() {
+        $payload = $this->payload;
+
+        $platform = array('ios', 'android', 'blackberry');
+        $ios_notification = array(
+            'sound' => 'hello jpush',
+            'badge' => 2,
+            'content-available' => true,
+            'category' => 'jiguang',
+            'extras' => array(
+                'key' => 'value',
+                'jiguang'
+            ),
+            'invalid_key' => 'invalid_value'
+        );
+        $android_notification = array(
+            'title' => 'hello jpush',
+            'build_id' => 2,
+            'extras' => array(
+                'key' => 'value',
+                'jiguang'
+            ),
+            'invalid_key' => 'invalid_value'
+        );
+        $message = array(
+            'title' => 'hello jpush',
+            'content_type' => '',
+            'extras' => array(
+                'key' => 'value',
+                'jiguang'
+            ),
+            'invalid_key' => 'invalid_value'
+        );
+
+        $result = $payload->setPlatform($platform)
+            ->iosNotification('Hello IOS', $ios_notification)
+            ->androidNotification('Hello Android', $android_notification)
+            ->message('Hello JPush', $message)
+            ->build();
+
+        $response = $payload->send();
+        $this->assertEquals('200', $response['http_code']);
+        $body = $response['body'];
+        $this->assertTrue(is_array($body));
+        $this->assertEquals(2, count($body));
     }
 }
