@@ -17,7 +17,6 @@ class SchedulePayload {
         $this->client = $client;
     }
 
-
     public function createSingleSchedule($name, $push_payload, $trigger) {
         if (!is_string($name)) {
             throw new \InvalidArgumentException('Invalid schedule name');
@@ -148,9 +147,9 @@ class SchedulePayload {
         return $this->__processResp($response);
     }
 
-    public function getSchedules($page=1) {
+    public function getSchedules($page = 1) {
         if (!is_int($page)) {
-            throw new \InvalidArgumentException('Invalid pages');
+            $page = 1;
         }
         $url = SchedulePayload::SCHEDULES_URL . "?page=" . $page;
         $response = $this->client->_request($url, Config::HTTP_GET);
@@ -177,11 +176,12 @@ class SchedulePayload {
 
     private function __processResp($response) {
         if($response['http_code'] === 200) {
-            $body = array();
-            $data = json_decode($response['body']);
+            $result = array();
+            $data = json_decode($response['body'], true);
             if (!is_null($data)) {
-                $body['data'] = json_decode($response['body']);
+                $result['body'] = $data;
             }
+            $result['http_code'] = $response['http_code'];
             $headers = $response['headers'];
             if (is_array($headers)) {
                 $limit = array();
@@ -191,11 +191,11 @@ class SchedulePayload {
                     }
                 }
                 if (count($limit) > 0) {
-                    $body['limit'] = (object)$limit;
+                    $result['headers'] = $limit;
                 }
-                return (object)$body;
+                return $result;
             }
-            return $body;
+            return $result;
         } else {
             throw new APIRequestException($response);
         }
