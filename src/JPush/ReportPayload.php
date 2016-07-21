@@ -3,7 +3,7 @@ namespace JPush;
 
 class ReportPayload {
     private static $EFFECTIVE_TIME_UNIT = array('HOUR', 'DAY', 'MONTH');
-    private static $LIMIT_KEYS = array('X-Rate-Limit-Limit'=>'rateLimitLimit', 'X-Rate-Limit-Remaining'=>'rateLimitRemaining', 'X-Rate-Limit-Reset'=>'rateLimitReset');
+
     const REPORT_URL = 'https://report.jpush.cn/v3/received';
     const MESSAGES_URL = 'https://report.jpush.cn/v3/messages';
     const USERS_URL = 'https://report.jpush.cn/v3/users';

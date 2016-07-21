@@ -7,7 +7,6 @@ final class Http {
 
     private static $LIMIT_KEYS = array('X-Rate-Limit-Limit'=>'rateLimitLimit', 'X-Rate-Limit-Remaining'=>'rateLimitRemaining', 'X-Rate-Limit-Reset'=>'rateLimitReset');
 
-
     public static function get($client, $url) {
         $response = self::sendRequest($client, $url, Config::HTTP_GET, $body=null);
         return self::processResp($response);

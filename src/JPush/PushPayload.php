@@ -2,10 +2,11 @@
 namespace JPush;
 
 class PushPayload {
+
     private static $EFFECTIVE_DEVICE_TYPES = array('ios', 'android', 'winphone');
-    private static $LIMIT_KEYS = array('X-Rate-Limit-Limit'=>'rateLimitLimit', 'X-Rate-Limit-Remaining'=>'rateLimitRemaining', 'X-Rate-Limit-Reset'=>'rateLimitReset');
     const PUSH_URL = 'https://api.jpush.cn/v3/push';
     const PUSH_VALIDATE_URL = 'https://api.jpush.cn/v3/push/validate';
+
     private $client;
     private $platform;
 

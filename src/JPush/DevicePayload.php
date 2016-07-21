@@ -2,7 +2,6 @@
 namespace JPush;
 
 class DevicePayload {
-    private static $LIMIT_KEYS = array('X-Rate-Limit-Limit'=>'rateLimitLimit', 'X-Rate-Limit-Remaining'=>'rateLimitRemaining', 'X-Rate-Limit-Reset'=>'rateLimitReset');
 
     const DEVICE_URL = 'https://device.jpush.cn/v3/devices/';
     const DEVICE_STATUS_URL = 'https://device.jpush.cn/v3/devices/status/';

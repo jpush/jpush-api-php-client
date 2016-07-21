@@ -2,7 +2,6 @@
 namespace JPush;
 
 class SchedulePayload {
-    private static $LIMIT_KEYS = array('X-Rate-Limit-Limit'=>'rateLimitLimit', 'X-Rate-Limit-Remaining'=>'rateLimitRemaining', 'X-Rate-Limit-Reset'=>'rateLimitReset');
 
     const SCHEDULES_URL = 'https://api.jpush.cn/v3/schedules';
     private $client;
