@@ -1,8 +1,6 @@
 <?php
 namespace JPush;
 
-use JPush\Exceptions\APIConnectionException;
-
 class SchedulePayload {
     private static $LIMIT_KEYS = array('X-Rate-Limit-Limit'=>'rateLimitLimit', 'X-Rate-Limit-Remaining'=>'rateLimitRemaining', 'X-Rate-Limit-Reset'=>'rateLimitReset');
 
@@ -32,8 +30,9 @@ class SchedulePayload {
         $payload['enabled'] = true;
         $payload['trigger'] = array("single"=>$trigger);
         $payload['push'] = $push_payload;
-        $response = $this->client->_request(SchedulePayload::SCHEDULES_URL, Config::HTTP_POST, json_encode($payload));
-        return $this->__processResp($response);
+
+        $url = SchedulePayload::SCHEDULES_URL;
+        return Http::post($this->client, $url, json_encode($payload));
     }
 
     public function createPeriodicalSchedule($name, $push_payload, $trigger) {
@@ -51,8 +50,9 @@ class SchedulePayload {
         $payload['enabled'] = true;
         $payload['trigger'] = array("periodical"=>$trigger);
         $payload['push'] = $push_payload;
-        $response = $this->client->_request(SchedulePayload::SCHEDULES_URL, Config::HTTP_POST, json_encode($payload));
-        return $this->__processResp($response);
+
+        $url = SchedulePayload::SCHEDULES_URL;
+        return Http::post($this->client, $url, json_encode($payload));
     }
 
     public function updateSingleSchedule($schedule_id, $name=null, $enabled=null, $push_payload=null, $trigger=null) {
@@ -97,8 +97,9 @@ class SchedulePayload {
         }
 
         $url = SchedulePayload::SCHEDULES_URL . "/" . $schedule_id;
-        $response = $this->client->_request($url, Config::HTTP_PUT, json_encode($payload));
-        return $this->__processResp($response);
+
+        return Http::put($this->client, $url, json_encode($payload));
+
     }
 
     public function updatePeriodicalSchedule($schedule_id, $name=null, $enabled=null, $push_payload=null, $trigger=null) {
@@ -143,8 +144,7 @@ class SchedulePayload {
         }
 
         $url = SchedulePayload::SCHEDULES_URL . "/" . $schedule_id;
-        $response = $this->client->_request($url, Config::HTTP_PUT, json_encode($payload));
-        return $this->__processResp($response);
+        return Http::put($this->client, $url, json_encode($payload));
     }
 
     public function getSchedules($page = 1) {
@@ -152,8 +152,7 @@ class SchedulePayload {
             $page = 1;
         }
         $url = SchedulePayload::SCHEDULES_URL . "?page=" . $page;
-        $response = $this->client->_request($url, Config::HTTP_GET);
-        return $this->__processResp($response);
+        return Http::get($this->client, $url);
     }
 
     public function getSchedule($schedule_id) {
@@ -161,8 +160,7 @@ class SchedulePayload {
             throw new \InvalidArgumentException('Invalid schedule id');
         }
         $url = SchedulePayload::SCHEDULES_URL . "/" . $schedule_id;
-        $response = $this->client->_request($url, Config::HTTP_GET);
-        return $this->__processResp($response);
+        return Http::get($this->client, $url);
     }
 
     public function deleteSchedule($schedule_id) {
@@ -170,35 +168,7 @@ class SchedulePayload {
             throw new \InvalidArgumentException('Invalid schedule id');
         }
         $url = SchedulePayload::SCHEDULES_URL . "/" . $schedule_id;
-        $response = $this->client->_request($url, Config::HTTP_DELETE);
-        return $this->__processResp($response);
-    }
-
-    private function __processResp($response) {
-        if($response['http_code'] === 200) {
-            $result = array();
-            $data = json_decode($response['body'], true);
-            if (!is_null($data)) {
-                $result['body'] = $data;
-            }
-            $result['http_code'] = $response['http_code'];
-            $headers = $response['headers'];
-            if (is_array($headers)) {
-                $limit = array();
-                foreach (self::$LIMIT_KEYS as $key => $value) {
-                    if (array_key_exists($key, $headers)) {
-                        $limit[$value] = $headers[$key];
-                    }
-                }
-                if (count($limit) > 0) {
-                    $result['headers'] = $limit;
-                }
-                return $result;
-            }
-            return $result;
-        } else {
-            throw new APIRequestException($response);
-        }
+        return Http::delete($this->client, $url);
     }
 }
 

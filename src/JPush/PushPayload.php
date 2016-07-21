@@ -1,8 +1,6 @@
 <?php
 namespace JPush;
 
-use JPush\Exceptions\APIRequestException;
-
 class PushPayload {
     private static $EFFECTIVE_DEVICE_TYPES = array('ios', 'android', 'winphone');
     private static $LIMIT_KEYS = array('X-Rate-Limit-Limit'=>'rateLimitLimit', 'X-Rate-Limit-Remaining'=>'rateLimitRemaining', 'X-Rate-Limit-Reset'=>'rateLimitReset');
@@ -533,8 +531,8 @@ class PushPayload {
     }
 
     public function send() {
-        $response = $this->client->_request(PushPayload::PUSH_URL, Config::HTTP_POST, $this->toJSON());
-        return $this->__processResp($response);
+        $url = PushPayload::PUSH_URL;
+        return Http::post($this->client, $url, $this->toJSON());
     }
 
     public function validate() {
@@ -542,32 +540,6 @@ class PushPayload {
         return $this->__processResp($response);
     }
 
-    private function __processResp($response) {
-        if($response['http_code'] === 200) {
-            $result = array();
-            $data = json_decode($response['body'], true);
-            if (!is_null($data)) {
-                $result['body'] = $data;
-            }
-            $result['http_code'] = $response['http_code'];
-            $headers = $response['headers'];
-            if (is_array($headers)) {
-                $limit = array();
-                foreach (self::$LIMIT_KEYS as $key => $value) {
-                    if (array_key_exists($key, $headers)) {
-                        $limit[$value] = $headers[$key];
-                    }
-                }
-                if (count($limit) > 0) {
-                    $result['headers'] = $limit;
-                }
-                return $result;
-            }
-            return $result;
-        } else {
-            throw new APIRequestException($response);
-        }
-    }
     private function generateSendno() {
         return rand(100000, 4294967294);
     }

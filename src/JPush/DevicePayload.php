@@ -1,8 +1,6 @@
 <?php
 namespace JPush;
 
-use JPush\Exceptions\APIRequestException;
-
 class DevicePayload {
     private static $LIMIT_KEYS = array('X-Rate-Limit-Limit'=>'rateLimitLimit', 'X-Rate-Limit-Remaining'=>'rateLimitRemaining', 'X-Rate-Limit-Reset'=>'rateLimitReset');
 
@@ -11,7 +9,6 @@ class DevicePayload {
     const TAG_URL = 'https://device.jpush.cn/v3/tags/';
     const IS_IN_TAG_URL = 'https://device.jpush.cn/v3/tags/{tag}/registration_ids/{registration_id}';
     const ALIAS_URL = 'https://device.jpush.cn/v3/aliases/';
-
 
     private $client;
 
@@ -24,11 +21,9 @@ class DevicePayload {
         $this->client = $client;
     }
 
-
     public function getDevices($registrationId) {
         $url = DevicePayload::DEVICE_URL . $registrationId;
-        $response = $this->client->_request($url, Config::HTTP_GET);
-        return $this->__processResp($response);
+        return Http::get($this->client, $url);
     }
 
     public function updateAlias($registration_id, $alias) {
@@ -98,13 +93,12 @@ class DevicePayload {
         }
 
         $url = DevicePayload::DEVICE_URL . $registrationId;
-        $response = $this->client->_request($url, Config::HTTP_POST, json_encode($payload));
-        return $this->__processResp($response);
+        return Http::post($this->client, $url, json_encode($payload));
     }
 
     public function getTags() {
-        $response = $this->client->_request(DevicePayload::TAG_URL, Config::HTTP_GET);
-        return $this->__processResp($response);
+        $url = DevicePayload::TAG_URL;
+        return Http::get($this->client, $url);
     }
 
     public function isDeviceInTag($registrationId, $tag) {
@@ -119,8 +113,7 @@ class DevicePayload {
         $url = str_replace('{tag}', $tag, self::IS_IN_TAG_URL);
         $url = str_replace('{registration_id}', $registrationId, $url);
 
-        $response = $this->client->_request($url, Config::HTTP_GET);
-        return $this->__processResp($response);
+        return Http::get($this->client, $url);
     }
 
     public function addDevicesToTag($tag, $addDevices) {
@@ -161,9 +154,7 @@ class DevicePayload {
 
         $url = DevicePayload::TAG_URL . $tag;
         $payload = array('registration_ids'=>$registrationId);
-
-        $response = $this->client->_request($url, Config::HTTP_POST, json_encode($payload));
-        return $this->__processResp($response);
+        return Http::post($this->client, $url, json_encode($payload));
     }
 
     public function deleteTag($tag) {
@@ -171,8 +162,7 @@ class DevicePayload {
             throw new \InvalidArgumentException("Invalid tag");
         }
         $url = DevicePayload::TAG_URL . $tag;
-        $response = $this->client->_request($url, Config::HTTP_DELETE);
-        return $this->__processResp($response);
+        return Http::delete($this->client, $url);
     }
 
     public function getAliasDevices($alias, $platform = null) {
@@ -199,9 +189,7 @@ class DevicePayload {
                 throw new \InvalidArgumentException("Invalid platform");
             }
         }
-
-        $response = $this->client->_request($url, Config::HTTP_GET);
-        return $this->__processResp($response);
+        return Http::get($this->client, $url);
     }
 
     public function deleteAlias($alias) {
@@ -209,8 +197,7 @@ class DevicePayload {
             throw new \InvalidArgumentException("Invalid alias");
         }
         $url = self::ALIAS_URL . $alias;
-        $response = $this->client->_request($url, Config::HTTP_DELETE);
-        return $this->__processResp($response);
+        return Http::delete($this->client, $url);
     }
 
     public function getDevicesStatus($registrationId) {
@@ -227,35 +214,7 @@ class DevicePayload {
             throw new \InvalidArgumentException('Invalid registration_id');
         }
         $payload['registration_ids'] = $registrationId;
-
-        $response = $this->client->_request(DevicePayload::DEVICE_STATUS_URL, Config::HTTP_POST, json_encode($payload));
-        return $this->__processResp($response);
-    }
-
-    private function __processResp($response) {
-        if($response['http_code'] === 200) {
-            $result = array();
-            $data = json_decode($response['body'], true);
-            if (!is_null($data)) {
-                $result['body'] = $data;
-            }
-            $result['http_code'] = $response['http_code'];
-            $headers = $response['headers'];
-            if (is_array($headers)) {
-                $limit = array();
-                foreach (self::$LIMIT_KEYS as $key => $value) {
-                    if (array_key_exists($key, $headers)) {
-                        $limit[$value] = $headers[$key];
-                    }
-                }
-                if (count($limit) > 0) {
-                    $result['headers'] = $limit;
-                }
-                return $result;
-            }
-            return $result;
-        } else {
-            throw new APIRequestException($response);
-        }
+        $url = DevicePayload::DEVICE_STATUS_URL;
+        return Http::post($this->client, $url, json_encode($payload));
     }
 }
