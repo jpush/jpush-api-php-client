@@ -37,7 +37,7 @@ class ReportPayloadTest extends \PHPUnit_Framework_TestCase {
      * @depends testPusher0
      * @depends testPusher1
      */
-    public function testGetReceived(string $msg_id_0, string $msg_id_1) {
+    public function testGetReceived($msg_id_0, $msg_id_1) {
         $response = $this->reporter->getReceived($msg_id_0);
         $this->assertEquals('200', $response['http_code']);
         $body = $response['body'];
@@ -58,7 +58,7 @@ class ReportPayloadTest extends \PHPUnit_Framework_TestCase {
      * @depends testPusher0
      * @depends testPusher1
      */
-    public function testGetMessages(string $msg_id_0, string $msg_id_1) {
+    public function testGetMessages($msg_id_0, $msg_id_1) {
         $response = $this->reporter->getMessages($msg_id_0);
         $this->assertEquals('200', $response['http_code']);
         $body = $response['body'];

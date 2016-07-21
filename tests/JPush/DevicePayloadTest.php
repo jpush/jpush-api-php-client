@@ -25,7 +25,8 @@ class DevicePayloadTest extends \PHPUnit_Framework_TestCase {
 
     function testUpdateDevicesAlias() {
         global $registration_id;
-        $old_alias = $this->device->getDevices($registration_id)['body']['alias'];
+        $result = $this->device->getDevices($registration_id);
+        $old_alias = $result['body']['alias'];
         if ($old_alias == null) {
             $old_alias = '';
         }
