@@ -1,8 +1,10 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$app_key = 'xxxx';
-$master_secret = 'xxxx';
-$client = new JPush\Client($app_key, $master_secret);
+use JPush\Client;
 
-$registration_id = 'xxxx';
+$app_key = getenv('app_key');
+$master_secret = getenv('master_secret');
+$client = new Client($app_key, $master_secret);
+
+$registration_id = getenv('registration_id');
