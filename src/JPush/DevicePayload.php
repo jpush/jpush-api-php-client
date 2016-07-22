@@ -1,5 +1,6 @@
 <?php
 namespace JPush;
+use InvalidArgumentException;
 
 class DevicePayload {
 
@@ -41,7 +42,7 @@ class DevicePayload {
     public function updateDevice($registrationId, $alias = null, $mobile = null, $addTags = null, $removeTags = null) {
         $payload = array();
         if (!is_string($registrationId)) {
-            throw new \InvalidArgumentException('Invalid registration_id');
+            throw new InvalidArgumentException('Invalid registration_id');
         }
 
         $aliasIsNull = is_null($alias);
@@ -50,14 +51,14 @@ class DevicePayload {
         $removeTagsIsNull = is_null($removeTags);
 
         if ($aliasIsNull && $addTagsIsNull && $removeTagsIsNull && $mobileIsNull) {
-            throw new \InvalidArgumentException("alias, addTags, removeTags not all null");
+            throw new InvalidArgumentException("alias, addTags, removeTags not all null");
         }
 
         if (!$aliasIsNull) {
             if (is_string($alias)) {
                 $payload['alias'] = $alias;
             } else {
-                throw new \InvalidArgumentException("Invalid alias string");
+                throw new InvalidArgumentException("Invalid alias string");
             }
         }
 
@@ -65,7 +66,7 @@ class DevicePayload {
             if (is_string($mobile)) {
                 $payload['mobile'] = $mobile;
             } else {
-                throw new \InvalidArgumentException("Invalid mobile string");
+                throw new InvalidArgumentException("Invalid mobile string");
             }
         }
 
@@ -75,7 +76,7 @@ class DevicePayload {
             if (is_array($addTags)) {
                 $tags['add'] = $addTags;
             } else {
-                throw new \InvalidArgumentException("Invalid addTags array");
+                throw new InvalidArgumentException("Invalid addTags array");
             }
         }
 
@@ -83,7 +84,7 @@ class DevicePayload {
             if (is_array($removeTags)) {
                 $tags['remove'] = $removeTags;
             } else {
-                throw new \InvalidArgumentException("Invalid removeTags array");
+                throw new InvalidArgumentException("Invalid removeTags array");
             }
         }
 
@@ -102,11 +103,11 @@ class DevicePayload {
 
     public function isDeviceInTag($registrationId, $tag) {
         if (!is_string($registrationId)) {
-            throw new \InvalidArgumentException("Invalid registration_id");
+            throw new InvalidArgumentException("Invalid registration_id");
         }
 
         if (!is_string($tag)) {
-            throw new \InvalidArgumentException("Invalid tag");
+            throw new InvalidArgumentException("Invalid tag");
         }
 
         $url = str_replace('{tag}', $tag, self::IS_IN_TAG_URL);
@@ -123,14 +124,14 @@ class DevicePayload {
     }
     public function updateTag($tag, $addDevices = null, $removeDevices = null) {
         if (!is_string($tag)) {
-            throw new \InvalidArgumentException("Invalid tag");
+            throw new InvalidArgumentException("Invalid tag");
         }
 
         $addDevicesIsNull = is_null($addDevices);
         $removeDevicesIsNull = is_null($removeDevices);
 
         if ($addDevicesIsNull && $removeDevicesIsNull) {
-            throw new \InvalidArgumentException("Either or both addDevices and removeDevices must be set.");
+            throw new InvalidArgumentException("Either or both addDevices and removeDevices must be set.");
         }
 
         $registrationId = array();
@@ -139,7 +140,7 @@ class DevicePayload {
             if (is_array($addDevices)) {
                 $registrationId['add'] = $addDevices;
             } else {
-                throw new \InvalidArgumentException("Invalid addDevices");
+                throw new InvalidArgumentException("Invalid addDevices");
             }
         }
 
@@ -147,7 +148,7 @@ class DevicePayload {
             if (is_array($removeDevices)) {
                 $registrationId['remove'] = $removeDevices;
             } else {
-                throw new \InvalidArgumentException("Invalid removeDevices");
+                throw new InvalidArgumentException("Invalid removeDevices");
             }
         }
 
@@ -158,7 +159,7 @@ class DevicePayload {
 
     public function deleteTag($tag) {
         if (!is_string($tag)) {
-            throw new \InvalidArgumentException("Invalid tag");
+            throw new InvalidArgumentException("Invalid tag");
         }
         $url = DevicePayload::TAG_URL . $tag;
         return Http::delete($this->client, $url);
@@ -166,7 +167,7 @@ class DevicePayload {
 
     public function getAliasDevices($alias, $platform = null) {
         if (!is_string($alias)) {
-            throw new \InvalidArgumentException("Invalid alias");
+            throw new InvalidArgumentException("Invalid alias");
         }
 
         $url = self::ALIAS_URL . $alias;
@@ -185,7 +186,7 @@ class DevicePayload {
             } else if (is_string($platform)) {
                 $url = $url . '?platform=' . $platform;
             } else {
-                throw new \InvalidArgumentException("Invalid platform");
+                throw new InvalidArgumentException("Invalid platform");
             }
         }
         return Http::get($this->client, $url);
@@ -193,7 +194,7 @@ class DevicePayload {
 
     public function deleteAlias($alias) {
         if (!is_string($alias)) {
-            throw new \InvalidArgumentException("Invalid alias");
+            throw new InvalidArgumentException("Invalid alias");
         }
         $url = self::ALIAS_URL . $alias;
         return Http::delete($this->client, $url);
@@ -201,7 +202,7 @@ class DevicePayload {
 
     public function getDevicesStatus($registrationId) {
         if (!is_array($registrationId) && !is_string($registrationId)) {
-            throw new \InvalidArgumentException('Invalid registration_id');
+            throw new InvalidArgumentException('Invalid registration_id');
         }
 
         if (is_string($registrationId)) {
@@ -210,7 +211,7 @@ class DevicePayload {
 
         $payload = array();
         if (count($registrationId) <= 0) {
-            throw new \InvalidArgumentException('Invalid registration_id');
+            throw new InvalidArgumentException('Invalid registration_id');
         }
         $payload['registration_ids'] = $registrationId;
         $url = DevicePayload::DEVICE_STATUS_URL;
