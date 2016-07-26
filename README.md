@@ -1,4 +1,4 @@
-# JPush API client library for PHP
+# JPush API PHP Client
 
 [![Build Status](https://travis-ci.org/jpush/jpush-api-php-client.svg?branch=master)](https://travis-ci.org/jpush/jpush-api-php-client)
 
@@ -7,6 +7,10 @@
 对应的 REST API 文档: http://docs.jiguang.cn/server/server_overview/
 
 > 支持的 PHP 版本: 5.3.3 ～ 5.6.x, 7.0.x
+
+> 若需要兼容 PHP 5.3.3 以下版本，可以使用 [v3 分支的代码](https://github.com/jpush/jpush-api-php-client/tree/v3)。
+因为运行 Composer 需要 PHP 5.3.2+ 以上版本，所以其不提供 Composer 支持，
+也可以[点击链接](https://github.com/jpush/jpush-api-php-client/releases)下载 v3.4.x 版本源码。
 
 ## Installation
 
