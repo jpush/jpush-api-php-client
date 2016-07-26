@@ -309,7 +309,6 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
             $response = $payload->addRegistrationId('INVALID_REGISTRATION_ID')->send();
         } catch (\JPush\Exceptions\JPushException $e) {
             $this->assertEquals(1011, $e->getCode());
-
         }
     }
 

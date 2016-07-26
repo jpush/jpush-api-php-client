@@ -538,8 +538,8 @@ class PushPayload {
     }
 
     public function validate() {
-        $response = $this->client->_request(PushPayload::PUSH_VALIDATE_URL, Config::HTTP_POST, $this->toJSON());
-        return $this->__processResp($response);
+        $url = PushPayload::PUSH_VALIDATE_URL;
+        return Http::post($this->client, $url, $this->toJSON());
     }
 
     private function generateSendno() {
