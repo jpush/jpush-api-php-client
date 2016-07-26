@@ -1,43 +1,36 @@
 <?php
 namespace JPush\Exceptions;
 
-class APIRequestException extends \Exception {
-    public $httpCode;
-    public $code;
-    public $message;
-    public $response;
-
-    public $rateLimitLimit;
-    public $rateLimitRemaining;
-    public $rateLimitReset;
+class APIRequestException extends JPushException {
+    private $http_code;
+    private $headers;
 
     private static $expected_keys = array('code', 'message');
 
     function __construct($response){
-        $this->response = $response['body'];
-        $this->httpCode = $response['http_code'];
-        $payload = json_decode($response['body'], true);
-        if ($payload != null) {
-            $error = $payload['error'];
-            if (!is_null($error)) {
-                foreach (self::$expected_keys as $key) {
-                    if (array_key_exists($key, $error)) {
-                        $this->$key = $error[$key];
-                    }
-                }
-            } else {
-                foreach (self::$expected_keys as $key) {
-                    if (array_key_exists($key, $payload)) {
-                        $this->$key = $payload[$key];
-                    }
-                }
-            }
-        }
-        $headers = $response['headers'];
-        if (is_array($headers)) {
-            $this->rateLimitLimit = $headers['X-Rate-Limit-Limit'];
-            $this->rateLimitRemaining = $headers['X-Rate-Limit-Remaining'];
-            $this->rateLimitReset = $headers['X-Rate-Limit-Reset'];
+        $this->http_code = $response['http_code'];
+        $this->headers = $response['headers'];
+
+        $body = json_decode($response['body'], true);
+
+        if (key_exists('error', $body)) {
+            $this->code = $body['error']['code'];
+            $this->message = $body['error']['message'];
+        } else {
+            $this->code = $body['code'];
+            $this->message = $body['message'];
         }
     }
+
+    public function __toString() {
+        return "\n" . __CLASS__ . " -- [{$this->code}]: {$this->message} \n";
+    }
+
+    public function getHttpCode() {
+        return $this->http_code;
+    }
+    public function getHeaders() {
+        return $this->headers;
+    }
+
 }

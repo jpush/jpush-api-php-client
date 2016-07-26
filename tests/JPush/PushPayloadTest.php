@@ -287,4 +287,30 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
         $this->assertArrayHasKey('sendno', $body);
         $this->assertArrayHasKey('msg_id', $body);
     }
+
+    /**
+     * @expectedException \JPush\Exceptions\APIRequestException
+     * @expectedExceptionCode 1011
+     */
+    public function testPushToAllWithInvalidAudience() {
+        $payload = $this->payload_without_audience;
+        $response = $payload->addRegistrationId('INVALID_REGISTRATION_ID')->send();
+    }
+
+    public function testPushToAllWithNoAudience() {
+        $payload = $this->payload_without_audience;
+        try {
+            $response = $payload->addRegistrationId('INVALID_REGISTRATION_ID')->send();
+        } catch (\JPush\Exceptions\APIRequestException $e) {
+            $this->assertEquals(1011, $e->getCode());
+        }
+
+        try {
+            $response = $payload->addRegistrationId('INVALID_REGISTRATION_ID')->send();
+        } catch (\JPush\Exceptions\JPushException $e) {
+            $this->assertEquals(1011, $e->getCode());
+
+        }
+    }
+
 }

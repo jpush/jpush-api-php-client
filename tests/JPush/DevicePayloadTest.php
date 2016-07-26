@@ -23,6 +23,14 @@ class DevicePayloadTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue(is_array($body['tags']));
     }
 
+    /**
+     * @expectedException \JPush\Exceptions\APIRequestException
+     * @expectedExceptionCode 7002
+     */
+    function testGetDevicesWithInvalidRid() {
+        $response = $this->device->getDevices('INVALID_REGISTRATION_ID');
+    }
+
     function testUpdateDevicesAlias() {
         global $registration_id;
         $result = $this->device->getDevices($registration_id);

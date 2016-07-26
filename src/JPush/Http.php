@@ -24,7 +24,7 @@ final class Http {
         return self::processResp($response);
     }
 
-    public static function sendRequest($client, $url, $method, $body=null, $times=1) {
+    private static function sendRequest($client, $url, $method, $body=null, $times=1) {
         self::log($client, "Send " . $method . " " . $url . ", body:" . $body . ", times:" . $times);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -60,16 +60,18 @@ final class Http {
         $response = array();
         $errorCode = curl_errno($ch);
         if ($errorCode) {
-            if ($errorCode === 28) {
-                throw new APIConnectionException("Response timeout. Your request has probably be received by JPush Server,please check that whether need to be pushed again.", true);
-            } else if ($errorCode === 56) {
-                // resolve error[56 Problem (2) in the Chunked-Encoded data]
-                throw new APIConnectionException("Response timeout, maybe cause by old CURL version. Your request has probably be received by JPush Server, please check that whether need to be pushed again.", true);
-            } else if ($times >= $this->retryTimes) {
-                throw new APIConnectionException("Connect timeout. Please retry later. Error:" . $errorCode . " " . curl_error($ch));
+            $retries = $client->getRetryTimes();
+            if ($times < $retries) {
+                return self::sendRequest($client, $url, $method, $body, ++$times);
             } else {
-                self::log($client, "Send " . $method . " " . $url . " fail, curl_code:" . $errorCode . ", body:" . $body . ", times:" . $times);
-                return self::request($url, $method, $body, ++$times);
+                if ($errorCode === 28) {
+                    throw new APIConnectionException("Response timeout. Your request has probably be received by JPush Server,please check that whether need to be pushed again.");
+                } elseif ($errorCode === 56) {
+                // resolve error[56 Problem (2) in the Chunked-Encoded data]
+                    throw new APIConnectionException("Response timeout, maybe cause by old CURL version. Your request has probably be received by JPush Server, please check that whether need to be pushed again.");
+                } else {
+                    throw new APIConnectionException("Connect timeout. Please retry later. Error:" . $errorCode . " " . curl_error($ch));
+                }
             }
         } else {
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
