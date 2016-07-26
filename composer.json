@@ -2,8 +2,8 @@
     "name": "jpush/jpush",
     "type": "library",
     "description": "JPush API PHP Client",
-    "homepage": "http://docs.jpush.cn/display/dev/Push-API-v3",
-    "license": "Apache",
+    "homepage": "https://github.com/jpush/jpush-api-php-client",
+    "license": "MIT",
     "authors": [
         {
             "name": "JPush",
