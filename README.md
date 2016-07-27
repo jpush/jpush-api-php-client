@@ -28,6 +28,12 @@
 
 ## Usage
 
+- [Init API](doc/api.md#init-api)
+- [Push API](doc/api.md#push-api)
+- [Report API](doc/api.md#report-api)
+- [Device API](doc/api.md#device-api)
+- [Schedule API](doc/api.md#schedule-api)
+- [Exception Handle](doc/api.md#schedule-api)
 
 #### 初始化
 

@@ -117,10 +117,12 @@ class DevicePayload {
     }
 
     public function addDevicesToTag($tag, $addDevices) {
-        return $this->updateTag($tag, $addDevices, null);
+        $device = is_array($addDevices) ? $addDevices : array($addDevices);
+        return $this->updateTag($tag, $device, null);
     }
     public function removeDevicesFromTag($tag, $removeDevices) {
-        return $this->updateTag($tag, null, $removeDevices);
+        $device = is_array($removeDevices) ? $removeDevices : array($removeDevices);
+        return $this->updateTag($tag, null, $device);
     }
     public function updateTag($tag, $addDevices = null, $removeDevices = null) {
         if (!is_string($tag)) {
