@@ -2,6 +2,8 @@
 
 # JPush API client library for PHP
 
+> **此分支已不再维护，如果你的 PHP 版本大于 5.3.3 请使用 Master 分支的代码，或通过 Composer 下载安装 v3.5.0 以上版本。**
+
 ### 简要概述
 
 * 本API提供简单的接口去调用[JPush Push API](examples/push_example.php)
@@ -22,26 +24,21 @@ require_once("../JPush/JPush.php");
 ```
 PS: 在下载的中的[example](https://github.com/jpush/jpush-api-php-client/tree/master/examples)文件夹有简单示例代码, 开发者可以参考其中的样例快速了解该库的使用方法.
 
-
-
 #### 使用 Composer
 
 如果你的项目使用composer管理依赖, 亦可以通过以下方式使用JPush PHP Library.
 
 
-1. 在 `composer.json` 中添加 jpush依赖, 目前最新版本为 v3.3.9
+1. 在 `composer.json` 中添加 jpush依赖。
 
 ```
 {
     "require":{
-        "jpush/jpush": "v3.4.2"
+        "jpush/jpush": "v3.4.*"
     }
 }
 ```
 2. 执行 `php composer.phar install` 或 `php composer.phar update` 进行安装
-
-
-
 
 ### 快速使用
 
@@ -122,7 +119,6 @@ $payload = $client->push()
 $response = $client->schedule()->createSingleSchedule("每天14点发送的定时任务", $payload, array("time"=>"2016-12-22 13:45:00"));
 echo 'Result=' . json_encode($response) . $br;
 ```
-
 
 ### 版本更新
 
