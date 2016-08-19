@@ -32,7 +32,7 @@ $client = new \JPush\Client($app_key, $master_secret, $log_path);
 $push = $client->push();
 ```
 
-通过 [JPush Push API](docs.jpush.io/server/rest_api_v3_push/) 我们知道，一个 PushPayload 是由以下几个部分构成的：
+通过 [JPush Push API](http://docs.jiguang.cn/server/rest_api_v3_push) 我们知道，一个 PushPayload 是由以下几个部分构成的：
 
 - Platform
 - Audience

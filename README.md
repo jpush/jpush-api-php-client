@@ -39,12 +39,12 @@ require 'path_to_sdk/autoload.php';
 
 ## Usage
 
-- [Init API](doc/api.md#init-api)
-- [Push API](doc/api.md#push-api)
-- [Report API](doc/api.md#report-api)
-- [Device API](doc/api.md#device-api)
-- [Schedule API](doc/api.md#schedule-api)
-- [Exception Handle](doc/api.md#schedule-api)
+- [Init API](https://github.com/jpush/jpush-api-php-client/blob/master/doc/api.md#init-api)
+- [Push API](https://github.com/jpush/jpush-api-php-client/blob/master/doc/api.md#push-api)
+- [Report API](https://github.com/jpush/jpush-api-php-client/blob/master/doc/api.md#report-api)
+- [Device API](https://github.com/jpush/jpush-api-php-client/blob/master/doc/api.md#device-api)
+- [Schedule API](https://github.com/jpush/jpush-api-php-client/blob/master/doc/api.md#schedule-api)
+- [Exception Handle](https://github.com/jpush/jpush-api-php-client/blob/master/doc/api.md#schedule-api)
 
 #### 初始化
 
@@ -88,6 +88,21 @@ try {
     print $e;
 }
 ```
+
+## Examples
+
+在下载的中的 [examples](https://github.com/jpush/jpush-api-php-client/tree/master/examples) 文件夹有简单示例代码, 开发者可以参考其中的样例快速了解该库的使用方法。
+> **注：所下载的样例代码不可马上使用，需要在 `examples/conf.php` 文件中填入相关的必要参数，或者设置相关环境变量，不进行这个操作则示例运行会失败**
+
+**简单使用方法**
+
+若要运行 push_example.php 中的示例代码：
+
+``` bash
+# 假定当前目录为 JPush 源码所在的根目录
+$ php examples/push_example.php
+```
+> 同时也可编辑相关的示例文件，更改参数查看执行效果
 
 ## Testing
 
