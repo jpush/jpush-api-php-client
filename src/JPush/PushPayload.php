@@ -172,118 +172,6 @@ class PushPayload {
         return $this;
     }
 
-    public function addIosNotification($alert=null, $sound=null, $badge=null, $content_available=null, $category=null, $extras=null) {
-        $ios = array();
-
-        if (!is_null($alert)) {
-            if (!is_string($alert) && !is_array($alert)) {
-                throw new InvalidArgumentException("Invalid ios alert value");
-            }
-            $ios['alert'] = $alert;
-        }
-
-        if (!is_null($sound)) {
-            if (!is_string($sound)) {
-                throw new InvalidArgumentException("Invalid ios sound value");
-            }
-            if ($sound !== Config::DISABLE_SOUND) {
-                $ios['sound'] = $sound;
-            }
-        } else {
-            // 默认sound为''
-            $ios['sound'] = '';
-        }
-
-        if (!is_null($badge)) {
-            if (is_string($badge) && !preg_match("/^[+-]{1}[0-9]{1,3}$/", $badge)) {
-                if (!is_int($badge)) {
-                    throw new InvalidArgumentException("Invalid ios badge value");
-                }
-            }
-            if ($badge != Config::DISABLE_BADGE) {
-                $ios['badge'] = $badge;
-            }
-        } else {
-            // 默认badge为'+1'
-            $ios['badge'] = '+1';
-        }
-
-        if (!is_null($content_available)) {
-            if (!is_bool($content_available)) {
-                throw new InvalidArgumentException("Invalid ios content-available value");
-            }
-            $ios['content-available'] = $content_available;
-        }
-
-        if (!is_null($category)) {
-            if (!is_string($category)) {
-                throw new InvalidArgumentException("Invalid ios category value");
-            }
-            if (strlen($category)) {
-                $ios['category'] = $category;
-            }
-        }
-
-        if (!is_null($extras)) {
-            if (!is_array($extras)) {
-                throw new InvalidArgumentException("Invalid ios extras value");
-            }
-            if (count($extras) > 0) {
-                $ios['extras'] = $extras;
-            }
-        }
-
-        if (count($ios) <= 0) {
-            throw new InvalidArgumentException("Invalid iOS notification");
-        }
-
-        $this->iosNotification = $ios;
-        return $this;
-    }
-
-    public function addAndroidNotification($alert=null, $title=null, $builderId=null, $extras=null) {
-        $android = array();
-
-        if (!is_null($alert)) {
-            if (!is_string($alert)) {
-                throw new InvalidArgumentException("Invalid android alert value");
-            }
-            $android['alert'] = $alert;
-        }
-
-        if (!is_null($title)) {
-            if(!is_string($title)) {
-                throw new InvalidArgumentException("Invalid android title value");
-            }
-            if(strlen($title) > 0) {
-                $android['title'] = $title;
-            }
-        }
-
-        if (!is_null($builderId)) {
-            if (!is_int($builderId)) {
-                throw new InvalidArgumentException("Invalid android builder_id value");
-            }
-            $android['builder_id'] = $builderId;
-        }
-
-        if (!is_null($extras)) {
-            if (!is_array($extras)) {
-                throw new InvalidArgumentException("Invalid android extras value");
-            }
-            if (count($extras) > 0) {
-                $android['extras'] = $extras;
-            }
-        }
-
-        if (count($android) <= 0) {
-            throw new InvalidArgumentException("Invalid android notification");
-        }
-
-        $this->androidNotification = $android;
-        return $this;
-    }
-
     public function addWinPhoneNotification($alert=null, $title=null, $_open_page=null, $extras=null) {
         $winPhone = array();
 
@@ -340,89 +228,6 @@ class PushPayload {
         $sms['delay_time'] = ($delay_time === 0 || (is_int($delay_time) && $delay_time > 0 && $delay_time <= 86400)) ? $delay_time : 0;
 
         $this->smsMessage = $sms;
-        return $this;
-    }
-
-
-    public function setMessage($msg_content, $title=null, $content_type=null, $extras=null) {
-        $message = array();
-
-        if (is_null($msg_content) || !is_string($msg_content)) {
-            throw new InvalidArgumentException("Invalid message content");
-        } else {
-            $message['msg_content'] = $msg_content;
-        }
-
-        if (!is_null($title)) {
-            if (!is_string($title)) {
-                throw new InvalidArgumentException("Invalid message title");
-            }
-            $message['title'] = $title;
-        }
-
-        if (!is_null($content_type)) {
-            if (!is_string($content_type)) {
-                throw new InvalidArgumentException("Invalid message content type");
-            }
-            $message["content_type"] = $content_type;
-        }
-
-        if (!is_null($extras)) {
-            if (!is_array($extras)) {
-                throw new InvalidArgumentException("Invalid message extras");
-            }
-            if (count($extras) > 0) {
-                $message['extras'] = $extras;
-            }
-        }
-
-        $this->message = $message;
-        return $this;
-    }
-
-    public function setOptions($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_production=null, $big_push_duration=null) {
-        $options = array();
-
-        if (!is_null($sendno)) {
-            if (!is_int($sendno)) {
-                throw new InvalidArgumentException('Invalid option sendno');
-            }
-            $options['sendno'] = $sendno;
-        } else {
-            $options['sendno'] = $this->generateSendno();
-        }
-
-        if (!is_null($time_to_live)) {
-            if (!is_int($time_to_live) || $time_to_live < 0 || $time_to_live > 864000) {
-                throw new InvalidArgumentException('Invalid option time to live, it must be a int and in [0, 864000]');
-            }
-            $options['time_to_live'] = $time_to_live;
-        }
-
-        if (!is_null($override_msg_id)) {
-            if (!is_long($override_msg_id)) {
-                throw new InvalidArgumentException('Invalid option override msg id');
-            }
-            $options['override_msg_id'] = $override_msg_id;
-        }
-
-        if (!is_null($apns_production)) {
-            if (!is_bool($apns_production)) {
-                throw new InvalidArgumentException('Invalid option apns production');
-            }
-            $options['apns_production'] = $apns_production;
-        } else {
-            $options['apns_production'] = false;
-        }
-
-        if (!is_null($big_push_duration)) {
-            if (!is_int($big_push_duration) || $big_push_duration < 0 || $big_push_duration > 1440) {
-                throw new InvalidArgumentException('Invalid option big push duration, it must be a int and in [0, 1440]');
-            }
-            $options['big_push_duration'] = $big_push_duration;
-        }
-
-        $this->options = $options;
         return $this;
     }
 
@@ -641,6 +446,203 @@ class PushPayload {
             }
             $this->options = $options;
         }
+        return $this;
+    }
+
+    ###############################################################################
+    ############# 以下函数已过期，不推荐使用，仅作为兼容接口存在 #########################
+    ###############################################################################
+    public function addIosNotification($alert=null, $sound=null, $badge=null, $content_available=null, $category=null, $extras=null) {
+        $ios = array();
+
+        if (!is_null($alert)) {
+            if (!is_string($alert) && !is_array($alert)) {
+                throw new InvalidArgumentException("Invalid ios alert value");
+            }
+            $ios['alert'] = $alert;
+        }
+
+        if (!is_null($sound)) {
+            if (!is_string($sound)) {
+                throw new InvalidArgumentException("Invalid ios sound value");
+            }
+            if ($sound !== Config::DISABLE_SOUND) {
+                $ios['sound'] = $sound;
+            }
+        } else {
+            // 默认sound为''
+            $ios['sound'] = '';
+        }
+
+        if (!is_null($badge)) {
+            if (is_string($badge) && !preg_match("/^[+-]{1}[0-9]{1,3}$/", $badge)) {
+                if (!is_int($badge)) {
+                    throw new InvalidArgumentException("Invalid ios badge value");
+                }
+            }
+            if ($badge != Config::DISABLE_BADGE) {
+                $ios['badge'] = $badge;
+            }
+        } else {
+            // 默认badge为'+1'
+            $ios['badge'] = '+1';
+        }
+
+        if (!is_null($content_available)) {
+            if (!is_bool($content_available)) {
+                throw new InvalidArgumentException("Invalid ios content-available value");
+            }
+            $ios['content-available'] = $content_available;
+        }
+
+        if (!is_null($category)) {
+            if (!is_string($category)) {
+                throw new InvalidArgumentException("Invalid ios category value");
+            }
+            if (strlen($category)) {
+                $ios['category'] = $category;
+            }
+        }
+
+        if (!is_null($extras)) {
+            if (!is_array($extras)) {
+                throw new InvalidArgumentException("Invalid ios extras value");
+            }
+            if (count($extras) > 0) {
+                $ios['extras'] = $extras;
+            }
+        }
+
+        if (count($ios) <= 0) {
+            throw new InvalidArgumentException("Invalid iOS notification");
+        }
+
+        $this->iosNotification = $ios;
+        return $this;
+    }
+
+    public function addAndroidNotification($alert=null, $title=null, $builderId=null, $extras=null) {
+        $android = array();
+
+        if (!is_null($alert)) {
+            if (!is_string($alert)) {
+                throw new InvalidArgumentException("Invalid android alert value");
+            }
+            $android['alert'] = $alert;
+        }
+
+        if (!is_null($title)) {
+            if(!is_string($title)) {
+                throw new InvalidArgumentException("Invalid android title value");
+            }
+            if(strlen($title) > 0) {
+                $android['title'] = $title;
+            }
+        }
+
+        if (!is_null($builderId)) {
+            if (!is_int($builderId)) {
+                throw new InvalidArgumentException("Invalid android builder_id value");
+            }
+            $android['builder_id'] = $builderId;
+        }
+
+        if (!is_null($extras)) {
+            if (!is_array($extras)) {
+                throw new InvalidArgumentException("Invalid android extras value");
+            }
+            if (count($extras) > 0) {
+                $android['extras'] = $extras;
+            }
+        }
+
+        if (count($android) <= 0) {
+            throw new InvalidArgumentException("Invalid android notification");
+        }
+
+        $this->androidNotification = $android;
+        return $this;
+    }
+
+    public function setMessage($msg_content, $title=null, $content_type=null, $extras=null) {
+        $message = array();
+
+        if (is_null($msg_content) || !is_string($msg_content)) {
+            throw new InvalidArgumentException("Invalid message content");
+        } else {
+            $message['msg_content'] = $msg_content;
+        }
+
+        if (!is_null($title)) {
+            if (!is_string($title)) {
+                throw new InvalidArgumentException("Invalid message title");
+            }
+            $message['title'] = $title;
+        }
+
+        if (!is_null($content_type)) {
+            if (!is_string($content_type)) {
+                throw new InvalidArgumentException("Invalid message content type");
+            }
+            $message["content_type"] = $content_type;
+        }
+
+        if (!is_null($extras)) {
+            if (!is_array($extras)) {
+                throw new InvalidArgumentException("Invalid message extras");
+            }
+            if (count($extras) > 0) {
+                $message['extras'] = $extras;
+            }
+        }
+
+        $this->message = $message;
+        return $this;
+    }
+
+    public function setOptions($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_production=null, $big_push_duration=null) {
+        $options = array();
+
+        if (!is_null($sendno)) {
+            if (!is_int($sendno)) {
+                throw new InvalidArgumentException('Invalid option sendno');
+            }
+            $options['sendno'] = $sendno;
+        } else {
+            $options['sendno'] = $this->generateSendno();
+        }
+
+        if (!is_null($time_to_live)) {
+            if (!is_int($time_to_live) || $time_to_live < 0 || $time_to_live > 864000) {
+                throw new InvalidArgumentException('Invalid option time to live, it must be a int and in [0, 864000]');
+            }
+            $options['time_to_live'] = $time_to_live;
+        }
+
+        if (!is_null($override_msg_id)) {
+            if (!is_long($override_msg_id)) {
+                throw new InvalidArgumentException('Invalid option override msg id');
+            }
+            $options['override_msg_id'] = $override_msg_id;
+        }
+
+        if (!is_null($apns_production)) {
+            if (!is_bool($apns_production)) {
+                throw new InvalidArgumentException('Invalid option apns production');
+            }
+            $options['apns_production'] = $apns_production;
+        } else {
+            $options['apns_production'] = false;
+        }
+
+        if (!is_null($big_push_duration)) {
+            if (!is_int($big_push_duration) || $big_push_duration < 0 || $big_push_duration > 1440) {
+                throw new InvalidArgumentException('Invalid option big push duration, it must be a int and in [0, 1440]');
+            }
+            $options['big_push_duration'] = $big_push_duration;
+        }
+
+        $this->options = $options;
         return $this;
     }
 }
