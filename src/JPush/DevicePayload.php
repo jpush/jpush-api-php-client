@@ -30,9 +30,11 @@ class DevicePayload {
         return $this->updateDevice($registration_id, $alias);
     }
     public function addTags($registration_id, $tags) {
+        $tags = is_array($tags) ? $tags : array($tags);
         return $this->updateDevice($registration_id, null, null, $tags);
     }
     public function removeTags($registration_id, $tags) {
+        $tags = is_array($tags) ? $tags : array($tags);
         return $this->updateDevice($registration_id, null, null, null, $tags);
     }
     public function updateMoblie($registration_id, $mobile) {
