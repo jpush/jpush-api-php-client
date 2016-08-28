@@ -321,9 +321,12 @@ class PushPayload {
             $payload['sms_message'] = $this->smsMessage;
         }
 
-        if (count($this->options) > 0) {
-            $payload['options'] = $this->options;
+        if (count($this->options) <= 0) {
+            $this->options(array('apns_production' => false));
         }
+
+        $payload['options'] = $this->options;
+
         return $payload;
     }
 

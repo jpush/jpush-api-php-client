@@ -20,10 +20,11 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
         $result = $payload->build();
 
         $this->assertTrue(is_array($result));
-        $this->assertEquals(3, count($result));
+        $this->assertEquals(4, count($result));
         $this->assertArrayHasKey('platform', $result);
         $this->assertArrayHasKey('audience', $result);
         $this->assertArrayHasKey('notification', $result);
+        $this->assertArrayHasKey('options', $result);
     }
 
     public function testSetPlatform() {
@@ -224,11 +225,13 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
     public function testOptions() {
         $payload = $this->payload;
         $result = $payload->options()->build();
-        $this->assertFalse(array_key_exists('options', $result));
+        $this->assertTrue(array_key_exists('options', $result));
+        $this->assertEquals(false, $result['options']['apns_production']);
 
         $array = array(
             'sendno' => 100,
             'time_to_live' => 100,
+            'apns_production' => true,
             'override_msg_id' => 100,
             'big_push_duration' => 100
         );
@@ -236,7 +239,7 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
         $options = $result['options'];
         $this->assertEquals(5, count($options));
         $this->assertArrayHasKey('apns_production', $options);
-        $this->assertEquals(false, $options['apns_production']);
+        $this->assertEquals(true, $options['apns_production']);
     }
 
     public function testPushToAll() {
