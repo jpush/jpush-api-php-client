@@ -14,6 +14,9 @@ class DevicePayloadTest extends \PHPUnit_Framework_TestCase {
         $response = $this->device->getDevices($registration_id);
         $this->assertEquals('200', $response['http_code']);
 
+        echo "HTTP HEADERS ARE: ";
+        print_r($response['headers']);
+
         $body = $response['body'];
         $this->assertTrue(is_array($body));
         $this->assertEquals(3, count($body));
