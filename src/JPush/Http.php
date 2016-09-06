@@ -5,8 +5,6 @@ use JPush\Exceptions\APIRequestException;
 
 final class Http {
 
-    private static $LIMIT_KEYS = array('X-Rate-Limit-Limit'=>'rateLimitLimit', 'X-Rate-Limit-Remaining'=>'rateLimitRemaining', 'X-Rate-Limit-Reset'=>'rateLimitReset');
-
     public static function get($client, $url) {
         $response = self::sendRequest($client, $url, Config::HTTP_GET, $body=null);
         return self::processResp($response);
@@ -26,6 +24,9 @@ final class Http {
 
     private static function sendRequest($client, $url, $method, $body=null, $times=1) {
         self::log($client, "Send " . $method . " " . $url . ", body:" . $body . ", times:" . $times);
+        if (!defined('CURL_HTTP_VERSION_2_0')) {
+            define('CURL_HTTP_VERSION_2_0', 3);
+        }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -41,6 +42,8 @@ final class Http {
         // 设置Basic认证
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($ch, CURLOPT_USERPWD, $client->getAuthStr());
+        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_2_0);
+
         // 设置Post参数
         if ($method === Config::HTTP_POST) {
             curl_setopt($ch, CURLOPT_POST, true);
@@ -82,7 +85,7 @@ final class Http {
             foreach (explode("\r\n", $header_text) as $i => $line) {
                 if (!empty($line)) {
                     if ($i === 0) {
-                        $headers['http_code'] = $line;
+                        $headers[0] = $line;
                     } else if (strpos($line, ": ")) {
                         list ($key, $value) = explode(': ', $line);
                         $headers[$key] = $value;
@@ -105,19 +108,7 @@ final class Http {
                 $result['body'] = $data;
             }
             $result['http_code'] = $response['http_code'];
-            $headers = $response['headers'];
-            if (is_array($headers)) {
-                $limit = array();
-                foreach (self::$LIMIT_KEYS as $key => $value) {
-                    if (array_key_exists($key, $headers)) {
-                        $limit[$value] = $headers[$key];
-                    }
-                }
-                if (count($limit) > 0) {
-                    $result['headers'] = $limit;
-                }
-                return $result;
-            }
+            $result['headers'] = $response['headers'];
             return $result;
         } else {
             throw new APIRequestException($response);
