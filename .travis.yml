@@ -1,6 +1,5 @@
 language: php
-sudo: required
-dist: trusty
+
 php:
   - '5.3'
   - '5.4'
@@ -9,25 +8,6 @@ php:
   - '7.0'
 
 before_script:
-  - sudo apt-get install g++ make binutils autoconf automake autotools-dev libtool pkg-config zlib1g-dev libcunit1-dev libssl-dev libxml2-dev libev-dev libevent-dev libjansson-dev libjemalloc-dev cython python3-dev python-setuptools
-  - git clone https://github.com/tatsuhiro-t/spdylay.git ~/spdylay
-  - cd ~/spdylay
-  - autoreconf -i
-  - automake
-  - autoconf
-  - ./configure
-  - make
-  - sudo make install
-  - git clone https://github.com/nghttp2/nghttp2.git ~/nghttp2
-  - cd ~/nghttp2
-  - autoreconf -i
-  - automake
-  - autoconf
-  - ./configure
-  - make
-  - sudo make install
-  - cd ~
-  - sudo apt-get build-dep curl
   - composer install
 script:
   - ./vendor/bin/phpunit tests
