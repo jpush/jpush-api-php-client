@@ -358,7 +358,7 @@ $device->isDeviceInTag($registrationId, $tag);
 
 // 为标签添加设备，支持字符串和数组两种参数
 $device->addDevicesToTag($tag, 'rid');
-$device->addDevicesToTag($tag, ['rid1', 'rid2]);
+$device->addDevicesToTag($tag, ['rid1', 'rid2']);
 
 // 为标签移除设备，支持字符串和数组两种参数
 $device->removeDevicesFromTag($tag, 'rid');
