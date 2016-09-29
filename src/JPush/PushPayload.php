@@ -363,8 +363,8 @@ class PushPayload {
             if (isset($notification['sound']) && is_string($notification['sound'])) {
                 $ios['sound'] = $notification['sound'];
             }
-            if (isset($notification['badge']) && (int)$notification['badge']) {
-                $ios['badge'] = $notification['badge'];
+            if (isset($notification['badge'])) {
+                $ios['badge'] = (int)$notification['badge'] ? $notification['badge'] : 0;
             }
             if (isset($notification['content-available']) && is_bool($notification['content-available']) && $notification['content-available']) {
                 $ios['content-available'] = $notification['content-available'];
