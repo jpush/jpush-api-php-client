@@ -356,9 +356,9 @@ class PushPayload {
 
     # new methods
     public function iosNotification($alert = '', array $notification = array()) {
-        # $required_keys = array('sound', 'badge', 'content-available', 'category', 'extras');
+        # $required_keys = array('sound', 'badge', 'content-available', 'mutable-available', category', 'extras');
         $ios = array();
-        $ios['alert'] = is_string($alert) ? $alert : '';
+        $ios['alert'] = (is_string($alert) || is_array($alert)) ? $alert : '';
         if (!empty($notification)) {
             if (isset($notification['sound']) && is_string($notification['sound'])) {
                 $ios['sound'] = $notification['sound'];
@@ -368,6 +368,9 @@ class PushPayload {
             }
             if (isset($notification['content-available']) && is_bool($notification['content-available']) && $notification['content-available']) {
                 $ios['content-available'] = $notification['content-available'];
+            }
+            if (isset($notification['mutable-available']) && is_bool($notification['mutable-available']) && $notification['mutable-available']) {
+                $ios['mutable-available'] = $notification['mutable-available'];
             }
             if (isset($notification['category']) && is_string($notification['category'])) {
                 $ios['category'] = $notification['category'];

@@ -139,8 +139,14 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
     }
     public function testIosNotificationWithArray() {
         $payload = $this->payload;
+        $alert_array = array(
+            'alert_k1' => 'alert_v1',
+            'alert_k2' => 'alert_v2',
+            'alert_k3' => 'alert_v3',
+            'alert_k4' => 'alert_v4'
+        );
         $array = array(
-            'sound' => 'hello jpush',
+            'sound' => 'jpush.caf',
             'badge' => 2,
             'content-available' => true,
             'category' => 'jiguang',
@@ -150,8 +156,9 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
             ),
             'invalid_key' => 'invalid_value'
         );
-        $result = $payload->iosNotification('', $array)->build();
+        $result = $payload->iosNotification($alert_array, $array)->build();
         $ios = $result['notification']['ios'];
+        $this->assertTrue(is_array($ios['alert']));
         $this->assertEquals(6, count($ios));
         $this->assertFalse(array_key_exists('invalid_key', $ios));
     }
@@ -244,10 +251,15 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
 
     public function testPushToAll() {
         $payload = $this->payload;
-
         $platform = array('ios', 'android', 'blackberry');
+        $ios_alert = array(
+            'k1' => 'v1',
+            'k2' => 'v2',
+            'k3' => 'v3',
+            'k4' => 'v4'
+        );
         $ios_notification = array(
-            'sound' => 'hello jpush',
+            'sound' => 'jpush.caf',
             'badge' => 2,
             'content-available' => true,
             'category' => 'jiguang',
@@ -277,7 +289,7 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
         );
 
         $result = $payload->setPlatform($platform)
-            ->iosNotification('Hello IOS', $ios_notification)
+            ->iosNotification($ios_alert, $ios_notification)
             ->androidNotification('Hello Android', $android_notification)
             ->message('Hello JPush', $message)
             ->build();

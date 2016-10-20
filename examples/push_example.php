@@ -40,6 +40,7 @@ try {
             'sound' => 'sound.caf',
             // 'badge' => '+1',
             // 'content-available' => true,
+            // 'mutable-available' => true,
             'category' => 'jiguang',
             'extras' => array(
                 'key' => 'value',
