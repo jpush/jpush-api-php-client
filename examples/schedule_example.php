@@ -1,4 +1,6 @@
 <?php
+// 这只是使用样例不应该直接用于实际生产环境中 !!
+
 require 'conf.php';
 
 $payload = $client->push()
