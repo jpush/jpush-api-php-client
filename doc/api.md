@@ -76,7 +76,7 @@ $push->setNotificationAlert('alert');
 
 ```php
 // iosNotification($alert = '', array $notification = array())
-// 数组 $notification 的键支持 'sound', 'badge', 'content-available', 'mutable-available', category', 'extras' 中的一个或多个
+// 数组 $notification 的键支持 'sound', 'badge', 'content-available', 'mutable-content', category', 'extras' 中的一个或多个
 
 // 调用示例
 $push->iosNotification();
@@ -100,7 +100,7 @@ $push->iosNotification('hello', [
 | sound | 表示通知提示声音，默认填充为空字符串 |
 | badge | 表示应用角标，把角标数字改为指定的数字；为 0 表示清除，支持 '+1','-1' 这样的字符串，表示在原有的 badge 基础上进行增减，默认填充为 '+1' |
 | content-available | 表示推送唤醒，仅接受 true 表示为 Background Remote Notification，若不填默认表示普通的 Remote Notification |
-| mutable-available | 表示通知扩展, 仅接受 true 表示支持 iOS10 的 UNNotificationServiceExtension, 若不填默认表示普通的 Remote Notification |
+| mutable-content | 表示通知扩展, 仅接受 true 表示支持 iOS10 的 UNNotificationServiceExtension, 若不填默认表示普通的 Remote Notification |
 | category | IOS8才支持。设置 APNs payload 中的 'category' 字段值 |
 | extras | 表示扩展字段，接受一个数组，自定义 Key/value 信息以供业务使用 |
 
