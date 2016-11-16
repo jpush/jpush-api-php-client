@@ -44,7 +44,6 @@ class ReportPayloadTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue(is_array($body));
         $this->assertEquals(1, count($body));
         $this->assertTrue(is_array($body[0]));
-        $this->assertEquals(5, count($body[0]));
         $this->assertArrayHasKey('msg_id', $body[0]);
 
         $response = $this->reporter->getReceived(array($msg_id_0, $msg_id_1));
