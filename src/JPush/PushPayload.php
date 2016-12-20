@@ -332,7 +332,6 @@ class PushPayload {
 
     public function toJSON() {
         $payload = $this->build();
-        $this->clearAll();
         return json_encode($payload);
     }
 
@@ -349,33 +348,6 @@ class PushPayload {
     public function validate() {
         $url = PushPayload::PUSH_VALIDATE_URL;
         return Http::post($this->client, $url, $this->toJSON());
-    }
-
-    public function clearAudience() {
-        $this->audience = null;
-        $this->tags = null;
-        $this->tagAnds = null;
-        $this->alias = null;
-        $this->registrationIds = null;
-    }
-    public function clearNotification() {
-        $this->notificationAlert = null;
-        $this->iosNotification = null;
-        $this->androidNotification = null;
-        $this->winPhoneNotification = null;
-    }
-    public function clearPlatform() { $this->platform = null; }
-    public function clearMessage() { $this->message = null; }
-    public function clearSmsMessage() { $this->smsMessage = null; }
-    public function clearOptions() { $this->options = null; }
-
-    public function clearAll() {
-        $this->clearPlatform();
-        $this->clearAudience();
-        $this->clearNotification();
-        $this->clearMessage();
-        $this->clearSmsMessage();
-        $this->clearOptions();
     }
 
     private function generateSendno() {
