@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../conf.php';
+require __DIR__ . '/../config.php';
 
 // 为一个标签添加设备
 $result = $client->device()->isDeviceInTag($registration_id, 'tag');

@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../conf.php';
+require __DIR__ . '/../config.php';
 
 // 更新 Alias
 $result = $client->device()->getDevices($registration_id);

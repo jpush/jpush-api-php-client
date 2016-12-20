@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../conf.php';
+require __DIR__ . '/../config.php';
 
 // 获取用户在线状态（VIP专属接口）
 try {

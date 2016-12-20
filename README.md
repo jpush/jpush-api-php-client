@@ -93,7 +93,12 @@ try {
 **注意: 这只是使用样例, 不应该直接用于实际环境中!!**
 
 在下载的中的 [examples](https://github.com/jpush/jpush-api-php-client/tree/master/examples) 文件夹有简单示例代码, 开发者可以参考其中的样例快速了解该库的使用方法。
-> **注：所下载的样例代码不可马上使用，需要在 `examples/conf.php` 文件中填入相关的必要参数，或者设置相关环境变量，不进行这个操作则示例运行会失败**
+
+> **注：所下载的样例代码不可马上使用，需要在 `examples/config.php` 文件中填入相关的必要参数，或者设置相关环境变量，不进行这个操作则示例运行会失败。**另外为保护开发者隐私 examples/config.php 文件不在版本控制中，需要使用如下命令手动复制：
+
+```bash
+$ cp examples/config.php.example examples/config.php
+```
 
 **简单使用方法**
 

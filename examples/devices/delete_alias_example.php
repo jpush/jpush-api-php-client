@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../conf.php';
+require __DIR__ . '/../config.php';
 
 $response = $client->device()->deleteAlias('alias');
 print_r($response);
