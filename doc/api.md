@@ -108,7 +108,7 @@ $push->iosNotification('hello', [
 
 ```php
 // androidNotification($alert = '', array $notification = array())
-// 调用示例同 IOS，数组 $notification 的键支持 title', 'build_id', 'extras' 中的一个或多个
+// 调用示例同 IOS，数组 $notification 的键支持 'title', 'build_id', 'priority', 'category', 'style', 'big_text', 'inbox', 'big_pic_path', 'extras' 中的一个或多个
 
 ```
 
@@ -118,7 +118,13 @@ $push->iosNotification('hello', [
 | --- | --- |
 | alert | 表示通知内容，会覆盖上级统一指定的 alert 信息；默认内容可以为空字符串，表示不展示到通知栏 |
 | title | 表示通知标题，会替换通知里原来展示 App 名称的地方 |
-| builder_id | 表示通知栏样式ID |
+| builder_id | 表示通知栏样式 ID |
+| priority | 表示通知栏展示优先级，默认为 0，范围为 -2～2 ，其他值将会被忽略而采用默认值 |
+| category | 表示通知栏条目过滤或排序，完全依赖 rom 厂商对 category 的处理策略 |
+| style | 表示通知栏样式类型，默认为 0，还有1，2，3可选，用来指定选择哪种通知栏样式，其他值无效。有三种可选分别为 bigText=1，Inbox=2，bigPicture=3 |
+| big_text | 表示大文本通知栏样式，当 style = 1 时可用，内容会被通知栏以大文本的形式展示出来，支持 api 16 以上的 rom |
+| inbox | 表示文本条目通知栏样式，接受一个数组，当 style = 2 时可用，数组的每个 key 对应的 value 会被当作文本条目逐条展示，支持 api 16以上的 rom |
+| big_pic_path | 表示大图片通知栏样式，当 style = 3 时可用，可以是网络图片 url，或本地图片的 path，目前支持 .jpg 和 .png 后缀的图片。图片内容会被通知栏以大图片的形式展示出来。如果是 http／https 的 url，会自动下载；如果要指定开发者准备的本地图片就填 sdcard 的相对路径，支持 api 16以上的 rom |
 | extras | 表示扩展字段，接受一个数组，自定义 Key/value 信息以供业务使用 |
 
 **WinPhone Notification**

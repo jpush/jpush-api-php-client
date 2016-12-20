@@ -431,6 +431,24 @@ class PushPayload {
             if (isset($notification['extras']) && is_array($notification['extras']) && !empty($notification['extras'])) {
                 $android['extras'] = $notification['extras'];
             }
+            if (isset($notification['priority']) && is_int($notification['priority'])) {
+                $android['priority'] = $notification['priority'];
+            }
+            if (isset($notification['category']) && is_string($notification['category'])) {
+                $android['category'] = $notification['category`'];
+            }
+            if (isset($notification['style']) && is_int($notification['style'])) {
+                $android['style'] = $notification['style'];
+            }
+            if (isset($notification['big_text']) is_string($notification['big_text'])) {
+                $android['big_text'] = $notification['big_text'];
+            }
+            if (isset($notification['inbox']) && is_array($notification['inbox'])) {
+                $android['inbox'] = $notification['inbox'];
+            }
+            if (isset($notification['big_pic_path']) && is_string($notification['big_pic_path'])) {
+                $android['big_pic_path'] = $notification['big_pic_path'];
+            }
         }
         $this->androidNotification = $android;
         return $this;
