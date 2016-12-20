@@ -440,7 +440,7 @@ class PushPayload {
             if (isset($notification['style']) && is_int($notification['style'])) {
                 $android['style'] = $notification['style'];
             }
-            if (isset($notification['big_text']) is_string($notification['big_text'])) {
+            if (isset($notification['big_text']) && is_string($notification['big_text'])) {
                 $android['big_text'] = $notification['big_text'];
             }
             if (isset($notification['inbox']) && is_array($notification['inbox'])) {

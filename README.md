@@ -1,7 +1,5 @@
 # JPush API PHP Client
 
-[![Build Status](https://travis-ci.org/jpush/jpush-api-php-client.svg?branch=master)](https://travis-ci.org/jpush/jpush-api-php-client)
-
 这是 JPush REST API 的 PHP 版本封装开发包，是由极光推送官方提供的，一般支持最新的 API 功能。
 
 对应的 REST API 文档: http://docs.jiguang.cn/server/server_overview/
