@@ -234,6 +234,7 @@ class PushPayloadTest extends \PHPUnit_Framework_TestCase {
         $result = $payload->options()->build();
         $this->assertTrue(array_key_exists('options', $result));
         $this->assertEquals(false, $result['options']['apns_production']);
+        $this->assertTrue(array_key_exists('sendno', $result['options']));
 
         $array = array(
             'sendno' => 100,
