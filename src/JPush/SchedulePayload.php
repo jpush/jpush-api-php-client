@@ -32,7 +32,7 @@ class SchedulePayload {
         $payload['push'] = $push_payload;
 
         $url = SchedulePayload::SCHEDULES_URL;
-        return Http::post($this->client, $url, json_encode($payload));
+        return Http::post($this->client, $url, $payload);
     }
 
     public function createPeriodicalSchedule($name, $push_payload, $trigger) {
@@ -52,7 +52,7 @@ class SchedulePayload {
         $payload['push'] = $push_payload;
 
         $url = SchedulePayload::SCHEDULES_URL;
-        return Http::post($this->client, $url, json_encode($payload));
+        return Http::post($this->client, $url, $payload);
     }
 
     public function updateSingleSchedule($schedule_id, $name=null, $enabled=null, $push_payload=null, $trigger=null) {
@@ -98,7 +98,7 @@ class SchedulePayload {
 
         $url = SchedulePayload::SCHEDULES_URL . "/" . $schedule_id;
 
-        return Http::put($this->client, $url, json_encode($payload));
+        return Http::put($this->client, $url, $payload);
 
     }
 
@@ -144,7 +144,7 @@ class SchedulePayload {
         }
 
         $url = SchedulePayload::SCHEDULES_URL . "/" . $schedule_id;
-        return Http::put($this->client, $url, json_encode($payload));
+        return Http::put($this->client, $url, $payload);
     }
 
     public function getSchedules($page = 1) {

@@ -342,12 +342,12 @@ class PushPayload {
 
     public function send() {
         $url = PushPayload::PUSH_URL;
-        return Http::post($this->client, $url, $this->toJSON());
+        return Http::post($this->client, $url, $this->build());
     }
 
     public function validate() {
         $url = PushPayload::PUSH_VALIDATE_URL;
-        return Http::post($this->client, $url, $this->toJSON());
+        return Http::post($this->client, $url, $this->build());
     }
 
     private function generateSendno() {

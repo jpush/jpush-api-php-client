@@ -95,7 +95,7 @@ class DevicePayload {
         }
 
         $url = DevicePayload::DEVICE_URL . $registrationId;
-        return Http::post($this->client, $url, json_encode($payload));
+        return Http::post($this->client, $url, $payload);
     }
 
     public function getTags() {
@@ -158,7 +158,7 @@ class DevicePayload {
 
         $url = DevicePayload::TAG_URL . $tag;
         $payload = array('registration_ids'=>$registrationId);
-        return Http::post($this->client, $url, json_encode($payload));
+        return Http::post($this->client, $url, $payload);
     }
 
     public function deleteTag($tag) {
@@ -219,6 +219,6 @@ class DevicePayload {
         }
         $payload['registration_ids'] = $registrationId;
         $url = DevicePayload::DEVICE_STATUS_URL;
-        return Http::post($this->client, $url, json_encode($payload));
+        return Http::post($this->client, $url, $payload);
     }
 }

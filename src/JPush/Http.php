@@ -23,7 +23,7 @@ final class Http {
     }
 
     private static function sendRequest($client, $url, $method, $body=null, $times=1) {
-        self::log($client, "Send " . $method . " " . $url . ", body:" . $body . ", times:" . $times);
+        self::log($client, "Send " . $method . " " . $url . ", body:" . json_encode($body) . ", times:" . $times);
         if (!defined('CURL_HTTP_VERSION_2_0')) {
             define('CURL_HTTP_VERSION_2_0', 3);
         }
@@ -51,7 +51,7 @@ final class Http {
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         }
         if (!is_null($body)) {
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
         }
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -63,12 +63,19 @@ final class Http {
         $response = array();
         $errorCode = curl_errno($ch);
 
+        // $msg = '';
+        // $data = json_decode($body, true);
+        // if (isset($data['options']['sendno'])) {
+        //     $sendno = $data['options']['sendno'];
+        //     $msg = 'sendno: ' . $sendno;
+        // }
+
         $msg = '';
-        $data = json_decode($body, true);
-        if (isset($data['options']['sendno'])) {
-            $sendno = $data['options']['sendno'];
+        if (isset($body['options']['sendno'])) {
+            $sendno = $body['options']['sendno'];
             $msg = 'sendno: ' . $sendno;
         }
+
 
         if ($errorCode) {
             $retries = $client->getRetryTimes();
