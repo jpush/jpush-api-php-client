@@ -390,15 +390,15 @@ class PushPayload {
     }
 
     public function androidNotification($alert = '', array $notification = array()) {
-        # $required_keys = array('title', 'build_id', 'extras');
+        # $required_keys = array('title', 'builder_id', 'extras');
         $android = array();
         $android['alert'] = is_string($alert) ? $alert : '';
         if (!empty($notification)) {
             if (isset($notification['title']) && is_string($notification['title'])) {
                 $android['title'] = $notification['title'];
             }
-            if (isset($notification['build_id']) && is_int($notification['build_id'])) {
-                $android['build_id'] = $notification['build_id'];
+            if (isset($notification['builder_id']) && is_int($notification['builder_id'])) {
+                $android['builder_id'] = $notification['builder_id'];
             }
             if (isset($notification['extras']) && is_array($notification['extras']) && !empty($notification['extras'])) {
                 $android['extras'] = $notification['extras'];
