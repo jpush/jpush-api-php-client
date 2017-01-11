@@ -271,7 +271,7 @@ $response = $push->setPlatform($platform)
     ->iosNotification($alert, $ios_notification)
     ->androidNotification($alert, $android_notification)
     ->message($content, $message)
-    ->options($options);
+    ->options($options)
     ->send();
 ```
 
