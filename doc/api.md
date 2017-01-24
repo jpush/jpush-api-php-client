@@ -231,7 +231,7 @@ $response = $push()
 $platform = array('ios', 'android');
 $alert = 'Hello JPush';
 $tag = array('tag1', 'tag2');
-$regId = arrag('rid1', 'rid2');
+$regId = array('rid1', 'rid2');
 $ios_notification = array(
     'sound' => 'hello jpush',
     'badge' => 2,
@@ -271,7 +271,7 @@ $response = $push->setPlatform($platform)
     ->iosNotification($alert, $ios_notification)
     ->androidNotification($alert, $android_notification)
     ->message($content, $message)
-    ->options($options);
+    ->options($options)
     ->send();
 ```
 
