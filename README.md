@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/jpush/jpush-api-php-client.svg?branch=master)](https://travis-ci.org/jpush/jpush-api-php-client)
-
 # JPush API client library for PHP
 
 > **此分支已不再维护，如果你的 PHP 版本大于 5.3.3 请使用 Master 分支的代码，或通过 Composer 下载安装 v3.5.0 以上版本。**
