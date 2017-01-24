@@ -351,7 +351,7 @@ class PushPayload {
     }
 
     private function generateSendno() {
-        return rand(100000, 4294967294);
+        return rand(100000, getrandmax());
     }
 
     # new methods
