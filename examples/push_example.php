@@ -12,15 +12,14 @@ $push_payload = $client->push()
     ->setNotificationAlert('Hi, JPush');
 try {
     $response = $push_payload->send();
-}catch (\JPush\Exceptions\APIConnectionException $e) {
+    print_r($response);
+} catch (\JPush\Exceptions\APIConnectionException $e) {
     // try something here
     print $e;
 } catch (\JPush\Exceptions\APIRequestException $e) {
     // try something here
     print $e;
 }
-print_r($response);
-
 
 // 完整的推送示例
 // 这只是使用样例,不应该直接用于实际生产环境中 !!
@@ -89,6 +88,7 @@ try {
             // 'big_push_duration' => 1
         ))
         ->send();
+        print_r($response);
 
 } catch (\JPush\Exceptions\APIConnectionException $e) {
     // try something here
@@ -97,5 +97,3 @@ try {
     // try something here
     print $e;
 }
-
-print_r($response);
