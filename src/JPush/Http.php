@@ -116,12 +116,13 @@ final class Http {
     }
 
     public static function processResp($response) {
-        if($response['http_code'] === 200) {
+        $data = json_decode($response['body'], true);
+
+        if (is_null($data)) {
+            throw new ServiceNotAvaliable($response);
+        } elseif ($response['http_code'] === 200) {
             $result = array();
-            $data = json_decode($response['body'], true);
-            if (!is_null($data)) {
-                $result['body'] = $data;
-            }
+            $result['body'] = $data;
             $result['http_code'] = $response['http_code'];
             $result['headers'] = $response['headers'];
             return $result;
