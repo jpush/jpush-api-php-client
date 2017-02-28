@@ -117,6 +117,7 @@ class PushPayload {
     public function addAlias($alias) {
         if (is_null($this->alias)) {
             $this->alias = array();
+            return $this;
         }
 
         if (is_array($alias)) {
