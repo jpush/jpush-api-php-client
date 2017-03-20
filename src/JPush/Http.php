@@ -2,6 +2,7 @@
 namespace JPush;
 use JPush\Exceptions\APIConnectionException;
 use JPush\Exceptions\APIRequestException;
+use JPush\Exceptions\ServiceNotAvaliable;
 
 final class Http {
 
