@@ -3,7 +3,7 @@ namespace JPush\Exceptions;
 
 class ServiceNotAvaliable extends JPushException {
 
-    private $code;
+    private $http_code;
     private $headers;
 
     function __construct($response){
