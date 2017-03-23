@@ -13,7 +13,7 @@ class ServiceNotAvaliable extends JPushException {
     }
 
     function __toString() {
-        return "\n" . __CLASS__ . " -- [{$this->code}]: {$this->message} \n";
+        return "\n" . __CLASS__ . " -- [{$this->http_code}]: {$this->message} \n";
     }
 
     public function getHttpCode() {
