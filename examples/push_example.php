@@ -48,7 +48,7 @@ try {
         ))
         ->androidNotification('Hello Android', array(
             'title' => 'hello jpush',
-            // 'build_id' => 2,
+            // 'builder_id' => 2,
             'extras' => array(
                 'key' => 'value',
                 'jiguang'
