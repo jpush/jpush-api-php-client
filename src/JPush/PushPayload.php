@@ -390,7 +390,8 @@ class PushPayload {
     }
 
     public function androidNotification($alert = '', array $notification = array()) {
-        # $required_keys = array('title', 'builder_id', 'extras');
+        # $required_keys = array('title', 'builder_id', 'priority', 'category', 'style',
+        #                        'alert_type', 'big_text', 'inbox', 'big_pic_path', 'extras');
         $android = array();
         $android['alert'] = is_string($alert) ? $alert : '';
         if (!empty($notification)) {
@@ -420,6 +421,9 @@ class PushPayload {
             }
             if (isset($notification['big_pic_path']) && is_string($notification['big_pic_path'])) {
                 $android['big_pic_path'] = $notification['big_pic_path'];
+            }
+            if (isset($notification['alert_type']) && is_int($notification['alert_type'])) {
+                $android['alert_type'] = $notification['alert_type'];
             }
         }
         $this->androidNotification = $android;
