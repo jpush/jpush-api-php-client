@@ -181,7 +181,7 @@ class PushPayloadTest extends TestCase {
         $payload = $this->payload;
         $array = array(
             'title' => 'hello jpush',
-            'build_id' => 2,
+            'builder_id' => 2,
             'extras' => array(
                 'key' => 'value',
                 'jiguang'
@@ -273,7 +273,7 @@ class PushPayloadTest extends TestCase {
         );
         $android_notification = array(
             'title' => 'hello jpush',
-            'build_id' => 2,
+            'builder_id' => 2,
             'extras' => array(
                 'key' => 'value',
                 'jiguang'
