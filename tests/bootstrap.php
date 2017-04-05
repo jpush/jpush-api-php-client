@@ -1,6 +1,4 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
-
 use JPush\Client;
 
 $app_key = getenv('app_key');

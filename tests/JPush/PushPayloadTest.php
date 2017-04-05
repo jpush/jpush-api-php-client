@@ -1,7 +1,8 @@
 <?php
 namespace JPush\Tests;
+use PHPUnit\Framework\TestCase;
 
-class PushPayloadTest extends \PHPUnit_Framework_TestCase {
+class PushPayloadTest extends TestCase {
 
     protected function setUp() {
         global $client;

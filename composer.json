@@ -16,10 +16,16 @@
         "php": ">=5.3.3",
         "ext-curl": "*"
     },
+    "require-dev": {
+        "phpunit/phpunit": "5.7.*"
+    },
     "autoload" : {
         "psr-4": {"JPush\\": "src/JPush/"}
     },
-    "require-dev": {
-        "phpunit/phpunit": "*"
+    "autoload-dev": {
+        "psr-4": { "JPush\\Tests\\": "tests/" }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
     }
 }

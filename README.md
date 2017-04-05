@@ -117,10 +117,10 @@ $ php examples/push_example.php
 # OR 设置相应的环境变量
 
 # 运行全部测试用例
-$ ./vendor/bin/phpunit tests
+$ composer tests
 
 # 运行某一具体测试用例
-$ ./vendor/bin/phpunit tests/JPush/xxTest.php
+$ composer tests/JPush/xxTest.php
 ```
 
 ## Contributing
