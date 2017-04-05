@@ -1,4 +1,4 @@
 <?php
 namespace JPush;
 
-  const VERSION = '3.5.14';
+  const VERSION = '3.5.15';
