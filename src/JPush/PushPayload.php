@@ -14,6 +14,7 @@ class PushPayload {
     private $audience;
     private $tags;
     private $tagAnds;
+    private $tagNots;
     private $alias;
     private $registrationIds;
 
@@ -109,6 +110,31 @@ class PushPayload {
             }
         } else {
             throw new InvalidArgumentException("Invalid tag_and value");
+        }
+
+        return $this;
+    }
+
+    public function addTagNot($tag) {
+        if (is_null($this->tagNots)) {
+            $this->tagNots = array();
+        }
+
+        if (is_array($tag)) {
+            foreach($tag as $_tag) {
+                if (!is_string($_tag)) {
+                    throw new InvalidArgumentException("Invalid tag_not value");
+                }
+                if (!in_array($_tag, $this->tagNots)) {
+                    array_push($this->tagNots, $_tag);
+                }
+            }
+        } else if (is_string($tag)) {
+            if (!in_array($tag, $this->tagNots)) {
+                array_push($this->tagNots, $tag);
+            }
+        } else {
+            throw new InvalidArgumentException("Invalid tag_not value");
         }
 
         return $this;
@@ -247,6 +273,9 @@ class PushPayload {
         }
         if (!is_null($this->tagAnds)) {
             $audience["tag_and"] = $this->tagAnds;
+        }
+        if (!is_null($this->tagNots)) {
+            $audience["tag_not"] = $this->tagNots;
         }
         if (!is_null($this->alias)) {
             $audience["alias"] = $this->alias;
