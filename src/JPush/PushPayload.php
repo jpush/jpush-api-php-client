@@ -437,7 +437,7 @@ class PushPayload {
                 $android['priority'] = $notification['priority'];
             }
             if (isset($notification['category']) && is_string($notification['category'])) {
-                $android['category'] = $notification['category`'];
+                $android['category'] = $notification['category'];
             }
             if (isset($notification['style']) && is_int($notification['style'])) {
                 $android['style'] = $notification['style'];
