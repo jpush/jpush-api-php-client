@@ -44,6 +44,7 @@ require 'path_to_sdk/autoload.php';
 - [Schedule API](https://github.com/jpush/jpush-api-php-client/blob/master/doc/api.md#schedule-api)
 - [Exception Handle](https://github.com/jpush/jpush-api-php-client/blob/master/doc/api.md#schedule-api)
 - [HTTP/2 Support](https://github.com/jpush/jpush-api-php-client/blob/master/doc/http2.md)
+- [Group Push](https://github.com/jpush/jpush-api-php-client/blob/master/doc/grouppush.md)
 
 #### 初始化
 

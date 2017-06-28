@@ -6,9 +6,11 @@ class PushPayload {
 
     private static $EFFECTIVE_DEVICE_TYPES = array('ios', 'android', 'winphone');
     const PUSH_URL = 'https://api.jpush.cn/v3/push';
+    const GROUP_PUSH_URL = 'https://api.jpush.cn/v3/grouppush';
     const PUSH_VALIDATE_URL = 'https://api.jpush.cn/v3/push/validate';
 
     private $client;
+    private $url;
     private $platform;
 
     private $audience;
@@ -32,6 +34,8 @@ class PushPayload {
      */
     function __construct($client) {
         $this->client = $client;
+        $this->url = $this->client->is_group() ? PushPayload::GROUP_PUSH_URL :  PushPayload::PUSH_URL;
+        echo $this->url;
     }
 
     public function setPlatform($platform) {
@@ -370,8 +374,7 @@ class PushPayload {
     }
 
     public function send() {
-        $url = PushPayload::PUSH_URL;
-        return Http::post($this->client, $url, $this->build());
+        return Http::post($this->client, $this->url, $this->build());
     }
 
     public function validate() {
