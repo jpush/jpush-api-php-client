@@ -35,7 +35,6 @@ class PushPayload {
     function __construct($client) {
         $this->client = $client;
         $this->url = $this->client->is_group() ? PushPayload::GROUP_PUSH_URL :  PushPayload::PUSH_URL;
-        echo $this->url;
     }
 
     public function setPlatform($platform) {
