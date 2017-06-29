@@ -70,176 +70,53 @@ class PushPayload {
     }
 
     public function addTag($tag) {
-        if (is_null($this->tags)) {
-            $this->tags = array();
-        }
-
-        if (is_array($tag)) {
-            foreach($tag as $_tag) {
-                if (!is_string($_tag)) {
-                    throw new InvalidArgumentException("Invalid tag value");
-                }
-                if (!in_array($_tag, $this->tags)) {
-                    array_push($this->tags, $_tag);
-                }
-            }
-        } else if (is_string($tag)) {
-            if (!in_array($tag, $this->tags)) {
-                array_push($this->tags, $tag);
-            }
-        } else {
-            throw new InvalidArgumentException("Invalid tag value");
-        }
-
-        return $this;
-
+        return $this->updateAudience('tags', $tag, 'tag');
     }
 
     public function addTagAnd($tag) {
-        if (is_null($this->tagAnds)) {
-            $this->tagAnds = array();
-        }
-
-        if (is_array($tag)) {
-            foreach($tag as $_tag) {
-                if (!is_string($_tag)) {
-                    throw new InvalidArgumentException("Invalid tag_and value");
-                }
-                if (!in_array($_tag, $this->tagAnds)) {
-                    array_push($this->tagAnds, $_tag);
-                }
-            }
-        } else if (is_string($tag)) {
-            if (!in_array($tag, $this->tagAnds)) {
-                array_push($this->tagAnds, $tag);
-            }
-        } else {
-            throw new InvalidArgumentException("Invalid tag_and value");
-        }
-
-        return $this;
+        return $this->updateAudience('tagAnds', $tag, 'tag_and');
     }
 
     public function addTagNot($tag) {
-        if (is_null($this->tagNots)) {
-            $this->tagNots = array();
-        }
-
-        if (is_array($tag)) {
-            foreach($tag as $_tag) {
-                if (!is_string($_tag)) {
-                    throw new InvalidArgumentException("Invalid tag_not value");
-                }
-                if (!in_array($_tag, $this->tagNots)) {
-                    array_push($this->tagNots, $_tag);
-                }
-            }
-        } else if (is_string($tag)) {
-            if (!in_array($tag, $this->tagNots)) {
-                array_push($this->tagNots, $tag);
-            }
-        } else {
-            throw new InvalidArgumentException("Invalid tag_not value");
-        }
-
-        return $this;
+        return $this->updateAudience('tagNots', $tag, 'tag_not');
     }
 
     public function addAlias($alias) {
-        if (is_null($this->alias)) {
-            $this->alias = array();
-        }
-
-        if (is_array($alias)) {
-            foreach($alias as $_alias) {
-                if (!is_string($_alias)) {
-                    throw new InvalidArgumentException("Invalid alias value");
-                }
-                if (!in_array($_alias, $this->alias)) {
-                    array_push($this->alias, $_alias);
-                }
-            }
-        } else if (is_string($alias)) {
-            if (!in_array($alias, $this->alias)) {
-                array_push($this->alias, $alias);
-            }
-        } else {
-            throw new InvalidArgumentException("Invalid alias value");
-        }
-
-        return $this;
+        return $this->updateAudience('alias', $alias, 'alias');
     }
 
     public function addRegistrationId($registrationId) {
-        if (is_null($this->registrationIds)) {
-            $this->registrationIds = array();
-        }
-
-        if (is_array($registrationId)) {
-            foreach($registrationId as $_registrationId) {
-                if (!is_string($_registrationId)) {
-                    throw new InvalidArgumentException("Invalid registration_id value");
-                }
-                if (!in_array($_registrationId, $this->registrationIds)) {
-                    array_push($this->registrationIds, $_registrationId);
-                }
-            }
-        } else if (is_string($registrationId)) {
-            if (!in_array($registrationId, $this->registrationIds)) {
-                array_push($this->registrationIds, $registrationId);
-            }
-        } else {
-            throw new InvalidArgumentException("Invalid registration_id value");
-        }
-
-        return $this;
+        return $this->updateAudience('registrationIds', $registrationId, 'registration_id');
     }
 
     public function addSegmentId($segmentId) {
-        if (is_null($this->segmentIds)) {
-            $this->segmentIds = array();
-        }
-
-        if (is_array($segmentId)) {
-            foreach($segmentId as $_segmentId) {
-                if (!is_string($_segmentId)) {
-                    throw new InvalidArgumentException("Invalid segment_id value");
-                }
-                if (!in_array($_segmentId, $this->segmentIds)) {
-                    array_push($this->segmentIds, $_segmentId);
-                }
-            }
-        } else if (is_string($segmentId)) {
-            if (!in_array($segmentId, $this->segmentIds)) {
-                array_push($this->segmentIds, $segmentId);
-            }
-        } else {
-            throw new InvalidArgumentException("Invalid segment_id value");
-        }
-
-        return $this;
+        return $this->updateAudience('segmentIds', $segmentId, 'segment_id');
     }
 
     public function addAbtest($abtest) {
-        if (is_null($this->abtests)) {
-            $this->abtests = array();
+        return $this->updateAudience('abtests', $abtest, 'abtest');
+    }
+
+    private function updateAudience($key, $value, $name) {
+        if (is_null($this->$key)) {
+            $this->$key = array();
         }
 
-        if (is_array($abtest)) {
-            foreach($abtest as $_abtest) {
-                if (!is_string($_abtest)) {
-                    throw new InvalidArgumentException("Invalid abtest value");
+        if (is_array($value)) {
+            foreach($value as $v) {
+                if (!is_string($v)) {
+                    throw new InvalidArgumentException("Invalid $name value");
                 }
-                if (!in_array($_abtest, $this->abtests)) {
-                    array_push($this->abtests, $_abtest);
+                if (!in_array($v, $this->$key)) {
+                    array_push($this->$key, $v);
                 }
             }
-        } else if (is_string($abtest)) {
-            if (!in_array($abtest, $this->abtests)) {
-                array_push($this->abtests, $abtest);
+        } else if (is_string($value)) {
+            if (!in_array($value, $this->$key)) {
+                array_push($this->$key, $value);
             }
         } else {
-            throw new InvalidArgumentException("Invalid abtest value");
+            throw new InvalidArgumentException("Invalid $name value");
         }
 
         return $this;
