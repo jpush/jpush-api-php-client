@@ -9,6 +9,7 @@ $group_master_secret = 'xxxx';
 
 ##  初始化
 
+**注：Group Key 需拼接 'group-' 使用**
 
 ```php
 $client = new \JPush\Client('group-' . $group_key, $group_master_secret);

@@ -63,7 +63,7 @@ $push->addTag('tag1');
 $push->addTag(['tag1', 'tag2']);
 ```
 
-其他诸如 `addAlias()`, `addRegistrationId()`, `addTagAnd()`, `addTagNot()` 的使用方法与 `addTag()` 类似，在此不做赘述。
+其他诸如 `addAlias()`, `addRegistrationId()`, `addTagAnd()`, `addTagNot()`, `addSegmentId()`, `addAbtest()` 的使用方法与 `addTag()` 类似，在此不做赘述。
 
 #### Notification
 

@@ -19,6 +19,8 @@ class PushPayload {
     private $tagNots;
     private $alias;
     private $registrationIds;
+    private $segmentIds;
+    private $abtests;
 
     private $notificationAlert;
     private $iosNotification;
@@ -188,6 +190,56 @@ class PushPayload {
             }
         } else {
             throw new InvalidArgumentException("Invalid registration_id value");
+        }
+
+        return $this;
+    }
+
+    public function addSegmentId($segmentId) {
+        if (is_null($this->segmentIds)) {
+            $this->segmentIds = array();
+        }
+
+        if (is_array($segmentId)) {
+            foreach($segmentId as $_segmentId) {
+                if (!is_string($_segmentId)) {
+                    throw new InvalidArgumentException("Invalid segment_id value");
+                }
+                if (!in_array($_segmentId, $this->segmentIds)) {
+                    array_push($this->segmentIds, $_segmentId);
+                }
+            }
+        } else if (is_string($segmentId)) {
+            if (!in_array($segmentId, $this->segmentIds)) {
+                array_push($this->segmentIds, $segmentId);
+            }
+        } else {
+            throw new InvalidArgumentException("Invalid segment_id value");
+        }
+
+        return $this;
+    }
+
+    public function addAbtest($abtest) {
+        if (is_null($this->abtests)) {
+            $this->abtests = array();
+        }
+
+        if (is_array($abtest)) {
+            foreach($abtest as $_abtest) {
+                if (!is_string($_abtest)) {
+                    throw new InvalidArgumentException("Invalid abtest value");
+                }
+                if (!in_array($_abtest, $this->abtests)) {
+                    array_push($this->abtests, $_abtest);
+                }
+            }
+        } else if (is_string($abtest)) {
+            if (!in_array($abtest, $this->abtests)) {
+                array_push($this->abtests, $abtest);
+            }
+        } else {
+            throw new InvalidArgumentException("Invalid abtest value");
         }
 
         return $this;
