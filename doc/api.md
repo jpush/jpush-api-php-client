@@ -34,12 +34,19 @@ $push = $client->push();
 
 通过 [JPush Push API](http://docs.jiguang.cn/server/rest_api_v3_push) 我们知道，一个 PushPayload 是由以下几个部分构成的：
 
+- Cid
 - Platform
 - Audience
 - Notification
 - Message
 - SmsContent
 - Options
+
+#### Cid
+
+```php
+$push->setCid($cid);
+```
 
 #### Platform
 
@@ -208,6 +215,7 @@ $push->send();
 
 ```php
 $response = $push()
+    ->setCid('xxxxxx')
     ->setPlatform(['ios', 'android'])
     ->addTag(['tag1', 'tag2'])
     ->setNotificationAlert('Hello, JPush')
@@ -229,6 +237,7 @@ $response = $push()
     ->send();
 
 // OR 也可以提前准备好所有的参数，然后链式调用，这样代码可读性更好一点
+$cid = 'xxxxxx';
 $platform = array('ios', 'android');
 $alert = 'Hello JPush';
 $tag = array('tag1', 'tag2');
@@ -266,7 +275,8 @@ $options = array(
     'override_msg_id' => 100,
     'big_push_duration' => 100
 );
-$response = $push->setPlatform($platform)
+$response = $push->setCid($cid)
+    ->setPlatform($platform)
     ->addTag($tag)
     ->addRegistrationId($regId)
     ->iosNotification($alert, $ios_notification)
@@ -274,6 +284,12 @@ $response = $push->setPlatform($platform)
     ->message($content, $message)
     ->options($options)
     ->send();
+```
+
+#### 获取 Cid
+
+```php
+$push->getCid($count = 1, $type = 'push');
 ```
 
 ## Report API

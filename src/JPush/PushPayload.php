@@ -8,9 +8,12 @@ class PushPayload {
     const PUSH_URL = 'https://api.jpush.cn/v3/push';
     const GROUP_PUSH_URL = 'https://api.jpush.cn/v3/grouppush';
     const PUSH_VALIDATE_URL = 'https://api.jpush.cn/v3/push/validate';
+    const CID_URL = 'https://api.jpush.cn/v3/push/cid';
 
     private $client;
     private $url;
+
+    private $cid;
     private $platform;
 
     private $audience;
@@ -37,6 +40,15 @@ class PushPayload {
     function __construct($client) {
         $this->client = $client;
         $this->url = $this->client->is_group() ? PushPayload::GROUP_PUSH_URL :  PushPayload::PUSH_URL;
+    }
+
+    public function getCid($count = 1, $type = 'push') {
+        $url = self::CID_URL . '?count=' . $count . '&type =' . $type;
+        return Http::get($this->client, $url);
+    }
+
+    public function setCid($cid) {
+        $this->cid = trim($cid);
     }
 
     public function setPlatform($platform) {
@@ -197,6 +209,10 @@ class PushPayload {
             throw new InvalidArgumentException("platform must be set");
         }
         $payload["platform"] = $this->platform;
+
+        if (!is_null($this->cid)) {
+            $payload['cid'] = $this->cid;
+        }
 
         // validate audience
         $audience = array();

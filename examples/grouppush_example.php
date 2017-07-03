@@ -6,7 +6,7 @@ use JPush\Client as JPush;
 $group_key = 'xxxx';
 $group_master_secret = 'xxxx';
 
-$client = new JPush('group-' . $group_key, $group_master_secret);
+$client = new JPush('group-' . $group_key, $group_master_secret, null);
 
 $push_payload = $client->push()
     ->setPlatform('all')
