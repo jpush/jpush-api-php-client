@@ -446,6 +446,9 @@ class PushPayload {
         } else {
             $options['apns_production'] = false;
         }
+        if (isset($opts['apns_collapse_id'])) {
+            $options['apns_collapse_id'] = $opts['apns_collapse_id'];
+        }
         if (isset($opts['big_push_duration']) && is_int($opts['big_push_duration']) && $opts['big_push_duration'] <= 1400 && $opts['big_push_duration'] >= 0) {
             $options['big_push_duration'] = $opts['big_push_duration'];
         }
