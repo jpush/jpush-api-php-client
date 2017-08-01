@@ -49,6 +49,7 @@ class PushPayload {
 
     public function setCid($cid) {
         $this->cid = trim($cid);
+        return $this;
     }
 
     public function setPlatform($platform) {
