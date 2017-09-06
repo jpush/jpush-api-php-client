@@ -32,7 +32,7 @@ $client = new \JPush\Client($app_key, $master_secret, $log_path);
 $push = $client->push();
 ```
 
-通过 [JPush Push API](http://docs.jiguang.cn/server/rest_api_v3_push) 我们知道，一个 PushPayload 是由以下几个部分构成的：
+通过 [JPush Push API](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push/) 我们知道，一个 PushPayload 是由以下几个部分构成的：
 
 - Cid
 - Platform
@@ -446,7 +446,7 @@ $schedule->deleteSchedule($schedule_id);
 
 ## Exception Handle
 
-当 API 请求发生错误时，SDK 将抛出异常，Pushpayload 具体错误代码请参考[ API 错误代码表](http://docs.jiguang.cn/server/rest_api_v3_push/#http)。
+当 API 请求发生错误时，SDK 将抛出异常，Pushpayload 具体错误代码请参考[ API 错误代码表](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push/#_19)。
 PHP SDK 主要抛出两个异常 `\JPush\Exceptions\APIConnectionException` 和 `\JPush\Exceptions\APIRequestException` 分别对应请求连接产生的异常和请求响应的异常。
 这两种异常都需要捕获，为简单起见，也可以捕获他们的父类异常 `JPush\Exceptions\JPushException`（见 README）。另外 APIRequestException 异常还提供其他方法供开发者调用。
 
