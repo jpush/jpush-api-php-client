@@ -115,8 +115,14 @@ class PushPayload {
             $this->$key = array();
         }
 
+        if (is_int($value)) {
+            $value = "{$value}";
+        }
         if (is_array($value)) {
-            foreach($value as $v) {
+            foreach ($value as $v) {
+                if (is_int($v)) {
+                    $v = "{$v}";
+                }
                 if (!is_string($v)) {
                     throw new InvalidArgumentException("Invalid $name value");
                 }
