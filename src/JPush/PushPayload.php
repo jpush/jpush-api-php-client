@@ -367,8 +367,6 @@ class PushPayload {
     }
 
     public function androidNotification($alert = '', array $notification = array()) {
-        # $required_keys = array('title', 'builder_id', 'priority', 'category', 'style',
-        #                        'alert_type', 'big_text', 'inbox', 'big_pic_path', 'extras');
         $android = array();
         $android['alert'] = is_string($alert) ? $alert : '';
         if (!empty($notification)) {
@@ -402,6 +400,7 @@ class PushPayload {
             if (isset($notification['alert_type']) && is_int($notification['alert_type'])) {
                 $android['alert_type'] = $notification['alert_type'];
             }
+            $android = array_merge($notification, $android);
         }
         $this->androidNotification = $android;
         return $this;
