@@ -5,9 +5,7 @@ use InvalidArgumentException;
 class DevicePayload {
 
     const DEVICE_URL = 'https://device.jpush.cn/v3/devices/';
-    const DEVICE_STATUS_URL = 'https://device.jpush.cn/v3/devices/status/';
     const TAG_URL = 'https://device.jpush.cn/v3/tags/';
-    const IS_IN_TAG_URL = 'https://device.jpush.cn/v3/tags/{tag}/registration_ids/{registration_id}';
     const ALIAS_URL = 'https://device.jpush.cn/v3/aliases/';
 
     private $client;
@@ -111,10 +109,7 @@ class DevicePayload {
         if (!is_string($tag)) {
             throw new InvalidArgumentException("Invalid tag");
         }
-
-        $url = str_replace('{tag}', $tag, self::IS_IN_TAG_URL);
-        $url = str_replace('{registration_id}', $registrationId, $url);
-
+        $url = DevicePayload::TAG_URL . $tag . '/registration_ids/' . $registration_id;
         return Http::get($this->client, $url);
     }
 
@@ -218,7 +213,7 @@ class DevicePayload {
             throw new InvalidArgumentException('Invalid registration_id');
         }
         $payload['registration_ids'] = $registrationId;
-        $url = DevicePayload::DEVICE_STATUS_URL;
+        $url = DevicePayload::DEVICE_URL . 'status';
         return Http::post($this->client, $url, $payload);
     }
 }

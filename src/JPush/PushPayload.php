@@ -7,8 +7,6 @@ class PushPayload {
     private static $EFFECTIVE_DEVICE_TYPES = array('ios', 'android', 'winphone');
     const PUSH_URL = 'https://api.jpush.cn/v3/push';
     const GROUP_PUSH_URL = 'https://api.jpush.cn/v3/grouppush';
-    const PUSH_VALIDATE_URL = 'https://api.jpush.cn/v3/push/validate';
-    const CID_URL = 'https://api.jpush.cn/v3/push/cid';
 
     private $client;
     private $url;
@@ -43,7 +41,7 @@ class PushPayload {
     }
 
     public function getCid($count = 1, $type = 'push') {
-        $url = self::CID_URL . '?count=' . $count . '&type =' . $type;
+        $url = self::PUSH_URL . '/cid?count=' . $count . '&type =' . $type;
         return Http::get($this->client, $url);
     }
 
@@ -323,7 +321,7 @@ class PushPayload {
     }
 
     public function validate() {
-        $url = PushPayload::PUSH_VALIDATE_URL;
+        $url = PushPayload::PUSH_URL . '/validate';
         return Http::post($this->client, $url, $this->build());
     }
 
