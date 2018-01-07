@@ -37,11 +37,12 @@ class PushPayload {
      */
     function __construct($client) {
         $this->client = $client;
-        $this->url = $this->client->is_group() ? PushPayload::GROUP_PUSH_URL :  PushPayload::PUSH_URL;
+        $url = $this->client->is_group() ? 'grouppush' : 'push';
+        $this->url = $this->client->makeURL('push') . $url;
     }
 
     public function getCid($count = 1, $type = 'push') {
-        $url = self::PUSH_URL . '/cid?count=' . $count . '&type =' . $type;
+        $url = $this->client->makeURL('push') . 'push/cid?count=' . $count . '&type =' . $type;
         return Http::get($this->client, $url);
     }
 
@@ -321,7 +322,7 @@ class PushPayload {
     }
 
     public function validate() {
-        $url = PushPayload::PUSH_URL . '/validate';
+        $url = $this->client->makeURL('push') . '/push/validate';
         return Http::post($this->client, $url, $this->build());
     }
 

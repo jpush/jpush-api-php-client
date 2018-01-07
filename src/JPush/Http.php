@@ -24,11 +24,6 @@ final class Http {
     }
 
     private static function sendRequest($client, $url, $method, $body=null, $times=1) {
-        strpos($url, 'https://api')
-        if (!is_null($client->getZone())) {
-            $zone = $client->getZone();
-            $url = str_replace('https://api', 'https://bjapi', $url);
-        }
         self::log($client, "Send " . $method . " " . $url . ", body:" . json_encode($body) . ", times:" . $times);
         if (!defined('CURL_HTTP_VERSION_2_0')) {
             define('CURL_HTTP_VERSION_2_0', 3);

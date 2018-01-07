@@ -22,7 +22,7 @@ class Client {
             $this->retryTimes = 1;
         }
         $this->logFile = $logFile;
-        if (!is_null($zone) && in_array($zone, array_keys(Config::ZONES))) {
+        if (!is_null($zone) && in_array(strtoupper($zone), array_keys(Config::ZONES))) {
             $this->zone = strtoupper($zone);
         } else {
             $this->zone= null;

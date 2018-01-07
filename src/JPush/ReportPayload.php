@@ -5,10 +5,6 @@ use InvalidArgumentException;
 class ReportPayload {
     private static $EFFECTIVE_TIME_UNIT = array('HOUR', 'DAY', 'MONTH');
 
-    const REPORT_URL = 'https://report.jpush.cn/v3/received';
-    const MESSAGES_URL = 'https://report.jpush.cn/v3/messages';
-    const USERS_URL = 'https://report.jpush.cn/v3/users';
-
     private $client;
 
     /**
@@ -31,7 +27,7 @@ class ReportPayload {
             throw new InvalidArgumentException("Invalid msg_ids");
         }
 
-        $url = ReportPayload::REPORT_URL . $queryParams;
+        $url = $this->client->makeURL('report') . 'received/' . $queryParams;
         return Http::get($this->client, $url);
     }
 
@@ -46,7 +42,7 @@ class ReportPayload {
             throw new InvalidArgumentException("Invalid msg_ids");
         }
 
-        $url = ReportPayload::MESSAGES_URL . $queryParams;
+        $url = $this->client->makeURL('report') . 'messages/' .$queryParams;
         return Http::get($this->client, $url);
     }
 
@@ -56,7 +52,7 @@ class ReportPayload {
             throw new InvalidArgumentException('Invalid time unit');
         }
 
-        $url = ReportPayload::USERS_URL . '?time_unit=' . $time_unit . '&start=' . $start . '&duration=' . $duration;
+        $url = $this->client->makeURL('report') . 'users/?time_unit=' . $time_unit . '&start=' . $start . '&duration=' . $duration;
         return Http::get($this->client, $url);
     }
 }
