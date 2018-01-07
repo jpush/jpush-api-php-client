@@ -8,8 +8,9 @@ class Client {
     private $masterSecret;
     private $retryTimes;
     private $logFile;
+    private $zone;
 
-    public function __construct($appKey, $masterSecret, $logFile=Config::DEFAULT_LOG_FILE, $retryTimes=Config::DEFAULT_MAX_RETRY_TIMES) {
+    public function __construct($appKey, $masterSecret, $logFile=Config::DEFAULT_LOG_FILE, $retryTimes=Config::DEFAULT_MAX_RETRY_TIMES, $zone = null) {
         if (!is_string($appKey) || !is_string($masterSecret)) {
             throw new InvalidArgumentException("Invalid appKey or masterSecret");
         }
@@ -21,6 +22,11 @@ class Client {
             $this->retryTimes = 1;
         }
         $this->logFile = $logFile;
+        if (!is_null($zone) && in_array($zone, array_keys(Config::ZONES))) {
+            $this->zone = strtoupper($zone);
+        } else {
+            $this->zone= null;
+        }
     }
 
     public function push() { return new PushPayload($this); }
@@ -35,5 +41,13 @@ class Client {
     public function is_group() {
         $str = substr($this->appKey, 0, 6);
         return $str === 'group-';
+    }
+
+    public function makeURL($key) {
+        if (is_null($this->zone)) {
+            return Config::ZONES['URL'][$key];
+        } else {
+            return Config::ZONES[$this->zone][$key];
+        }
     }
 }
