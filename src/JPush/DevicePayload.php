@@ -36,7 +36,7 @@ class DevicePayload {
 
     public function clearTags($registration_id) {
         $url = $this->client->makeURL('device') . $registrationId;
-        return Http::post($this->client, $url, [tags: '']);
+        return Http::post($this->client, $url, ['tags' => '']);
     }
 
     public function updateDevice($registrationId, $alias = null, $mobile = null, $addTags = null, $removeTags = null) {
