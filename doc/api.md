@@ -358,6 +358,9 @@ $device->addTags($registration_id, ['tag1', 'tag2']);
 $device->removeTags($registration_id, 'tags');
 // OR
 $device->removeTags($registration_id,  ['tag1', 'tag2']);
+// 清空所有 tag
+$device->clearTags($registration_id);
+
 // 更新 mobile
 $device->updateMoblie($registration_id, '13800138000');
 
