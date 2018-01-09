@@ -31,6 +31,19 @@ class ReportPayload {
         return Http::get($this->client, $url);
     }
 
+    public function getMessageStatus($msgId, $rids, $data = null) {
+        $url = $this->client->makeURL('report') . ' status/message';
+        $registrationIds = is_array($rids) ? $rids : array($rids);
+        $body = [
+            'msg_id' => $msgId,
+            'registration_ids' => $registrationIds
+        ];
+        if (!is_null($data)) {
+            $body['data'] = $data;
+        }
+        return Http::post($this->client, $url, $body);
+    }
+
     public function getMessages($msgIds) {
         $queryParams = '?msg_ids=';
         if (is_array($msgIds) && !empty($msgIds)) {
