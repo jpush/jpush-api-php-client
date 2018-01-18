@@ -24,13 +24,13 @@ class Config {
             'admin' => 'https://admin.jpush.cn/v1/'
         ],
         'BJ' => [
-            'push' => 'https://bjapi.push.jiguang.cn/v3/',
-            'report' => 'https://bjapi.push.jiguang.cn/v3/report/',
-            'device' => 'https://bjapi.push.jiguang.cn/v3/device/',
-            'alias' => 'https://bjapi.push.jiguang.cn/v3/aliases/',
-            'tag' => 'https://bjapi.push.jiguang.cn/v3/tags/',
+            'push'      => 'https://bjapi.push.jiguang.cn/v3/',
+            'report'    => 'https://bjapi.push.jiguang.cn/v3/report/',
+            'device'    => 'https://bjapi.push.jiguang.cn/v3/device/',
+            'alias'     => 'https://bjapi.push.jiguang.cn/v3/device/aliases/',
+            'tag'       => 'https://bjapi.push.jiguang.cn/v3/device/tags/',
             'schedules' => 'https://bjapi.push.jiguang.cn/v3/push/schedules/',
-            'admin' => 'https://admin.jpush.cn/v1/'
+            'admin'     => 'https://admin.jpush.cn/v1/'
         ]
     ];
 }
