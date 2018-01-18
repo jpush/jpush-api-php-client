@@ -18,8 +18,8 @@ class Config {
             'push' => 'https://api.jpush.cn/v3/',
             'report' => 'https://report.jpush.cn/v3/',
             'device' => 'https://device.jpush.cn/v3/devices/',
-            'alias' => 'https://device.jpush.cn/v3/alias/',
-            'tag' => 'https://device.jpush.cn/v3/tag/',
+            'alias' => 'https://device.jpush.cn/v3/aliases/',
+            'tag' => 'https://device.jpush.cn/v3/tags/',
             'schedule' => 'https://api.jpush.cn/v3/schedules/',
             'admin' => 'https://admin.jpush.cn/v1/'
         ],
@@ -27,8 +27,8 @@ class Config {
             'push' => 'https://bjapi.push.jiguang.cn/v3/',
             'report' => 'https://bjapi.push.jiguang.cn/v3/report/',
             'device' => 'https://bjapi.push.jiguang.cn/v3/device/',
-            'alias' => 'https://bjapi.push.jiguang.cn/v3/alias/',
-            'tag' => 'https://bjapi.push.jiguang.cn/v3/tag/',
+            'alias' => 'https://bjapi.push.jiguang.cn/v3/aliases/',
+            'tag' => 'https://bjapi.push.jiguang.cn/v3/tags/',
             'schedules' => 'https://bjapi.push.jiguang.cn/v3/push/schedules/',
             'admin' => 'https://admin.jpush.cn/v1/'
         ]
