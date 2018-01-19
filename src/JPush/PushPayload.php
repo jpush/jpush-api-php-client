@@ -5,8 +5,6 @@ use InvalidArgumentException;
 class PushPayload {
 
     private static $EFFECTIVE_DEVICE_TYPES = array('ios', 'android', 'winphone');
-    const PUSH_URL = 'https://api.jpush.cn/v3/push';
-    const GROUP_PUSH_URL = 'https://api.jpush.cn/v3/grouppush';
 
     private $client;
     private $url;

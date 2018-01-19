@@ -9,6 +9,24 @@ class Client {
     private $retryTimes;
     private $logFile;
     private $zone;
+    private static $zones = [
+        'DEFAULT' => [
+            'push' => 'https://api.jpush.cn/v3/',
+            'report' => 'https://report.jpush.cn/v3/',
+            'device' => 'https://device.jpush.cn/v3/devices/',
+            'alias' => 'https://device.jpush.cn/v3/aliases/',
+            'tag' => 'https://device.jpush.cn/v3/tags/',
+            'schedule' => 'https://api.jpush.cn/v3/schedules/'
+        ],
+        'BJ' => [
+            'push'      => 'https://bjapi.push.jiguang.cn/v3/',
+            'report'    => 'https://bjapi.push.jiguang.cn/v3/report/',
+            'device'    => 'https://bjapi.push.jiguang.cn/v3/device/',
+            'alias'     => 'https://bjapi.push.jiguang.cn/v3/device/aliases/',
+            'tag'       => 'https://bjapi.push.jiguang.cn/v3/device/tags/',
+            'schedules' => 'https://bjapi.push.jiguang.cn/v3/push/schedules/'
+        ]
+    ];
 
     public function __construct($appKey, $masterSecret, $logFile=Config::DEFAULT_LOG_FILE, $retryTimes=Config::DEFAULT_MAX_RETRY_TIMES, $zone = null) {
         if (!is_string($appKey) || !is_string($masterSecret)) {
@@ -22,7 +40,7 @@ class Client {
             $this->retryTimes = 1;
         }
         $this->logFile = $logFile;
-        if (!is_null($zone) && in_array(strtoupper($zone), array_keys(Config::ZONES))) {
+        if (!is_null($zone) && in_array(strtoupper($zone), array_keys(self::$zones))) {
             $this->zone = strtoupper($zone);
         } else {
             $this->zone= null;
@@ -45,9 +63,9 @@ class Client {
 
     public function makeURL($key) {
         if (is_null($this->zone)) {
-            return Config::ZONES['URL'][$key];
+            return self::$zones['DEFAULT'][$key];
         } else {
-            return Config::ZONES[$this->zone][$key];
+            return self::$zones[$this->zone][$key];
         }
     }
 }

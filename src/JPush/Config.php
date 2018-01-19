@@ -13,24 +13,4 @@ class Config {
     const HTTP_POST = 'POST';
     const HTTP_DELETE = 'DELETE';
     const HTTP_PUT = 'PUT';
-    const ZONES = [
-        'URL' => [
-            'push' => 'https://api.jpush.cn/v3/',
-            'report' => 'https://report.jpush.cn/v3/',
-            'device' => 'https://device.jpush.cn/v3/devices/',
-            'alias' => 'https://device.jpush.cn/v3/aliases/',
-            'tag' => 'https://device.jpush.cn/v3/tags/',
-            'schedule' => 'https://api.jpush.cn/v3/schedules/',
-            'admin' => 'https://admin.jpush.cn/v1/'
-        ],
-        'BJ' => [
-            'push'      => 'https://bjapi.push.jiguang.cn/v3/',
-            'report'    => 'https://bjapi.push.jiguang.cn/v3/report/',
-            'device'    => 'https://bjapi.push.jiguang.cn/v3/device/',
-            'alias'     => 'https://bjapi.push.jiguang.cn/v3/device/aliases/',
-            'tag'       => 'https://bjapi.push.jiguang.cn/v3/device/tags/',
-            'schedules' => 'https://bjapi.push.jiguang.cn/v3/push/schedules/',
-            'admin'     => 'https://admin.jpush.cn/v1/'
-        ]
-    ];
 }
