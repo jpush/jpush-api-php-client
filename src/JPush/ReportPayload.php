@@ -32,7 +32,7 @@ class ReportPayload {
     }
 
     public function getMessageStatus($msgId, $rids, $data = null) {
-        $url = $this->client->makeURL('report') . ' status/message';
+        $url = $this->client->makeURL('report') . 'status/message';
         $registrationIds = is_array($rids) ? $rids : array($rids);
         $body = [
             'msg_id' => $msgId,
