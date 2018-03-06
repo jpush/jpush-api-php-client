@@ -427,26 +427,26 @@ class PushPayload {
     public function options(array $opts = array()) {
         # $required_keys = array('sendno', 'time_to_live', 'override_msg_id', 'apns_production', 'big_push_duration');
         $options = array();
-        if (isset($opts['sendno']) && is_int($opts['sendno'])) {
+        if (isset($opts['sendno'])) {
             $options['sendno'] = $opts['sendno'];
         } else {
             $options['sendno'] = $this->generateSendno();
         }
-        if (isset($opts['time_to_live']) && is_int($opts['time_to_live']) && $opts['time_to_live'] <= 864000 && $opts['time_to_live'] >= 0) {
+        if (isset($opts['time_to_live']) && $opts['time_to_live'] <= 864000 && $opts['time_to_live'] >= 0) {
             $options['time_to_live'] = $opts['time_to_live'];
         }
-        if (isset($opts['override_msg_id']) && is_long($opts['override_msg_id'])) {
+        if (isset($opts['override_msg_id'])) {
             $options['override_msg_id'] = $opts['override_msg_id'];
         }
-        if (isset($opts['apns_production']) && is_bool($opts['apns_production'])) {
-            $options['apns_production'] = $opts['apns_production'];
+        if (isset($opts['apns_production'])) {
+            $options['apns_production'] = (bool)$opts['apns_production'];
         } else {
             $options['apns_production'] = false;
         }
         if (isset($opts['apns_collapse_id'])) {
             $options['apns_collapse_id'] = $opts['apns_collapse_id'];
         }
-        if (isset($opts['big_push_duration']) && is_int($opts['big_push_duration']) && $opts['big_push_duration'] <= 1400 && $opts['big_push_duration'] >= 0) {
+        if (isset($opts['big_push_duration']) && $opts['big_push_duration'] <= 1400 && $opts['big_push_duration'] >= 0) {
             $options['big_push_duration'] = $opts['big_push_duration'];
         }
         $this->options = $options;
