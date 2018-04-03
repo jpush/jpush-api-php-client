@@ -27,7 +27,7 @@ class ReportPayload {
             throw new InvalidArgumentException("Invalid msg_ids");
         }
 
-        $url = $this->client->makeURL('report') . 'received/' . $queryParams;
+        $url = $this->client->makeURL('report') . 'received' . $queryParams;
         return Http::get($this->client, $url);
     }
 
