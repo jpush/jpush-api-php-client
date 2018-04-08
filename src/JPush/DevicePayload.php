@@ -109,7 +109,7 @@ class DevicePayload {
         if (!is_string($tag)) {
             throw new InvalidArgumentException("Invalid tag");
         }
-        $url = $this->client->makeURL('tag') . $tag . '/registration_ids/' . $registration_id;
+        $url = $this->client->makeURL('tag') . $tag . '/registration_ids/' . $registrationId;
         return Http::get($this->client, $url);
     }
 
