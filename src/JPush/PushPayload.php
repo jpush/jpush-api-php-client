@@ -40,7 +40,7 @@ class PushPayload {
     }
 
     public function getCid($count = 1, $type = 'push') {
-        $url = $this->client->makeURL('push') . 'push/cid?count=' . $count . '&type =' . $type;
+        $url = $this->client->makeURL('push') . 'push/cid?count=' . $count . '&type=' . $type;
         return Http::get($this->client, $url);
     }
 
