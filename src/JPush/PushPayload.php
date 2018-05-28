@@ -100,7 +100,7 @@ class PushPayload {
     }
 
     public function addSegmentId($segmentId) {
-        return $this->updateAudience('segmentIds', $segmentId, 'segment_id');
+        return $this->updateAudience('segmentIds', $segmentId, 'segment');
     }
 
     public function addAbtest($abtest) {

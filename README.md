@@ -18,7 +18,7 @@
 
 ```json
 "require": {
-    "jpush/jpush": "^3.5"
+    "jpush/jpush": "*"
 }
 ```
 
