@@ -185,15 +185,14 @@ class PushPayload {
         return $this;
     }
 
-    public function setSmsMessage($content, $delay_time = 0) {
+    public function setSms($delay_time, $temp_id, array $temp_para = []) {
         $sms = array();
-        if (is_string($content) && mb_strlen($content) < 480) {
-            $sms['content'] = $content;
-        } else {
-            throw new InvalidArgumentException('Invalid sms content, sms content\'s length must in [0, 480]');
-        }
-
+        $sms['temp_id'] = $temp_id;
         $sms['delay_time'] = ($delay_time === 0 || (is_int($delay_time) && $delay_time > 0 && $delay_time <= 86400)) ? $delay_time : 0;
+
+        if (!empty($temp_para)) {
+            $sms['temp_para'] = $temp_para;
+        }
 
         $this->smsMessage = $sms;
         return $this;
@@ -602,6 +601,20 @@ class PushPayload {
         }
 
         $this->message = $message;
+        return $this;
+    }
+
+    public function setSmsMessage($content, $delay_time = 0) {
+        $sms = array();
+        if (is_string($content) && mb_strlen($content) < 480) {
+            $sms['content'] = $content;
+        } else {
+            throw new InvalidArgumentException('Invalid sms content, sms content\'s length must in [0, 480]');
+        }
+
+        $sms['delay_time'] = ($delay_time === 0 || (is_int($delay_time) && $delay_time > 0 && $delay_time <= 86400)) ? $delay_time : 0;
+
+        $this->smsMessage = $sms;
         return $this;
     }
 

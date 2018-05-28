@@ -179,6 +179,17 @@ $push->message('Hello JPush', [
 #### Sms Message
 
 ```php
+$push->setSms($delay_time, $temp_id, array $temp_para = [])
+```
+
+参数说明:
+* delay_time: 表示短信发送的延迟时间，单位为秒，不能超过 24 小时(即大于等于 0 小于等于 86400)。仅对 android 平台有效。
+* temp_id: 短信补充的内容模板 ID。没有填写该字段即表示不使用短信补充功能。
+* temp_para: 短信模板中的参数
+
+##### 已弃用
+
+```php
 $push->setSmsMessage($content, $delay_time)
 ```
 
