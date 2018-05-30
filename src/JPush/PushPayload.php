@@ -228,7 +228,12 @@ class PushPayload {
         if (!is_null($this->registrationIds)) {
             $audience["registration_id"] = $this->registrationIds;
         }
-
+        if (!is_null($this->segmentIds)) {
+            $audience["segment"] = $this->segmentIds;
+        }
+        if (!is_null($this->abtests)) {
+            $audience["abtest"] = $this->abtests;
+        }
         if (is_null($this->audience) && count($audience) <= 0) {
             throw new InvalidArgumentException("audience must be set");
         } else if (!is_null($this->audience) && count($audience) > 0) {
