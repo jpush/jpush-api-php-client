@@ -266,7 +266,7 @@ $ios_notification = array(
 );
 $android_notification = array(
     'title' => 'hello jpush',
-    'build_id' => 2,
+    'builder_id' => 2,
     'extras' => array(
         'key' => 'value',
         'jiguang'
