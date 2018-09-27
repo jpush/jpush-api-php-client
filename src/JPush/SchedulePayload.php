@@ -169,5 +169,14 @@ class SchedulePayload {
         $url = $this->client->makeURL('schedule') . "/" . $schedule_id;
         return Http::delete($this->client, $url);
     }
+
+    public function getMsgIds($schedule_id) {
+        if (!is_string($schedule_id)) {
+            throw new InvalidArgumentException('Invalid schedule id');
+        }
+        $url = $this->client->makeURL('schedule') . '/' . $schedule_id . '/msg_ids';
+        return Http::get($this->client, $url);
+    }
+
 }
 

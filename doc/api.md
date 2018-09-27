@@ -466,6 +466,9 @@ $schedule->getSchedule($schedule_id);
 
 // 删除指定定时任务
 $schedule->deleteSchedule($schedule_id);
+
+// 获取定时任务对应的所有 msg_id
+$schedule->getMsgIds($schedule_id);
 ```
 
 ## Exception Handle
