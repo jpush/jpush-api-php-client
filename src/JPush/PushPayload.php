@@ -334,33 +334,43 @@ class PushPayload {
 
     # new methods
     public function iosNotification($alert = '', array $notification = array()) {
-        # $required_keys = array('sound', 'badge', 'content-available', 'mutable-content', category', 'extras');
         $ios = array();
         $ios['alert'] = (is_string($alert) || is_array($alert)) ? $alert : '';
         if (!empty($notification)) {
-            if (isset($notification['sound']) && is_string($notification['sound'])) {
-                $ios['sound'] = $notification['sound'];
+            if (isset($notification['sound'])) {
+                if (is_string($notification['sound']) || is_array($notification['sound'])) {
+                    $ios['sound'] = $notification['sound'];
+                } else {
+                    unset($notification['sound']);
+                }
             }
-            if (array_key_exists('badge', $notification)) {
-                $ios['badge'] = $notification['badge'];
+            if (isset($notification['content-available'])) {
+                if (is_bool($notification['content-available'])) {
+                    $ios['content-available'] = $notification['content-available'];
+                } else {
+                    unset($notification['content-available']);
+                }
             }
-            if (isset($notification['content-available']) && is_bool($notification['content-available']) && $notification['content-available']) {
-                $ios['content-available'] = $notification['content-available'];
+            if (isset($notification['mutable-content'])) {
+                if (is_bool($notification['mutable-content'])) {
+                    $ios['mutable-content'] = $notification['mutable-content'];
+                } else {
+                    unset($notification['mutable-content']);
+                }
             }
-            if (isset($notification['mutable-content']) && is_bool($notification['mutable-content']) && $notification['mutable-content']) {
-                $ios['mutable-content'] = $notification['mutable-content'];
+            if (isset($notification['extras'])) {
+                if (is_array($notification['extras']) && !empty($notification['extras'])) {
+                    $ios['extras'] = $notification['extras'];
+                } else {
+                    unset($notification['extras']);
+                }
             }
-            if (isset($notification['category']) && is_string($notification['category'])) {
-                $ios['category'] = $notification['category'];
-            }
-            if (isset($notification['extras']) && is_array($notification['extras']) && !empty($notification['extras'])) {
-                $ios['extras'] = $notification['extras'];
-            }
+            $ios = array_merge($notification, $ios);
         }
         if (!isset($ios['sound'])) {
             $ios['sound'] = '';
         }
-        if (!array_key_exists('badge', $ios)) {
+        if (!isset($ios['badge'])) {
             $ios['badge'] = '+1';
         }
         $this->iosNotification = $ios;
@@ -371,35 +381,54 @@ class PushPayload {
         $android = array();
         $android['alert'] = is_string($alert) ? $alert : '';
         if (!empty($notification)) {
-            if (isset($notification['title']) && is_string($notification['title'])) {
-                $android['title'] = $notification['title'];
+            if (isset($notification['builder_id'])) {
+                if (is_int($notification['builder_id'])) {
+                    $android['builder_id'] = $notification['builder_id'];
+                } else {
+                    unset($notification['builder_id']);
+                }
             }
-            if (isset($notification['builder_id']) && is_int($notification['builder_id'])) {
-                $android['builder_id'] = $notification['builder_id'];
+            if (isset($notification['priority'])) {
+                if (is_int($notification['priority'])) {
+                    $android['priority'] = $notification['priority'];
+                } else {
+                    unset($notification['priority']);
+                }
             }
-            if (isset($notification['extras']) && is_array($notification['extras']) && !empty($notification['extras'])) {
-                $android['extras'] = $notification['extras'];
+            if (isset($notification['style'])) {
+                if (is_int($notification['style'])) {
+                    $android['style'] = $notification['style'];
+                } else {
+                    unset($notification['style']);
+                }
             }
-            if (isset($notification['priority']) && is_int($notification['priority'])) {
-                $android['priority'] = $notification['priority'];
+            if (isset($notification['alert_type'])) {
+                if (is_int($notification['alert_type'])) {
+                    $android['alert_type'] = $notification['alert_type'];
+                } else {
+                    unset($notification['alert_type']);
+                }
             }
-            if (isset($notification['category']) && is_string($notification['category'])) {
-                $android['category'] = $notification['category'];
+            if (isset($notification['inbox'])) {
+                if (is_array($notification['inbox']) && !empty($notification['inbox'])) {
+                    $android['inbox'] = $notification['inbox'];
+                } else {
+                    unset($notification['inbox']);
+                }
             }
-            if (isset($notification['style']) && is_int($notification['style'])) {
-                $android['style'] = $notification['style'];
+            if (isset($notification['intent'])) {
+                if (is_array($notification['intent']) && !empty($notification['intent'])) {
+                    $android['intent'] = $notification['intent'];
+                } else {
+                    unset($notification['intent']);
+                }
             }
-            if (isset($notification['big_text']) && is_string($notification['big_text'])) {
-                $android['big_text'] = $notification['big_text'];
-            }
-            if (isset($notification['inbox']) && is_array($notification['inbox'])) {
-                $android['inbox'] = $notification['inbox'];
-            }
-            if (isset($notification['big_pic_path']) && is_string($notification['big_pic_path'])) {
-                $android['big_pic_path'] = $notification['big_pic_path'];
-            }
-            if (isset($notification['alert_type']) && is_int($notification['alert_type'])) {
-                $android['alert_type'] = $notification['alert_type'];
+            if (isset($notification['extras'])) {
+                if (is_array($notification['extras']) && !empty($notification['extras'])) {
+                    $android['extras'] = $notification['extras'];
+                } else {
+                    unset($notification['extras']);
+                }
             }
             $android = array_merge($notification, $android);
         }
@@ -429,7 +458,7 @@ class PushPayload {
     }
 
     public function options(array $opts = array()) {
-        # $required_keys = array('sendno', 'time_to_live', 'override_msg_id', 'apns_production', 'big_push_duration');
+        # $required_keys = array('sendno', 'time_to_live', 'override_msg_id', 'apns_production', 'apns_collapse_id', 'big_push_duration');
         $options = array();
         if (isset($opts['sendno'])) {
             $options['sendno'] = $opts['sendno'];

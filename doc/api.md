@@ -83,7 +83,7 @@ $push->setNotificationAlert('alert');
 
 ```php
 // iosNotification($alert = '', array $notification = array())
-// 数组 $notification 的键支持 'sound', 'badge', 'content-available', 'mutable-content', category', 'extras' 中的一个或多个
+// 数组 $notification 的键支持 'sound', 'badge', 'content-available', 'mutable-content', category', 'extras', 'thread-id' 中的一个或多个
 
 // 调用示例
 $push->iosNotification();
@@ -109,14 +109,14 @@ $push->iosNotification('hello', [
 | content-available | 表示推送唤醒，仅接受 true 表示为 Background Remote Notification，若不填默认表示普通的 Remote Notification |
 | mutable-content | 表示通知扩展, 仅接受 true 表示支持 iOS10 的 UNNotificationServiceExtension, 若不填默认表示普通的 Remote Notification |
 | category | IOS8才支持。设置 APNs payload 中的 'category' 字段值 |
+| thread-id	 | 表示通知分组，ios 的远程通知通过该属性来对通知进行分组，同一个 thread-id 的通知归为一组 |
 | extras | 表示扩展字段，接受一个数组，自定义 Key/value 信息以供业务使用 |
 
 **Android Notification**
 
 ```php
 // androidNotification($alert = '', array $notification = array())
-// 调用示例同 IOS，数组 $notification 的键支持 'title', 'builder_id', 'priority', 'category', 'style', 'alert_type', 'big_text', 'inbox', 'big_pic_path', 'extras' 中的一个或多个
-
+// 调用示例同 IOS，数组 $notification 的键支持 'title', 'builder_id', 'priority', 'category', 'style', 'alert_type', 'big_text', 'inbox', 'big_pic_path', 'large_icon', 'intent', 'extras' 中的一个或多个
 ```
 
 参数说明:
@@ -133,6 +133,8 @@ $push->iosNotification('hello', [
 | big_text | 表示大文本通知栏样式，当 style = 1 时可用，内容会被通知栏以大文本的形式展示出来，支持 api 16 以上的 rom |
 | inbox | 表示文本条目通知栏样式，接受一个数组，当 style = 2 时可用，数组的每个 key 对应的 value 会被当作文本条目逐条展示，支持 api 16 以上的 rom |
 | big_pic_path | 表示大图片通知栏样式，当 style = 3 时可用，可以是网络图片 url，或本地图片的 path，目前支持 .jpg 和 .png 后缀的图片。图片内容会被通知栏以大图片的形式展示出来。如果是 http／https 的 url，会自动下载；如果要指定开发者准备的本地图片就填 sdcard 的相对路径，支持 api 16 以上的 rom |
+| large_icon | 表示通知栏大图标，图标路径可以是以 http 或 https 开头的网络图片，如："http:jiguang.cn/logo.png"，图标大小不超过 30k； 也可以是位于 drawable 资源文件夹的图标路径，如："R.drawable.lg_icon"；|
+| intent | 表示扩展字段，接受一个数组，自定义 Key/value 信息以供业务使用 |
 | extras | 表示扩展字段，接受一个数组，自定义 Key/value 信息以供业务使用 |
 
 **WinPhone Notification**
@@ -201,7 +203,7 @@ $push->setSmsMessage($content, $delay_time)
 
 ```php
 // options(array $opts = array())
-// 数组 $opts 的键支持 'sendno', 'time_to_live', 'override_msg_id', 'apns_production', 'big_push_duration' 中的一个或多个
+// 数组 $opts 的键支持 'sendno', 'time_to_live', 'override_msg_id', 'apns_production', 'big_push_duration', 'apns_collapse_id' 中的一个或多个
 ```
 
 参数说明:
@@ -384,7 +386,8 @@ $device->clearTags($registration_id);
 
 // 更新 mobile
 $device->updateMoblie($registration_id, '13800138000');
-
+// 取消手机绑定
+$device->clearMobile($registration_id);
 
 // getDevicesStatus($registrationId)
 // 获取在线用户的登录状态（VIP专属接口）,支持字符串和数组两种参数
