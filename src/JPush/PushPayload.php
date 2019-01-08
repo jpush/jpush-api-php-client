@@ -35,7 +35,7 @@ class PushPayload {
      */
     function __construct($client) {
         $this->client = $client;
-        $url = $this->client->is_group() ? 'grouppush' : 'push';
+        $url = $this->client->is_group() ? 'push/grouppush' : 'push';
         $this->url = $this->client->makeURL('push') . $url;
     }
 
