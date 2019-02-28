@@ -323,11 +323,12 @@ $report->getReceived(['msg_id1', 'msg_id2']);
 #### 送达状态查询
 
 ```php
-$report->getMessageStatus('msg_id0', 'rid0')
+$msg_id0 = 66666666666;
+$report->getMessageStatus($msg_id0, 'rid0');
 # OR
-$report->getMessageStatus('msg_id0', ['rid0', 'rid1'])
+$report->getMessageStatus($msg_id0, ['rid0', 'rid1']);
 #OR
-$report->getMessageStatus('msg_id0', ['rid0', 'rid1'], '2017-12-21')
+$report->getMessageStatus($msg_id0, ['rid0', 'rid1'], '2017-12-21');
 ```
 
 #### 获取消息统计
