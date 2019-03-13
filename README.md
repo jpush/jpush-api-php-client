@@ -4,7 +4,7 @@
 
 对应的 REST API 文档: https://docs.jiguang.cn/jpush/server/push/server_overview/
 
-> 支持的 PHP 版本: 5.3.3 ～ 5.6.x, 7.0.x
+> 支持的 PHP 版本: 5.3.3 ～ 5.6.x, 7.x
 
 > 若需要兼容 PHP 5.3.3 以下版本，可以使用 [v3 分支的代码](https://github.com/jpush/jpush-api-php-client/tree/v3)。
 因为运行 Composer 需要 PHP 5.3.2+ 以上版本，所以其不提供 Composer 支持，
