@@ -77,7 +77,7 @@ try {
             // 'time_to_live' => 1,
 
             // apns_production: 表示APNs是否生产环境，
-            // True 表示推送生产环境，False 表示要推送开发环境；如果不指定则默认为推送生产环境
+            // True 表示推送生产环境，False 表示要推送开发环境；如果不指定则默认为推送开发环境
 
             'apns_production' => false,
 
