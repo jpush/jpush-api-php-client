@@ -95,7 +95,7 @@ class SchedulePayload {
             throw new InvalidArgumentException('Invalid schedule, name, enabled, trigger, push can not all be null');
         }
 
-        $url = $this->client->makeURL('schedule') . $schedule_id;
+        $url = $this->client->makeURL('schedule') . "/" . $schedule_id;
 
         return Http::put($this->client, $url, $payload);
 
@@ -142,7 +142,7 @@ class SchedulePayload {
             throw new InvalidArgumentException('Invalid schedule, name, enabled, trigger, push can not all be null');
         }
 
-        $url = $this->client->makeURL('schedule') . $schedule_id;
+        $url = $this->client->makeURL('schedule') . "/" . $schedule_id;
         return Http::put($this->client, $url, $payload);
     }
 
@@ -158,7 +158,7 @@ class SchedulePayload {
         if (!is_string($schedule_id)) {
             throw new InvalidArgumentException('Invalid schedule id');
         }
-        $url = $this->client->makeURL('schedule') . $schedule_id;
+        $url = $this->client->makeURL('schedule') . "/" . $schedule_id;
         return Http::get($this->client, $url);
     }
 
@@ -166,7 +166,7 @@ class SchedulePayload {
         if (!is_string($schedule_id)) {
             throw new InvalidArgumentException('Invalid schedule id');
         }
-        $url = $this->client->makeURL('schedule') . $schedule_id;
+        $url = $this->client->makeURL('schedule') . "/" . $schedule_id;
         return Http::delete($this->client, $url);
     }
 
