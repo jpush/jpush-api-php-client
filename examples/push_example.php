@@ -31,8 +31,9 @@ try {
         // 即是说一般情况下，下面三个方法和没有列出的 addTagAnd 一共四个，只适用一个便可满足大多数的场景需求
 
         // ->addAlias('alias')
-        ->addTag(array('tag1', 'tag2'))
+        // ->addTag(array('tag1', 'tag2'))
         // ->addRegistrationId($registration_id)
+        ->addAllAudience()
 
         ->setNotificationAlert('Hi, JPush')
         ->iosNotification('Hello IOS', array(
@@ -86,6 +87,15 @@ try {
             // 这里设置为 1 仅作为示例
 
             // 'big_push_duration' => 1
+        ))
+        ->setSmsMessage(array(
+            'delay_time' => 60,
+            'signid' => 154,
+            'temp_id' => 1,
+            'temp_para' => array(
+                'code' => 357
+            ),
+            'active_filter' => false
         ))
         ->send();
         print_r($response);

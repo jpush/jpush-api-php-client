@@ -196,18 +196,22 @@ class PushPayloadTest extends TestCase {
 
     public function testSetSmsMessage() {
         $payload = $this->payload;
-        $result = $payload->setSmsMessage('Hello JPush')->build();
+        $smsMessage = array(
+            'delay_time' => 60,
+            'signid' => 154,
+            'temp_id' => 1,
+            'temp_para' => array(
+                'code' => 357
+            ),
+            'active_filter' => false
+        );
+        $result = $payload->setSmsMessage($smsMessage)->build();
         $sms = $result['sms_message'];
         $this->assertTrue(is_array($sms));
-        $this->assertEquals(2, count($sms));
-        $this->assertEquals('Hello JPush', $sms['content']);
-        $this->assertEquals(0, $sms['delay_time']);
-
-        $result = $payload->setSmsMessage('Hello JPush', 666)->build();
-        $this->assertEquals(666, $result['sms_message']['delay_time']);
-
-        $result = $payload->setSmsMessage('Hello JPush', 86500)->build();
-        $this->assertEquals(0, $result['sms_message']['delay_time']);
+        $this->assertEquals(5, count($sms));
+        $this->assertEquals(60, $sms['delay_time']);
+        $this->assertEquals(154, $sms['signid']);
+        $this->assertEquals(1, $sms['temp_id']);
     }
 
     public function testMessage() {

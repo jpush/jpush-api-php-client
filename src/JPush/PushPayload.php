@@ -638,17 +638,8 @@ class PushPayload {
         return $this;
     }
 
-    public function setSmsMessage($content, $delay_time = 0) {
-        $sms = array();
-        if (is_string($content) && mb_strlen($content) < 480) {
-            $sms['content'] = $content;
-        } else {
-            throw new InvalidArgumentException('Invalid sms content, sms content\'s length must in [0, 480]');
-        }
-
-        $sms['delay_time'] = ($delay_time === 0 || (is_int($delay_time) && $delay_time > 0 && $delay_time <= 86400)) ? $delay_time : 0;
-
-        $this->smsMessage = $sms;
+    public function setSmsMessage($smsMessage) {
+        $this->smsMessage = $smsMessage;
         return $this;
     }
 
@@ -696,5 +687,35 @@ class PushPayload {
 
         $this->options = $options;
         return $this;
+    }
+
+    /*
+     针对RegID方式批量单推
+     https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push/#vip
+    */
+    public function batchPushByRegid(array $singlePayloads) {
+        $body = array();
+        $response = $this -> getCid(count($singlePayloads), 'push');
+        $cidlist = $response['body']['cidlist'];
+        foreach ($cidlist as $i => $cid) {
+            $body[$cid] = $singlePayloads[$i];
+        }
+        $url = $this->client->makeURL('push') . 'push/batch/regid/single';
+        return Http::post($this->client, $url, $body);
+    }
+
+    /*
+     针对Alias方式批量单推
+     https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push/#vip
+    */
+    public function batchPushByAlias(array $singlePayloads) {
+        $body = array();
+        $response = $this -> getCid(count($singlePayloads), 'push');
+        $cidlist = $response['body']['cidlist'];
+        foreach ($cidlist as $i => $cid) {
+            $body[$cid] = $singlePayloads[$i];
+        }
+        $url = $this->client->makeURL('push') . 'push/batch/regid/alias';
+        return Http::post($this->client, $url, $body);
     }
 }

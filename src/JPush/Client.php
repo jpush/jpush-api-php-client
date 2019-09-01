@@ -43,7 +43,7 @@ class Client {
         if (!is_null($zone) && in_array(strtoupper($zone), array_keys(self::$zones))) {
             $this->zone = strtoupper($zone);
         } else {
-            $this->zone= null;
+            $this->zone = null;
         }
     }
 
