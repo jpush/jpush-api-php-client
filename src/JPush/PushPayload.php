@@ -694,11 +694,13 @@ class PushPayload {
      https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push/#vip
     */
     public function batchPushByRegid(array $singlePayloads) {
-        $body = array();
+        $body = array(
+            "pushlist": array()
+        );
         $response = $this -> getCid(count($singlePayloads), 'push');
         $cidlist = $response['body']['cidlist'];
         foreach ($cidlist as $i => $cid) {
-            $body[$cid] = $singlePayloads[$i];
+            $body["pushlist"][$cid] = $singlePayloads[$i];
         }
         $url = $this->client->makeURL('push') . 'push/batch/regid/single';
         return Http::post($this->client, $url, $body);
@@ -709,11 +711,13 @@ class PushPayload {
      https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push/#vip
     */
     public function batchPushByAlias(array $singlePayloads) {
-        $body = array();
+        $body = array(
+            "pushlist": array()
+        );
         $response = $this -> getCid(count($singlePayloads), 'push');
         $cidlist = $response['body']['cidlist'];
         foreach ($cidlist as $i => $cid) {
-            $body[$cid] = $singlePayloads[$i];
+            $body["pushlist"][$cid] = $singlePayloads[$i];
         }
         $url = $this->client->makeURL('push') . 'push/batch/regid/alias';
         return Http::post($this->client, $url, $body);
