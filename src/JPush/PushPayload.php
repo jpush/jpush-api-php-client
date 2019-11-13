@@ -482,6 +482,7 @@ class PushPayload {
         if (isset($opts['big_push_duration']) && $opts['big_push_duration'] <= 1400 && $opts['big_push_duration'] >= 0) {
             $options['big_push_duration'] = $opts['big_push_duration'];
         }
+        $options = array_merge($opts, $options);
         $this->options = $options;
 
         return $this;
@@ -695,7 +696,7 @@ class PushPayload {
     */
     public function batchPushByRegid(array $singlePayloads) {
         $body = array(
-            "pushlist": array()
+            "pushlist"=>array()
         );
         $response = $this -> getCid(count($singlePayloads), 'push');
         $cidlist = $response['body']['cidlist'];
@@ -712,14 +713,14 @@ class PushPayload {
     */
     public function batchPushByAlias(array $singlePayloads) {
         $body = array(
-            "pushlist": array()
+            "pushlist"=>array()
         );
         $response = $this -> getCid(count($singlePayloads), 'push');
         $cidlist = $response['body']['cidlist'];
         foreach ($cidlist as $i => $cid) {
             $body["pushlist"][$cid] = $singlePayloads[$i];
         }
-        $url = $this->client->makeURL('push') . 'push/batch/regid/alias';
+        $url = $this->client->makeURL('push') . 'push/batch/alias/single';
         return Http::post($this->client, $url, $body);
     }
 }
