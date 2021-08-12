@@ -6,8 +6,8 @@ require __DIR__ . '/../autoload.php';
 use JPush\Client as JPush;
 
 // 这里填写appKey,masterSecret以及registration_id
-$app_key = 'your AppKey';
-$master_secret = 'your MasterSecret';
+$app_key = 'e5c0d34f58732cf09b2d4d74';
+$master_secret = '4cdda6d3c8b029941dbc5cb3';
 $registration_id = ('registration_id');
 
 $client = new JPush($app_key, $master_secret);
@@ -15,20 +15,20 @@ $client = new JPush($app_key, $master_secret);
 // 简单推送示例
 // 这只是使用样例,不应该直接用于实际生产环境中 !!
 
-$push_payload = $client->push()
-    ->setPlatform('all')
-    ->addAllAudience()
-    ->setNotificationAlert('Hi, JPush');
-try {
-    $response = $push_payload->send();
-    print_r($response);
-} catch (\JPush\Exceptions\APIConnectionException $e) {
-    // try something here
-    print $e;
-} catch (\JPush\Exceptions\APIRequestException $e) {
-    // try something here
-    print $e;
-}
+// $push_payload = $client->push()
+//     ->setPlatform('all')
+//     ->addAllAudience()
+//     ->setNotificationAlert('Hi, JPush');
+// try {
+//     $response = $push_payload->send();
+//     print_r($response);
+// } catch (\JPush\Exceptions\APIConnectionException $e) {
+//     // try something here
+//     print $e;
+// } catch (\JPush\Exceptions\APIRequestException $e) {
+//     // try something here
+//     print $e;
+// }
 
 // 完整的推送示例
 // 这只是使用样例,不应该直接用于实际生产环境中 !!
@@ -44,7 +44,7 @@ try {
         // ->addRegistrationId($registration_id)
         ->addAllAudience()
 
-        ->setNotificationAlert('Hi, JPush')
+        ->setNotificationAlert('Test custom')
         ->iosNotification('Hello IOS', array(
             'sound' => 'sound.caf',
             // 'badge' => '+1',
@@ -90,12 +90,12 @@ try {
             // 默认 86400 （1 天），最长 10 天。设置为 0 表示不保留离线消息，只有推送当前在线的用户可以收到
             // 这里设置为 1 仅作为示例
 
-            // 'time_to_live' => 1,
+            'time_to_live' => 1,
 
             // apns_production: 表示APNs是否生产环境，
             // True 表示推送生产环境，False 表示要推送开发环境；如果不指定则默认为推送开发环境
 
-            'apns_production' => false,
+            // 'apns_production' => false,
 
             // big_push_duration: 表示定速推送时长(分钟)，又名缓慢推送，把原本尽可能快的推送速度，降低下来，
             // 给定的 n 分钟内，均匀地向这次推送的目标用户推送。最大值为1400.未设置则不是定速推送
@@ -112,6 +112,22 @@ try {
             ),
             'active_filter' => false
         ))
+        // custom可自定义最外层参数，如skd未支持部分文档功能，用户可自行写入
+        // 这里仅作为例子展示
+        // ->custom(array(
+        //     'sms_message' => array(
+        //         'active_filter' => false,
+        //         'delay_time' => 60,
+        //         'signid' => 154,
+        //         'temp_id' => 1,
+        //         'temp_para' => array(
+        //             'code' => 357
+        //         )),
+        //     'options' => array(
+        //         'apns_production' => false,
+        //         'time_to_live' => 62000,
+        //     )
+        // ))
         ->send();
         print_r($response);
 

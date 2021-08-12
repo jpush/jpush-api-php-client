@@ -29,6 +29,7 @@ class PushPayload {
     private $smsMessage;
     private $message;
     private $options;
+    private $custom;
 
     /**
      * PushPayload constructor.
@@ -311,6 +312,12 @@ class PushPayload {
 
         $payload['options'] = $this->options;
 
+        if (!is_null($this->custom)) {
+            foreach($this->custom as $key=>$val) {
+                $payload[$key] = $val;
+            }
+        }
+
         return $payload;
     }
 
@@ -446,14 +453,14 @@ class PushPayload {
      * could add any custom key/value into it
      */
     public function voip (array $extras = array()) {
-        $voipBuilder = array();
+        $voip = array();
         if(!empty($extras)) {
             foreach($extras as $key=>$val) {
-                $voipBuilder[$key] = $val;
+                $voip[$key] = $val;
             }
         }
-        $voipBuilder = array_merge($extras, $voipBuilder);
-        $this->voip=$voipBuilder;        
+        $voip = array_merge($extras, $voip);
+        $this->voip=$voip;        
         return $this;
     }
 
@@ -506,6 +513,13 @@ class PushPayload {
         $options = array_merge($opts, $options);
         $this->options = $options;
 
+        return $this;
+    }
+
+    public function custom (array $extras = array()) {
+        if(!empty($extras)) {
+            $this->custom=$extras;        
+        }
         return $this;
     }
 
