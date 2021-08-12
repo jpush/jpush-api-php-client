@@ -1,7 +1,16 @@
 <?php
 // 这只是使用样例,不应该直接用于实际生产环境中 !!
 
-require 'config.php';
+require __DIR__ . '/../autoload.php';
+
+use JPush\Client as JPush;
+
+// 这里填写appKey,masterSecret以及registration_id
+$app_key = 'your AppKey';
+$master_secret = 'your MasterSecret';
+$registration_id = ('registration_id');
+
+$client = new JPush($app_key, $master_secret);
 
 // 简单推送示例
 // 这只是使用样例,不应该直接用于实际生产环境中 !!
@@ -54,6 +63,12 @@ try {
                 'key' => 'value',
                 'jiguang'
             ),
+        ))
+        // voip可以传输任意键值对，可用作自定义
+        ->voip(array(
+            'test123' => 'val1',
+            'jsontest' => 2,
+            'booleantest' => true
         ))
         ->message('message content', array(
             'title' => 'hello jpush',

@@ -25,6 +25,7 @@ class PushPayload {
     private $iosNotification;
     private $androidNotification;
     private $winPhoneNotification;
+    private $voip;
     private $smsMessage;
     private $message;
     private $options;
@@ -285,6 +286,10 @@ class PushPayload {
             }
         }
 
+        if (!is_null($this->voip)) {
+            $notification['voip'] = $this->voip;
+        }
+
         if (count($notification) > 0) {
             $payload['notification'] = $notification;
         }
@@ -433,6 +438,22 @@ class PushPayload {
             $android = array_merge($notification, $android);
         }
         $this->androidNotification = $android;
+        return $this;
+    }
+
+    /**
+     * Voip in notification
+     * could add any custom key/value into it
+     */
+    public function voip (array $extras = array()) {
+        $voipBuilder = array();
+        if(!empty($extras)) {
+            foreach($extras as $key=>$val) {
+                $voipBuilder[$key] = $val;
+            }
+        }
+        $voipBuilder = array_merge($extras, $voipBuilder);
+        $this->voip=$voipBuilder;        
         return $this;
     }
 
