@@ -44,6 +44,27 @@ class DevicePayload {
         return Http::post($this->client, $url, ['tags' => '']);
     }
 
+    public function unbindDeviceAndAlias($alias, $removeDevices){
+        if (!is_string($alias)) {
+            throw new InvalidArgumentException("Invalid alias");
+        }
+
+        $removeDevicesIsNull = is_null($removeDevices);
+        
+        if ($removeDevicesIsNull) {
+            throw new InvalidArgumentException("removeDevices must be set.");
+        }
+        
+        $registrationId = array();
+
+        $registrationId['remove'] = $removeDevices;
+
+        $payload = array('registration_ids'=>$registrationId);
+
+        $url = $this->client->makeURL('alias') . $alias;
+        return Http::post($this->client, $url, $payload);
+    }
+
     public function updateDevice($registrationId, $alias = null, $mobile = null, $addTags = null, $removeTags = null) {
         $payload = array();
         if (!is_string($registrationId)) {

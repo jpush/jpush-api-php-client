@@ -30,6 +30,8 @@ class PushPayload {
     private $message;
     private $options;
     private $custom;
+    private $callback;
+    private $notification_3rd;
 
     /**
      * PushPayload constructor.
@@ -318,6 +320,14 @@ class PushPayload {
             }
         }
 
+        if (!is_null($this->callback)) {
+            $payload['callback'] = $this->callback;
+        }
+
+        if(!is_null($this->notification_3rd)) {
+            $payload['notification_3rd'] = $this->notification_3rd;
+        }
+
         return $payload;
     }
 
@@ -485,6 +495,56 @@ class PushPayload {
         return $this;
     }
 
+    public function callback($url, $params, $type){
+        $callback = array();
+        if (isset($url) && is_string($url)) {
+            $callback['url'] = $url;
+        }
+        if (isset($params) && is_array($params)) {
+            $callback['params'] = $params;
+        }
+        if (isset($type) && is_array($type)) {
+            $callback['type'] = $type;
+        }
+        $this->callback = $callback;
+        return $this;
+    }
+
+    public function notification_3rd($content, array $notification_3 = array()){
+        if (is_string($content)) {
+            $$notification_3rd = array(); 
+            $$notification_3rd['content'] = $content;
+            if (!empty($notification_3)) {
+                if (isset($notification_3['title']) && is_string($notification_3['title'])) {
+                    $notification_3rd['title'] = $notification_3['title'];
+                }
+                if (isset($notification_3['channel_id']) && is_string($notification_3['channel_id'])) {
+                    $notification_3rd['channel_id'] = $notification_3['channel_id'];
+                }
+                if (isset($notification_3['uri_activity']) && is_string($notification_3['uri_activity'])) {
+                    $notification_3rd['uri_activity'] = $notification_3['uri_activity'];
+                }
+                if (isset($notification_3['uri_action']) && is_string($notification_3['uri_action'])) {
+                    $notification_3rd['uri_action'] = $notification_3['uri_action'];
+                }
+                if (isset($notification_3['badge_add_num']) && is_string($notification_3['badge_add_num'])) {
+                    $notification_3rd['badge_add_num'] = $notification_3['badge_add_num'];
+                }
+                if (isset($notification_3['badge_class']) && is_string($notification_3['badge_class'])) {
+                    $notification_3rd['badge_class'] = $notification_3['badge_class'];
+                }
+                if (isset($notification_3['sound']) && is_string($notification_3['sound'])) {
+                    $notification_3rd['sound'] = $notification_3['sound'];
+                }
+                if (isset($notification_3['extras']) && is_array($notification_3['extras']) && !empty($notification_3['extras'])) {
+                    $notification_3rd['extras'] = $notification_3['extras'];
+                }
+            }
+            $this->notification_3rd = $notification_3rd;
+        }
+        return $this;
+    }
+
     public function options(array $opts = array()) {
         # $required_keys = array('sendno', 'time_to_live', 'override_msg_id', 'apns_production', 'apns_collapse_id', 'big_push_duration');
         $options = array();
@@ -509,6 +569,9 @@ class PushPayload {
         }
         if (isset($opts['big_push_duration']) && $opts['big_push_duration'] <= 1400 && $opts['big_push_duration'] >= 0) {
             $options['big_push_duration'] = $opts['big_push_duration'];
+        }
+        if(isset($opts['third_party_channel'])) {
+            $options['third_party_channel'] = $opts['third_party_channel'];
         }
         $options = array_merge($opts, $options);
         $this->options = $options;
@@ -679,7 +742,107 @@ class PushPayload {
         return $this;
     }
 
-    public function setOptions($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_production=null, $big_push_duration=null) {
+    public function setCallback($url=null, $params=null, $type=null){
+        $callback = array();
+
+        if (!is_null($url)) {
+            if (!is_string($url)) {
+                throw new InvalidArgumentException("Invalid callback url");
+            }
+            $callback['url'] = $url;
+        }
+
+        if (!is_null($type)) {
+            if (!is_string($type)) {
+                throw new InvalidArgumentException("Invalid callback type");
+            }
+            $callback['type'] = $type;
+        }
+
+        if (!is_null($params)) {
+            if (!is_array($params)) {
+                throw new InvalidArgumentException("Invalid callback params");
+            }
+            if (count($params) > 0) {
+                $callback['params'] = $params;
+            }
+        }
+        $this->callback = $callback;
+        return $this;
+    }
+
+    public function setNotification_3rd($content, $title=null, $channel_id=null, $uri_activity=null, $uri_action=null, $badge_add_num=null, $badge_class=null, $sound=null, $extras=null){
+        $notification_3rd = array();
+        
+        if (is_null($content) || !is_string($content)) {
+            throw new InvalidArgumentException("Invalid notification_3rd content");
+        } else {
+            $notification_3rd['msg_content'] = $msg_content;
+        }
+
+        if (!is_null($title)) {
+            if (!is_string($title)) {
+                throw new InvalidArgumentException("Invalid notification_3rd title");
+            }
+            $notification_3rd['title'] = $title;
+        }
+
+        if (!is_null($channel_id)) {
+            if (!is_string($channel_id)) {
+                throw new InvalidArgumentException("Invalid notification_3rd content channel_id");
+            }
+            $notification_3rd["channel_id"] = $channel_id;
+        }
+
+        if (!is_null($uri_activity)) {
+            if (!is_string($uri_activity)) {
+                throw new InvalidArgumentException("Invalid notification_3rd content uri_activity");
+            }
+            $notification_3rd["uri_activity"] = $uri_activity;
+        }
+
+        if (!is_null($uri_action)) {
+            if (!is_string($uri_action)) {
+                throw new InvalidArgumentException("Invalid notification_3rd content uri_action");
+            }
+            $notification_3rd["uri_action"] = $uri_action;
+        }
+
+        if (!is_null($badge_add_num)) {
+            if (!is_string($badge_add_num)) {
+                throw new InvalidArgumentException("Invalid notification_3rd content badge_add_num");
+            }
+            $notification_3rd["badge_add_num"] = $badge_add_num;
+        }
+
+        if (!is_null($badge_class)) {
+            if (!is_string($badge_class)) {
+                throw new InvalidArgumentException("Invalid notification_3rd content badge_class");
+            }
+            $notification_3rd["badge_class"] = $badge_class;
+        }
+
+        if (!is_null($sound)) {
+            if (!is_string($sound)) {
+                throw new InvalidArgumentException("Invalid notification_3rd content sound");
+            }
+            $notification_3rd["sound"] = $sound;
+        }
+
+        if (!is_null($extras)) {
+            if (!is_array($extras)) {
+                throw new InvalidArgumentException("Invalid notification_3rd extras");
+            }
+            if (count($extras) > 0) {
+                $notification_3rd['extras'] = $extras;
+            }
+        }
+
+        $this->notification_3rd = $notification_3rd;
+        return $this;
+    }
+
+    public function setOptions($sendno=null, $time_to_live=null, $override_msg_id=null, $apns_production=null, $big_push_duration=null, $third_party_channel=null) {
         $options = array();
 
         if (!is_null($sendno)) {
@@ -719,6 +882,13 @@ class PushPayload {
                 throw new InvalidArgumentException('Invalid option big push duration, it must be a int and in [0, 1440]');
             }
             $options['big_push_duration'] = $big_push_duration;
+        }
+
+        if (!is_null($third_party_channel)) {
+            if (!is_array($third_party_channel)) {
+                throw new InvalidArgumentException('Invalid option third party channel');
+            }
+            $options['third_party_channel'] = $third_party_channel;
         }
 
         $this->options = $options;
