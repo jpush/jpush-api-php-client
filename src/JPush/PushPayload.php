@@ -4,7 +4,7 @@ use InvalidArgumentException;
 
 class PushPayload {
 
-    private static $EFFECTIVE_DEVICE_TYPES = array('ios', 'android', 'winphone');
+    private static $EFFECTIVE_DEVICE_TYPES = array('ios', 'android', 'winphone', 'hmos');
 
     private $client;
     private $url;
@@ -25,6 +25,7 @@ class PushPayload {
     private $iosNotification;
     private $androidNotification;
     private $winPhoneNotification;
+    private $hmosNotification;
     private $voip;
     private $smsMessage;
     private $message;
@@ -52,7 +53,7 @@ class PushPayload {
     }
 
     public function setPlatform($platform) {
-        # $required_keys = array('all', 'android', 'ios', 'winphone');
+        # $required_keys = array('all', 'android', 'ios', 'winphone', 'hmos');
         if (is_string($platform)) {
             $ptf = strtolower($platform);
             if ('all' === $ptf) {
@@ -287,6 +288,20 @@ class PushPayload {
             }
         }
 
+        if (!is_null($this->hmosNotification)) {
+            $notification['hmos'] = $this->hmosNotification;
+            if (is_null($this->hmosNotification['alert'])) {
+                if (is_null($this->hmosNotification)) {
+                    throw new InvalidArgumentException("hmos alert can not be null");
+                } else {
+                    $notification['hmos']['alert'] = $this->notificationAlert;
+                }
+            }
+            if (is_null($this->hmosNotification['category'])) {
+                throw new InvalidArgumentException("hmos category can not be null");
+            }
+        }
+
         if (!is_null($this->voip)) {
             $notification['voip'] = $this->voip;
         }
@@ -445,6 +460,50 @@ class PushPayload {
             $android = array_merge($notification, $android);
         }
         $this->androidNotification = $android;
+        return $this;
+    }
+
+    public function hmosNotification($alert = '', $category='', array $notification = array()) {
+        $hmos = array();
+        $hmos['alert'] = is_string($alert) ? $alert : '';
+        $hmos['category'] = is_string($category) ? $category : '';
+        if (!empty($notification)) {
+            if (isset($notification['badge_add_num'])) {
+                if (is_int($notification['badge_add_num']) && $notification['badge_add_num'] >= 1 && $notification['badge_add_num']<=99) {
+                    $hmos['badge_add_num'] = $notification['badge_add_num'];
+                } else {
+                    unset($notification['badge_add_num']);
+                }
+            }
+            if (isset($notification['test_message'])) {
+                if (is_bool($notification['test_message'])) {
+                    $hmos['test_message'] = $notification['test_message'];
+                } else {
+                    unset($notification['test_message']);
+                }
+            }
+            if (isset($notification['intent'])) {
+                if (is_array($notification['intent']) && !empty($notification['intent'])) {
+                    $hmos['intent'] = $notification['intent'];
+                } else {
+                    unset($notification['intent']);
+                }
+            }
+            if (isset($notification['extras'])) {
+                if (is_array($notification['extras']) && !empty($notification['extras'])) {
+                    $hmos['extras'] = $notification['extras'];
+                } else {
+                    unset($notification['extras']);
+                }
+            }
+            if ($hmos['category'] === '' && isset($notification['category'])) {
+                if (is_string($notification['category']) && $notification['category'] !== '') {
+                    $hmos['category'] = $notification['category'];
+                }
+            }
+            $hmos = array_merge($notification, $hmos);
+        }
+        $this->hmosNotification = $hmos;
         return $this;
     }
 

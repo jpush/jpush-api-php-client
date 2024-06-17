@@ -137,6 +137,28 @@ $push->iosNotification('hello', [
 | intent | 表示扩展字段，接受一个数组，自定义 Key/value 信息以供业务使用 |
 | extras | 表示扩展字段，接受一个数组，自定义 Key/value 信息以供业务使用 |
 
+**hmos Notification**
+
+```php
+// hmosNotification($alert = '', $category = '', array $notification = array())
+// 数组 $notification 的键支持 'title', 'category', 'large_icon', 'intent', 'badge_add_num', 'test_message', 'receipt_id', 'extras' 中的一个或多个
+// 注意category为必填项，若$category为空字符串则会从$notification中取'category'的值
+```
+
+参数说明:
+
+| 参数 | 说明 |
+| --- | --- |
+| alert | 表示通知内容，会覆盖上级统一指定的 alert 信息；默认内容可以为空字符串，表示不展示到通知栏 |
+| title | 表示通知标题，会替换通知里原来展示 App 名称的地方 |
+| category | 通知栏消息分类条目；对应官方「本地通知」category取值，开发者通过极光服务发起推送时如果传递了此字段值，请务必按照官方要求传递 |
+| badge_add_num | 设置角标数字累加值；不填则不改变角标数字，取值范围为1-99 |
+| test_message | 测试消息标识；false为正常消息（默认值），true为测试消息 |
+| receipt_id | 华为回执 ID；输入一个唯一的回执 ID 指定本次下行消息的回执地址及配置，该回执 ID 可以在鸿蒙回执参数配置中查看 |
+| large_icon | 表示通知栏大图标，图标路径可以是以 http 或 https 开头的网络图片，如："http:jiguang.cn/logo.png"，图标大小不超过 30k； 也可以是位于 drawable 资源文件夹的图标路径，如："R.drawable.lg_icon"；|
+| intent | 表示扩展字段，接受一个数组，自定义 Key/value 信息以供业务使用 |
+| extras | 表示扩展字段，接受一个数组，自定义 Key/value 信息以供业务使用 |
+
 **WinPhone Notification**
 
 ```php
